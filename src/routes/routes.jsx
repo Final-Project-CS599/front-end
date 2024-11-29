@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LayoutWithSideBar from '../layout/LayoutWithSideBar';
 import Courses from '../pages/student/Courses';
-import Home from '../pages/student/Home';
+import Home from '../pages/Home';
 import Instructors from '../pages/student/Instructors';
 import Assignments from '../pages/student/Assignments';
 import Quizzes from '../pages/student/Quizzes';
