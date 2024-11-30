@@ -1,11 +1,11 @@
 import React from 'react';
 import Logo from '../assets/images/Logo.jpeg';
 import { BiSearchAlt } from 'react-icons/bi';
-import { FaRegEnvelope } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { FaEnvelope, FaRegEnvelope } from 'react-icons/fa';
+import { Link, NavLink } from 'react-router-dom';
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light ">
+    <nav className="navbar d-none d-lg-flex navbar-expand-lg navbar-light bg-light w-100 ">
       <div className="container-fluid">
         <Link className="navbar-brand text-decoration-none" to="/">
           <img src={Logo} alt="logo" width={'70px'} height={'70px'} />
@@ -23,11 +23,13 @@ const NavBar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <form className="d-flex flex-sm-column flex-md-row gap-5 align-items-sm-start align-items-md-center">
-            <span>
-              <FaRegEnvelope color="#9095a0" />
-            </span>
-            <span className="">About</span>
+          <form className="d-flex flex-sm-column flex-lg-row gap-sm-3 gap-lg-5 align-items-sm-start align-items-lg-center w-25">
+            <NavLink className="text-decoration-none" to="/student/messages">
+              <FaEnvelope color="#9095a0" />
+            </NavLink>
+            <NavLink className="text-decoration-none" to="/about" style={{ color: '#9095a0' }}>
+              About
+            </NavLink>
             <div className="input-group flex-nowrap">
               <span className="input-group-text" id="addon-wrapping">
                 <BiSearchAlt />

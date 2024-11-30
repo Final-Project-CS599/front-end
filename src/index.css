@@ -1,9 +1,9 @@
-.btn {
+.btn-purple {
   background-color: #fff !important;
   color: #5f6774 !important;
 }
 
-.btn:focus {
+.btn-purple:focus {
   background-color: #f2f2fd !important;
   color: #7F55E0 !important;
   outline: none !important;
