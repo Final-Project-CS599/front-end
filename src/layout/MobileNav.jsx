@@ -4,7 +4,7 @@ import { BiSearchAlt, BiSolidChat } from 'react-icons/bi';
 import { FaBookOpen, FaEnvelope, FaRegEnvelope, FaUser, FaUserCircle } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { IoMdMenu, IoMdClose, IoMdSettings } from 'react-icons/io';
-import Logo from '../assets/images/Logo.jpeg';
+import Logo from '../assets/images/LogoSVG.svg';
 import { MdAssignment, MdQuiz, MdReport } from 'react-icons/md';
 
 const MobileNav = () => {
@@ -22,7 +22,7 @@ const MobileNav = () => {
         </button>
 
         <Link className="navbar-brand mx-auto text-decoration-none" to="/">
-          <img src={Logo} alt="logo" width={'50px'} height={'50px'} />
+          <img src={Logo} alt="logo" width={'60px'} height={'60px'} />
         </Link>
         <button
           className="btn  d-lg-none position-absolute end-0 m-2"
