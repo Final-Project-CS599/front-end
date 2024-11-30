@@ -22,7 +22,7 @@ const MobileNav = () => {
         </button>
 
         <Link className="navbar-brand mx-auto text-decoration-none" to="/">
-          <img src={Logo} alt="logo" width={'70px'} height={'70px'} />
+          <img src={Logo} alt="logo" width={'50px'} height={'50px'} />
         </Link>
         <button
           className="btn  d-lg-none position-absolute end-0 m-2"
