@@ -1,8 +1,8 @@
 import React from 'react';
-import SideBar from './SideBar';
-import NavBar from './NavBar';
 import { Outlet } from 'react-router-dom';
-import MobileNav from './MobileNav';
+import NavBar from '../layout/NavBar.jsx';
+import MobileNav from '../layout/MobileNav.jsx';
+import SideBar from '../layout/SideBar.jsx';
 
 const LayoutWithSideBar = () => {
   return (
@@ -12,7 +12,7 @@ const LayoutWithSideBar = () => {
       <div className="d-flex gap-3">
         <SideBar />
         <div className="w-100 my-3">
-          <Outlet />
+            <Outlet></Outlet>
         </div>
       </div>
     </div>
