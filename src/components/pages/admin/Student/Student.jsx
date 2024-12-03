@@ -13,7 +13,6 @@ return <>
                 <div className=' col-md-6 p-2'>
                     <div className=''>
                         <h2>Student</h2>
-                        <h2>Student</h2> 
                     </div>
                 </div>
                 <div  className=' col-md-6 p-3'>

@@ -14,7 +14,6 @@ const SideBar = () => {
       <NavButton text={'Student'} icon={<FaUser  className='fs-4 '/>} to={'/student'} />
       <NavButton text={'HelpDesk'} icon={<i class="fa-solid fa-circle-question fs-4"></i>} to={'/helpdesk'} />
       <NavButton text={'About'} icon={<i class="fa-solid fa-address-card fs-5"></i>} to={'/about'}/>
-      <NavButton text={'Add Admin'} icon={<i class="fa-solid fa-address-card fs-0"></i>} to={'/addAdmin'} />
 
 
       <div className="mt-auto w-100">
