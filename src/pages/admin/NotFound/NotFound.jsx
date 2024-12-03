@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './NotFound.module.css';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 export default function NotFound() {
     return <>
+    <HelmetProvider>
     <Helmet>
         <meta name='description' content='' />
         <title>Not Found</title>
@@ -19,5 +21,6 @@ export default function NotFound() {
             </div>
         </div>
     </div>
+    </HelmetProvider>
 </>
 }

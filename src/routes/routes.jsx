@@ -1,29 +1,29 @@
 import { createBrowserRouter } from 'react-router-dom';
+import Home from './../pages/admin/Home/Home';
+import Student from './../pages/admin/Student/Student';
+import Instructors from './../pages/admin/Instructors/Instructors';
+import Profile from './../pages/admin/Profile/Profile';
+import About from './../pages/admin/About/About';
+import RegisterInstructors from './../pages/admin/RegisterInstructors/RegisterInstructors';
+import RegisterStudents from './../pages/admin/RegisterStudent/RegisterStudent';
+import AddAdmin from './../pages/admin/AddAdmin/AddAdmin';
+import Login from './../pages/admin/Login/Login';
+import ForgetPassword from './../pages/admin/ForgetPassword/ForgetPassword';
+import NotFound from './../pages/admin/NotFound/NotFound';
 import LayoutWithSideBar from './../components/layout/LayoutWithSideBar';
-import Home from '../components/pages/admin/Home/Home.jsx';
-import About from '../components/pages/admin/About/About.jsx';
-import Instructors from './../components/pages/admin/Instructors/Instructors';
-import Student from './../components/pages/admin/Student/Student';
-import Profile from './../components/pages/admin/Profile/Profile';
-import Login from './../components/pages/admin/Login/Login';
-import RegisterInstructors from '../components/pages/admin/RegisterInstructors/RegisterInstructors.jsx';
-import RegisterStudents from '../components/pages/admin/RegisterStudent/RegisterStudent.jsx';
-import ForgetPassword from './../components/pages/admin/ForgetPassword/ForgetPassword.jsx';
-import NotFound from './../components/pages/admin/NotFound/NotFound';
-import AcadmicRou from './../components/pages/admin/AcadmicRou/AcadmicRou';
-import AddAdmin from './../components/pages/admin/AddAdmin/AddAdmin.jsx';
+
 
 export const router = createBrowserRouter([
   {
     path: '/', element: <LayoutWithSideBar />, children: [
       { index: true, element: <Home/> },
-      { path: '/instructors' , element: <Instructors/>},
-      { path: '/student' , element: <Student/>},
-      { path: '/profile', element: <Profile /> },
-      { path: '/about', element: <About /> },
-      { path: '/registerInstructor' , element: <RegisterInstructors/>},
-      { path: '/registerStudent' , element: <RegisterStudents/>},
-      { path: '/addAdmin' , element: <AddAdmin/>},
+      { path: '/admin/instructors' , element: <Instructors/>},
+      { path: '/admin/student' , element: <Student/>},
+      { path: '/admin/profile', element: <Profile /> },
+      { path: '/admin/about', element: <About /> },
+      { path: '/admin/registerInstructor' , element: <RegisterInstructors/>},
+      { path: '/admin/registerStudent' , element: <RegisterStudents/>},
+      { path: '/admin/addAdmin' , element: <AddAdmin/>},
 
       { path: '/login' , element: <Login/>},
       { path: '/forgetPassword' , element:<ForgetPassword/>},

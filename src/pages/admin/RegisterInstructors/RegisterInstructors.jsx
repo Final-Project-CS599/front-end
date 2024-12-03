@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Audio } from  'react-loader-spinner';
-import { Helmet } from 'react-helmet';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 export default function RegisterInstructors() {
   let navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function RegisterInstructors() {
       seterror(err)
       }
     )
-    // navigate('/');
+    // navigate('/'); // path to redirect
   };
 
   let phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/ 
@@ -44,6 +44,7 @@ export default function RegisterInstructors() {
   });
 
 return <>
+<HelmetProvider>
   <Helmet>
       <meta name='description' content='' />
       <title>Add Instructors</title>
@@ -74,8 +75,8 @@ return <>
         <input type='tel' id='phone' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone} name='phone2'/>
         
         <label htmlFor="department" className=' pt-3'>Department <span className='text-danger'>*</span> :</label>
-        <select name="department" id="department" class="form-select mt-1" aria-label="Default select example" onBlur={formik.handleBlur} onChange={formik.handleChange}>
-            <option selected>Open this select department</option>
+        <select name="department" id="department" className="form-select mt-1" aria-label="Default select example"  onBlur={formik.handleBlur} onChange={formik.handleChange}>
+            <option value="">Open this select department</option>
             <option value="1">department 1</option>
             <option value="2">department 2</option>
             <option value="3">department 3</option>
@@ -105,5 +106,6 @@ return <>
         }
       </form>
   </div>
+  </HelmetProvider>
 </>
 };

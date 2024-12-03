@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Audio } from  'react-loader-spinner';
-import { Helmet } from 'react-helmet';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 export default function RegisterStudents() {
     let navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function RegisterStudents() {
             seterror(err)
             }
         )
-        // navigate('/l');
+        // navigate('/l'); // path to redirect
     };
 
     let phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/ 
@@ -42,6 +42,7 @@ export default function RegisterStudents() {
     });
 
 return <>
+<HelmetProvider>
     <Helmet>
         <meta name='description' content='' />
         <title>Add Student</title>
@@ -69,7 +70,6 @@ return <>
         <input type='email' id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.email} name='email'/>
         {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-3 p-2">{formik.errors.email}</div>:''}
         
-
         <label htmlFor="phone" className=' pt-3'>Phone<span className='text-danger'>*</span> :</label>
         <input type='tel' id='phone' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone} name='phone'/>
         {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''}
@@ -83,20 +83,24 @@ return <>
         {/* {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''} */}
         
         <label htmlFor="gender" className=' pt-3'>Select Gender :</label>
-        <select class="form-select mt-3" aria-label="Default select example">
-            <option selected>Select Gender</option>
+        <select  className="form-select mt-3"  aria-label="Default select example"  name="gender"  value={formik.values.gender}  onChange={formik.handleChange}  onBlur={formik.handleBlur} >
+            <option value="">Select Gender</option>
             <option value="1">Male</option>
             <option value="2">Female</option>
         </select>
+        {/* {formik.errors.gender && formik.touched.gender ? <div className="alert alert-danger mt-2">{formik.errors.gender}</div>: ''} */}
+
 
         <label htmlFor="department" className=' pt-3'>Department <span className='text-danger'>*</span> :</label>
-        <select name="department" id="department" class="form-select mt-2" aria-label="Default select example" onBlur={formik.handleBlur} onChange={formik.handleChange}>
-            <option selected>Open this select department</option>
-            <option value="1">department 1</option>
-            <option value="2">department 2</option>
-            <option value="3">department 3</option>
+        <select  name="department"  id="department"  className="form-select mt-2"  aria-label="Default select example" value={formik.values.department}  onChange={formik.handleChange}  onBlur={formik.handleBlur}>
+            <option value="">Open this select department</option>
+            <option value="1">Department 1</option>
+            <option value="2">Department 2</option>
+            <option value="3">Department 3</option>
         </select>
-        {formik.errors.department && formik.touched.department?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.department}</div>:''}
+        {formik.errors.department && formik.touched.department ? <div className="alert alert-danger mt-2 p-2">{formik.errors.department}</div>:''}
+
+
 
         <label htmlFor="date_pirth" className=' pt-3 pb-2'>Date_Pirth : </label>
         <input type='date' id='date_pirth' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.date_pirth} name='date_pirth'/>
@@ -126,5 +130,6 @@ return <>
         }
     </form>
 </div>
+</HelmetProvider>
 </>
 };

@@ -5,7 +5,8 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bars } from  'react-loader-spinner';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 export default function ForgetPassword() { 
   let navigate = useNavigate();
@@ -35,7 +36,9 @@ export default function ForgetPassword() {
       onSubmit:getForgetPassword 
     })
 
-  return <>
+  return <> 
+  <HelmetProvider>
+    
     <Helmet>
       <meta name='description' content='' />
       <title>ForgetPassword</title>
@@ -70,5 +73,6 @@ export default function ForgetPassword() {
         </div>
       </div>
     </div>
+    </HelmetProvider>
   </>
 }

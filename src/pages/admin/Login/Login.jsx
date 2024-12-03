@@ -5,7 +5,8 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bars } from  'react-loader-spinner';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 export default function Login() {
     let navigate = useNavigate();
@@ -41,6 +42,7 @@ export default function Login() {
     });
 
 return <>
+<HelmetProvider>
     <Helmet>
         <meta name='description' content='' />
         <title>Login</title>
@@ -89,5 +91,6 @@ return <>
         </div>
     </div>
 </div>
+</HelmetProvider>
 </>
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 import Style from './AddAdmin.module.css';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 export default function AddAdmin() {
     return <>
+        <HelmetProvider>
         <Helmet>
             <meta name='description' content='' />
             <title>Add Admin</title>
@@ -17,5 +19,6 @@ export default function AddAdmin() {
                     </div>
                 </div>
             </div>
+            </HelmetProvider>
     </>
 };
