@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { FaBookOpen, FaUser } from 'react-icons/fa';
 import { FaUserPlus } from "react-icons/fa6";
 import { NavLink } from 'react-router-dom';
@@ -16,6 +15,7 @@ const SideBar = () => {
       <NavButton text={'Student'} icon={<FaUser  className='fs-4 '/>} to={'/admin/student'} />
       <NavButton text={'HelpDesk'} icon={<i className="fa-solid fa-circle-question fs-4"></i>} to={'/admin/helpdesk'} />
       <NavButton text={'About'} icon={<i className="fa-solid fa-address-card fs-5"></i>} to={'/admin/about'}/>
+      <NavButton text={'Payment'} icon={<i className="fa-solid fa-money-check-dollar fs-5"></i>} to={'/admin/Payment'}/>
 
 
       <div className="mt-auto w-100">

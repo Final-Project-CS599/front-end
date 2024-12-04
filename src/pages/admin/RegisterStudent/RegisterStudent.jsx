@@ -54,82 +54,82 @@ return <>
         <h3 className='pb-4'>Add Student </h3>
         <form onSubmit={formik.handleSubmit}>
 
-        <label htmlFor="name" >First Name <span className='text-danger'>*</span> :</label>
-        <input type='text' id='name' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.name} name='name'/>
-        {formik.errors.name && formik.touched.name?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.name}</div>:''}
-        
-        <label htmlFor="name" className=' pt-3'>Middle Name <span className='text-danger'>*</span> :</label>
-        <input type='text' id='name' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.name} name='name'/>
-        {formik.errors.name && formik.touched.name?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.name}</div>:''}
-        
-        <label htmlFor="name" className=' pt-3'>Last Name <span className='text-danger'>*</span> :</label>
-        <input type='text' id='name' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.name} name='name'/>
-        {formik.errors.name && formik.touched.name?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.name}</div>:''}
-        
-        <label htmlFor="email" className=' pt-3'>Email <span className='text-danger'>*</span> :</label>
-        <input type='email' id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.email} name='email'/>
-        {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-3 p-2">{formik.errors.email}</div>:''}
-        
-        <label htmlFor="phone" className=' pt-3'>Phone<span className='text-danger'>*</span> :</label>
-        <input type='tel' id='phone' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone} name='phone'/>
-        {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''}
-        
-        <label htmlFor="phone2" className=' pt-3'>Phone: </label>
-        <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone2} name='phone2'/>
-        {/* {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''} */}
-        
-        <label htmlFor="national" className=' pt-3'>Namebr National <span className='text-danger'>*</span> :</label>
-        <input type='number' id='national' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' name='national'/>
-        {/* {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''} */}
-        
-        <label htmlFor="gender" className=' pt-3'>Select Gender :</label>
-        <select  className="form-select mt-3"  aria-label="Default select example"  name="gender"  value={formik.values.gender}  onChange={formik.handleChange}  onBlur={formik.handleBlur} >
-            <option value="">Select Gender</option>
-            <option value="1">Male</option>
-            <option value="2">Female</option>
-        </select>
-        {/* {formik.errors.gender && formik.touched.gender ? <div className="alert alert-danger mt-2">{formik.errors.gender}</div>: ''} */}
+            <label htmlFor="name" >First Name <span className='text-danger'>*</span> :</label>
+            <input type='text' id='name' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.name} name='name'/>
+            {formik.errors.name && formik.touched.name?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.name}</div>:''}
+            
+            <label htmlFor="name" className=' pt-3'>Middle Name <span className='text-danger'>*</span> :</label>
+            <input type='text' id='name' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.name} name='name'/>
+            {formik.errors.name && formik.touched.name?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.name}</div>:''}
+            
+            <label htmlFor="name" className=' pt-3'>Last Name <span className='text-danger'>*</span> :</label>
+            <input type='text' id='name' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.name} name='name'/>
+            {formik.errors.name && formik.touched.name?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.name}</div>:''}
+            
+            <label htmlFor="email" className=' pt-3'>Email <span className='text-danger'>*</span> :</label>
+            <input type='email' id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.email} name='email'/>
+            {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-3 p-2">{formik.errors.email}</div>:''}
+            
+            <label htmlFor="phone" className=' pt-3'>Phone<span className='text-danger'>*</span> :</label>
+            <input type='tel' id='phone' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone} name='phone'/>
+            {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''}
+            
+            <label htmlFor="phone2" className=' pt-3'>Phone: </label>
+            <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone2} name='phone2'/>
+            {/* {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''} */}
+            
+            <label htmlFor="national" className=' pt-3'>Namebr National <span className='text-danger'>*</span> :</label>
+            <input type='number' id='national' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' name='national'/>
+            {/* {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''} */}
+            
+            <label htmlFor="gender" className=' pt-3'>Select Gender :</label>
+            <select  className="form-select mt-3"  aria-label="Default select example"  name="gender"  value={formik.values.gender}  onChange={formik.handleChange}  onBlur={formik.handleBlur} >
+                <option value="">Select Gender</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+            </select>
+            {/* {formik.errors.gender && formik.touched.gender ? <div className="alert alert-danger mt-2">{formik.errors.gender}</div>: ''} */}
 
 
-        <label htmlFor="department" className=' pt-3'>Department <span className='text-danger'>*</span> :</label>
-        <select  name="department"  id="department"  className="form-select mt-2"  aria-label="Default select example" value={formik.values.department}  onChange={formik.handleChange}  onBlur={formik.handleBlur}>
-            <option value="">Open this select department</option>
-            <option value="1">Department 1</option>
-            <option value="2">Department 2</option>
-            <option value="3">Department 3</option>
-        </select>
-        {formik.errors.department && formik.touched.department ? <div className="alert alert-danger mt-2 p-2">{formik.errors.department}</div>:''}
+            <label htmlFor="department" className=' pt-3'>Department <span className='text-danger'>*</span> :</label>
+            <select  name="department"  id="department"  className="form-select mt-2"  aria-label="Default select example" value={formik.values.department}  onChange={formik.handleChange}  onBlur={formik.handleBlur}>
+                <option value="">Open this select department</option>
+                <option value="1">Department 1</option>
+                <option value="2">Department 2</option>
+                <option value="3">Department 3</option>
+            </select>
+            {formik.errors.department && formik.touched.department ? <div className="alert alert-danger mt-2 p-2">{formik.errors.department}</div>:''}
 
 
 
-        <label htmlFor="date_pirth" className=' pt-3 pb-2'>Date_Pirth : </label>
-        <input type='date' id='date_pirth' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.date_pirth} name='date_pirth'/>
-        {/* {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''} */}
-        
+            <label htmlFor="date_pirth" className=' pt-3 pb-2'>Date_Pirth : </label>
+            <input type='date' id='date_pirth' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.date_pirth} name='date_pirth'/>
+            {/* {formik.errors.phone && formik.touched.phone? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone}</div>:''} */}
+            
 
-        <label htmlFor="password" className=' pt-3'>Password <span className='text-danger'>*</span> :</label>
-        <input type='password' id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.password} name='password'/>
-        {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
-        
+            <label htmlFor="password" className=' pt-3'>Password <span className='text-danger'>*</span> :</label>
+            <input type='password' id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.password} name='password'/>
+            {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
+            
 
-        <label htmlFor="rePassword" className=' pt-3'>Re-Password <span className='text-danger'>*</span> :</label>
-        <input type='Password' id='rePassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.rePassword} name='rePassword'/>
-        {formik.errors.rePassword && formik.touched.rePassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.rePassword}</div>:''}
-        
-        {isLoading? <button  type=' buttom' className='btn bg-main text-white mt-2'>
-        <Audio
-            height="20"
-            width="80"
-            color="white"
-            ariaLabel="audio-loading"
-            wrapperStyle={{}}
-            wrapperClass="wrapper-class"
-            visible={true}
-        />
-        </button> :<button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  mt-2 mt-4'>Add</button>
-        }
-    </form>
-</div>
+            <label htmlFor="rePassword" className=' pt-3'>Re-Password <span className='text-danger'>*</span> :</label>
+            <input type='Password' id='rePassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.rePassword} name='rePassword'/>
+            {formik.errors.rePassword && formik.touched.rePassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.rePassword}</div>:''}
+            
+            {isLoading? <button  type=' buttom' className='btn bg-main text-white mt-2'>
+                <Audio
+                    height="20"
+                    width="80"
+                    color="white"
+                    ariaLabel="audio-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="wrapper-class"
+                    visible={true}
+                />
+                </button> :<button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  mt-2 mt-4'>Add</button>
+            }
+        </form>
+    </div>
 </HelmetProvider>
 </>
 };
