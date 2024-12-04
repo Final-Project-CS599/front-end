@@ -9,3 +9,16 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
+.btn-outline-purple {
+  background-color: #7F55E0 !important;
+  color: #fff !important;
+  /* border-color: ; */
+}
+
+.btn-outline-purple:hover {
+  background-color: #7F55E0 !important;
+  color: #fff !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

@@ -25,7 +25,7 @@ const MobileNav = () => {
           <img src={Logo} alt="logo" width={'60px'} height={'60px'} />
         </Link>
         <button
-          className="btn  d-lg-none position-absolute end-0 m-2"
+          className="btn d-lg-none position-absolute end-0 m-2"
           type="button"
           data-bs-toggle="offcanvas"
           data-bs-target="#rightOffcanvas"
