@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 const SideBar = () => {
   return (
     <div
-      className="d-none d-lg-flex flex-column px-3 mt-1 border-3 border-end border-light"
+      className="d-none d-lg-flex flex-column px-3 mt-2 border-3 border-end border-light"
       style={{ height: '82vh' }}
     >
       <NavButton text={'My Courses'} icon={<FaBookOpen />} to={'/student/courses'} />

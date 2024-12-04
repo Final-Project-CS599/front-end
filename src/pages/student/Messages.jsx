@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Messages = () => {
-  return <div>Messages</div>;
+  return <h3>Messages</h3>;
 };
 
 export default Messages;

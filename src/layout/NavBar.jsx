@@ -5,7 +5,7 @@ import { FaEnvelope, FaRegEnvelope } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 const NavBar = () => {
   return (
-    <nav className="navbar pb-0 d-none d-lg-flex navbar-expand-lg navbar-light bg-light w-100 ">
+    <nav className="navbar pb-0 d-none d-lg-flex navbar-expand-lg navbar-light bg-white w-100 border-bottom">
       <div className="container-fluid">
         <Link className="navbar-brand text-decoration-none ms-3" to="/">
           <img src={Logo} alt="logo" width={'60px'} height={'60px'} />
