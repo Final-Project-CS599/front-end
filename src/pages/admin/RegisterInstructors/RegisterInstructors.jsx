@@ -22,7 +22,7 @@ export default function RegisterInstructors() {
     )
     // navigate('/'); // path to redirect
   };
-
+  
   let phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/ 
   let validateScheme =yup.object({
     name: yup.string().min(3 , 'Name minlength is 3').max(10 , 'Name maxlength is 10').required('Name is required'),

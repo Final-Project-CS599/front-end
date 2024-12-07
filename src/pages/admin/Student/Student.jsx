@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 export default function Student() {
+    
 return <>
 <HelmetProvider>
     <Helmet>

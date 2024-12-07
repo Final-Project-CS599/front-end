@@ -15,15 +15,15 @@ function Courses() {
                 <h1>Courses</h1>
             </header>
 
-            <main className=" d-flex justify-content-around p-5 fs-4">
-                <Link to="/admin/acadmic" className={`${style.link} text-decoration-none text-black d-block`}>
+            <main className="d-flex justify-content-around p-5 fs-4">
+                <Link to="/admin/acadmic" className={`${style.link} text-decoration-none text-black d-block mt-5`}>
                     <div className={`${style.section} ${style.academic} `}>
                         <h2>Academic</h2>
                         <p>Here are the academic courses for the student, as he is not allowed to join certain study subjects without passing the subjects related to them. <br/>This is only allowed for postgraduate studies.</p>
                     </div>
                 </Link>
 
-                <div className="d-flex justify-content-around p-5 fs-4">
+                <div className=" p-5 fs-4">
                     <Link to="/admin/coursesExtra" className={`${style.link} text-decoration-none text-black d-block`}>
                         <div className={`${style.section} ${style.extra}`}>
                             <h2>Extra</h2>

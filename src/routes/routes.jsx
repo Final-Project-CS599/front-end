@@ -16,6 +16,7 @@ import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
 import CoursesExtra from '../pages/admin/CoursesExtra/CoursesExtra.jsx';
 import Payment from '../pages/admin/Payment/Payment.jsx';
 
+
 export const router = createBrowserRouter([
   {
     path: '/', element: <LayoutWithSideBar />, children: [
