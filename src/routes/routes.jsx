@@ -15,6 +15,7 @@ import Courses from '../pages/admin/courses/Courses.jsx';
 import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
 import CoursesExtra from '../pages/admin/CoursesExtra/CoursesExtra.jsx';
 import Payment from '../pages/admin/Payment/Payment.jsx';
+import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
 
 
 export const router = createBrowserRouter([
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
       { path: '/admin/registerStudent' , element: <RegisterStudents/>},
       { path: '/admin/addAdmin' , element: <AddAdmin/>},
       { path: '/admin/Payment' , element: <Payment/>},
+      { path: '/admin/helpdesk' , element: <Helpdesk/>},
 
       { path: '/login' , element: <Login/>},
       { path: '/forgetPassword' , element:<ForgetPassword/>},
