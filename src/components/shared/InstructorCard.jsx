@@ -3,7 +3,7 @@ import React from "react";
 const InstructorCard = ({ title, description, onclick, Image }) => {
   return (
     <div
-      className="card border-primary mb-3"
+      className="card border-purple mb-3"
       style={{
         width: "15rem",
         margin: "50px",
@@ -22,7 +22,7 @@ const InstructorCard = ({ title, description, onclick, Image }) => {
         <p className="card-text" style={{ fontSize: "12px" }}>
           {description}
         </p>
-        <button onClick={onclick} className="btn btn-outline-primary">
+        <button onClick={onclick} className="btn btn-outline-dark">
           view profile
         </button>
       </div>
