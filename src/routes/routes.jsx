@@ -27,6 +27,8 @@ import Otherextra from '../pages/admin/Otherextra/Otherextra.jsx';
 import Frontendextra from '../pages/admin/Frontendextra/Frontendextra.jsx';
 import Addnewcourseacadmic from'../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
 import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
+import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
+
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +57,7 @@ export const router = createBrowserRouter([
       { path: '/admin/registerStudent' , element: <RegisterStudents/>},
       { path: '/admin/addAdmin' , element: <AddAdmin/>},
       { path: '/admin/Payment' , element: <Payment/>},
+      { path: '/admin/helpdesk' , element: <Helpdesk/>},
       { path: '/login' , element: <Login/>},
       { path: '/forgetPassword' , element:<ForgetPassword/>},
       { path: '*' , element: <NotFound />}
