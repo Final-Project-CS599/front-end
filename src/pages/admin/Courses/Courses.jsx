@@ -24,7 +24,7 @@ function Courses() {
                 </Link>
 
                 <div className=" p-5 fs-4">
-                    <Link to="/admin/coursesExtra" className={`${style.link} text-decoration-none text-black d-block`}>
+                    <Link to="/admin/Extra" className={`${style.link} text-decoration-none text-black d-block`}>
                         <div className={`${style.section} ${style.extra}`}>
                             <h2>Extra</h2>
                             <p>These are extra courses that the student enrolls and buying through the platform, It is available to any student on the platform.</p>
@@ -36,5 +36,4 @@ function Courses() {
     </HelmetProvider>
     </>
 }
-
 export default Courses
