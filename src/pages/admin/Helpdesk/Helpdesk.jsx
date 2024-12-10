@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Style from './Helpdesk.module.css';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { HomeData } from './HomeDetails.jsx';
+import { HelpdeskData } from './HelpdeskDetails.jsx';
 
 
 export default function Helpdesk() {
-    const [helpdeskDetails , sethelpdeskDetails] = useState(HomeData);
+    const [helpdeskDetails , sethelpdeskDetails] = useState(HelpdeskData);
 
     const handleDone = (id) => {
         if(id){

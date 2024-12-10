@@ -1,11 +1,10 @@
-export const HomeData =
+export const HelpdeskData =
 [
     {
         id: 1,
         name: 'Ahmed',
         email: 'ahmed@gmail.com',
         title : "need help to Ahmed",
-
     },
     {
         id: 2,
@@ -40,6 +39,5 @@ export const HomeData =
         name: 'soma',
         email: 'soma@gmail.com',
         title : "need help to massage soma",
-
     }
 ]
