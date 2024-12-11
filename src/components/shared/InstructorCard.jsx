@@ -3,7 +3,7 @@ import React from 'react';
 const InstructorCard = ({ title, description, onclick, Image }) => {
   return (
     <div
-      className="card  mb-3"
+      className="card border-purple mb-3"
       style={{
         width: '15rem',
         margin: '50px',
