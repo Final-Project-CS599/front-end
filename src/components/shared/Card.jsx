@@ -1,7 +1,7 @@
 import React from 'react';
 const Card = ({ title, description, img }) => {
   return (
-    <div className="card" style={{ width: '15rem' }}>
+    <div className="card shadow-sm" style={{ width: '17rem' }}>
       <img
         src={img}
         className="card-img-top"
