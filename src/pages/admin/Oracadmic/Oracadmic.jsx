@@ -40,51 +40,36 @@ function Orcadmic() {
       </Helmet>
 
       <div className="container mt-4">
-        <h2
-          className="text-center text-white p-3 rounded shadow"
-          style={{
-            backgroundColor: "#4a028a",
-            fontSize: "28px",
-          }}
-        >
-          All OR Courses
-        </h2>
-
-        {/* btn add course */}
-        <div className="d-flex justify-content-end mt-3">
-          <a
-            href="/admin/addnewcourseacadmic"
-            className="btn"
-            style={{
-              backgroundColor: "#ffffff",
-              color: "#7F55E0",
-              border: "2px solid #7F55E0",
-              borderRadius: "15px",
-              padding: "10px 20px",
-              fontSize: "20px",
-              fontWeight: "bold",
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = "#7F55E0";
-              e.target.style.color = "#ffffff";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = "#ffffff";
-              e.target.style.color = "#7F55E0";
-            }}
-          >
-            Add New Course
-          </a>
+        <div className="row">
+          <div className="col-md-12">
+              <h2 className="text-center text-white p-3 rounded shadow" style={{ backgroundColor: "#4a028a", fontSize: "28px", }} >
+                  All OR Courses
+              </h2>
+          </div>
         </div>
+        
+        <div className="row">
+          <div className="col-md-12">
+              {/* btn add course */}
+              <div className="d-flex justify-content-end mt-3">
+                <a href="/admin/addnewcourseacadmic" className="btn"
+                  style={{ backgroundColor: "#ffffff", color: "#7F55E0", border: "2px solid #7F55E0", borderRadius: "15px",padding: "10px 20px",
+                    fontSize: "20px", fontWeight: "bold", textDecoration: "none", display: "flex", alignItems: "center", gap: "8px",
+                  }}
+                  onMouseEnter={(e) => { e.target.style.backgroundColor = "#7F55E0"; e.target.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.target.style.backgroundColor = "#ffffff"; e.target.style.color = "#7F55E0"; }}
+                >
+                  Add New Course
+                </a>
+              </div>
+          </div>
+        </div>
+        
 
         {/* boxes */}
         <div className="row mt-4">
           {courses.map((course) => (
-            <div key={course.id} className="col-md-4 mb-4">
+            <div key={course.id} className="col-lg-4 col-md-6 mb-4">
               <a
                 href={course.link}
                 style={{

@@ -36,11 +36,11 @@ function Acadmic() {
                   onMouseOver={(e) => {
                     e.currentTarget.style.transform = 'scale(1.1)';
                     e.currentTarget.style.backgroundColor = '#221130';
-                                     }}
+                                    }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.transform = 'scale(1)';
                     e.currentTarget.style.backgroundColor = '#4a028a';
-                                     }} >
+                                    }} >
                   {item.name}
                 </div>
               </Link>

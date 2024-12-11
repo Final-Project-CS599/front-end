@@ -43,99 +43,57 @@ function Isacadmic() {
         <div className="row">
           <div className="col-md-12">
             <div>
-            <h2
-          className="text-center text-white p-3 rounded shadow"
-          style={{
-            backgroundColor: "#4a028a",
-            fontSize: "28px",
-          }}
-        >
-          All IS Courses
-        </h2>
-
+              <h2 className="text-center text-white p-3 rounded shadow" style={{ backgroundColor: "#4a028a", fontSize: "28px", }}>
+                All IS Courses
+              </h2>
             </div>
           </div>
+        </div>
 
-
+        <div className="row">
           <div className="col-md-12">
             <div> {/* btn add course */}
               <div className="d-flex justify-content-end mt-3">
-                <button
-                  href="/admin/addnewcourseacadmic"
-                  className="btn"
-                  style={{
-                    backgroundColor: "#ffffff",
-                    color: "#7F55E0",
-                    border: "2px solid #7F55E0",
-                    borderRadius: "15px",
-                    padding: "10px 20px",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
+                <button href="/admin/addnewcourseacadmic" className="btn"
+                  style={{ backgroundColor: "#ffffff", color: "#7F55E0", border: "2px solid #7F55E0", borderRadius: "15px",
+                    padding: "10px 20px", fontSize: "20px", fontWeight: "bold", textDecoration: "none", display: "flex",
+                    alignItems: "center", gap: "8px",
                   }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = "#7F55E0";
-                    e.target.style.color = "#ffffff";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = "#ffffff";
-                    e.target.style.color = "#7F55E0";
-                  }}
+                  onMouseEnter={(e) => { e.target.style.backgroundColor = "#7F55E0"; e.target.style.color = "#ffffff"; }}
+                  onMouseLeave={(e) => { e.target.style.backgroundColor = "#ffffff"; e.target.style.color = "#7F55E0";}}
                 >
                   Add New Course
                 </button>
               </div>
             </div>
           </div>
-
-
-
-          <div className="">
-           {/* boxes */}
-        <div className="mt-4">
-          {courses.map((course) => (
-            <div key={course.id} className="col-md-4 mb-4">
-              <a
-                href={course.link}
-                style={{
-                  textDecoration: "none",
-                  color:'#000000', }} >
-
-                <div
-                  className="p-4 rounded shadow"
-                  style={{  backgroundColor: "#f9f9f9",
-                            border: "1px solid #ddd",
-                            borderRadius: "10px",
-                            cursor: "pointer",
-                            transition: "transform 0.2s ease", }}  
-                            
-                  onMouseEnter={(e) => { e.target.style.transform = "scale(1.03)";}}
-                  onMouseLeave={(e) => {e.target.style.transform = "scale(1)"; }}
-                >
-
-                  <h4 className="text-center mb-3"style={{color: "#4a028a",fontWeight: "bold",}}>
-                    {course.name}
-                  </h4>
-                  <p><strong>Doctor:</strong> {course.doctor}</p>
-                  <p><strong>Code:</strong> {course.code}</p>
-                  <p>{course.description}</p>
-                </div>
-              </a>
-            </div>
-          ))}
         </div>
-        </div>
-        </div>
-       
-       
 
+        {/* boxes */}
+        <div className="row mt-4 ">
+                {courses.map((course) => (
+                  <div key={course.id} className="col-lg-4 col-md-6 ">
+                    <div className=" mb-4 " >
+                        <a href={course.link} style={{ textDecoration: "none", color:'#000000', }} >
 
+                          <div className="p-4 rounded shadow"
+                            style={{  backgroundColor: "#f9f9f9", border: "1px solid #ddd", borderRadius: "10px", cursor: "pointer",transition: "transform 0.2s ease", }}  
+                            onMouseEnter={(e) => { e.target.style.transform = "scale(1.03)";}}
+                            onMouseLeave={(e) => {e.target.style.transform = "scale(1)"; }}
+                          >
 
-       
-      
+                            <h4 className="text-center mb-3"style={{color: "#4a028a",fontWeight: "bold",}}>
+                              {course.name}
+                            </h4>
+                            <p><strong>Doctor:</strong> {course.doctor}</p>
+                            <p><strong>Code:</strong> {course.code}</p>
+                            <p>{course.description}</p>
+                          </div>
+                        </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
       </div>
     
     </HelmetProvider>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 
+
+
 function AddNewCourse() {
   // State for form data
   const [courseData, setCourseData] = useState({
@@ -173,24 +175,25 @@ function AddNewCourse() {
             />
           </div>
 
-          {/* Submit Button */}
-          <button 
-            type="submit" 
-            className="btn btn-lg w-40 mt-3" 
-            style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white', margin:'50px'}}
-          >
-            Add Course
-          </button>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="d-flex justify-content-between">
+                <div>
+                    <button  type="submit"  className="btn btn-lg w-40 mt-3" style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white'}} >
+                        Add Course
+                    </button>
+                </div>
+                <div>
+                  {/* Reset Button */}
+                  <button  type="button"  className="btn btn-secondary btn-lg w-40 mt-3"  onClick={handleReset}>
+                      Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          {/* Reset Button */}
-          <button 
-            type="button" 
-            className="btn btn-secondary btn-lg w-40 mt-3" 
-            onClick={handleReset}
-            style={{  margin:'50px'}}
-          >
-            Reset
-          </button>
+
         </form>
       </div>
     </HelmetProvider>
