@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const TableAssign = () => {
   return (
@@ -7,7 +7,7 @@ const TableAssign = () => {
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Assienments</th>
+            <th scope="col">Assignments</th>
             <th scope="col">Start date</th>
             <th scope="col">End date</th>
             <th scope="col">Degree</th>

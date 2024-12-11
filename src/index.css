@@ -3,9 +3,13 @@
   color: #5f6774 !important;
 }
 
-.btn-purple:focus {
+.btn-purple-active {
   background-color: #f2f2fd !important;
   color: #7F55E0 !important;
+}
+
+.btn-purple:focus,
+.btn-purple:active {
   outline: none !important;
   box-shadow: none !important;
 }

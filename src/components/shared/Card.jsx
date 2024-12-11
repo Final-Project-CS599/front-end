@@ -1,5 +1,13 @@
 import React from 'react';
-const Card = ({ title, description, img }) => {
+import { useNavigate } from 'react-router-dom';
+
+const Card = ({ title, description, id, img }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/student/courses/${id}`);
+  };
+
   return (
     <div className="card shadow-sm" style={{ width: '17rem' }}>
       <img
@@ -13,7 +21,9 @@ const Card = ({ title, description, img }) => {
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{description}</p>
-        <button className="btn btn-outline-purple w-50 ">View</button>
+        <button onClick={handleClick} className="btn btn-outline-purple w-50">
+          View
+        </button>
       </div>
     </div>
   );

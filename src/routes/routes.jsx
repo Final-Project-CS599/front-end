@@ -10,6 +10,10 @@ import Home from '../pages/Home';
 import About from '../pages/About';
 import Messages from '../pages/student/Messages';
 import Profile from '../pages/student/Profile';
+import InstructorById from '../pages/student/InstructorById';
+import CourseById from '../pages/student/CourseById';
+import AssignmentById from '../pages/student/AssignmentById';
+import QuizById from '../pages/student/QuizById';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +29,10 @@ export const router = createBrowserRouter([
       { path: '/student/report', element: <Report /> },
       { path: '/student/messages', element: <Messages /> },
       { path: '/student/profile', element: <Profile /> },
+      { path: '/student/instructors/:id', element: <InstructorById /> },
+      { path: '/student/courses/:id', element: <CourseById /> },
+      { path: '/student/assignments/:id', element: <AssignmentById /> },
+      { path: '/student/quizzes/:id', element: <QuizById /> },
       { path: '/about', element: <About /> },
     ],
   },

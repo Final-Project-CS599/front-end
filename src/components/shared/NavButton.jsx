@@ -1,15 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const NavButton = ({ text, icon, to }) => {
   return (
-    <div className="d-flex align-items-center gap-2  w-100">
-      <Link className="text-decoration-none w-100" to={to}>
-        <button type="button" className="btn btn-purple  my-1 w-100  d-flex">
-          <span className="me-3">{icon}</span>
-          <span>{text}</span>
-        </button>
-      </Link>
+    <div className="d-flex align-items-center gap-2 w-100">
+      <NavLink
+        className={({ isActive }) => {
+          // Check if current route starts with the base path
+          const currentPath = window.location.pathname;
+          const basePath = to.replace(/\/$/, '');
+          const isRouteActive = currentPath.startsWith(basePath);
+
+          return `text-decoration-none w-100 ${isRouteActive ? 'active' : ''}`;
+        }}
+        to={to}
+      >
+        {({ isActive }) => {
+          // Check if current route starts with the base path
+          const currentPath = window.location.pathname;
+          const basePath = to.replace(/\/$/, '');
+          const isRouteActive = currentPath.startsWith(basePath);
+
+          return (
+            <button
+              type="button"
+              className={`btn btn-purple my-1 w-100 d-flex ${
+                isRouteActive ? 'btn-purple-active' : ''
+              }`}
+            >
+              <span className="me-3">{icon}</span>
+              <span>{text}</span>
+            </button>
+          );
+        }}
+      </NavLink>
     </div>
   );
 };

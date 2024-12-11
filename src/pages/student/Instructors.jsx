@@ -14,23 +14,18 @@ const Instructors = () => {
             title={'Dr Nora'}
             description={'Department: Computer Science'}
             Image={Inst3}
-            onclick={() => console.log('jfhsdjkfh')}
+            id={1}
           />
         </div>
         <div className="col ">
-          <InstructorCard
-            title={'Dr Fathy'}
-            description={'Department: IT'}
-            Image={Inst1}
-            onclick={() => console.log('jfhsdjkfh')}
-          />
+          <InstructorCard title={'Dr Fathy'} description={'Department: IT'} Image={Inst1} id={2} />
         </div>
         <div className="col ">
           <InstructorCard
             title={'Dr Ramy'}
-            description={'Department: Mathimatics'}
+            description={'Department: Mathematics'}
             Image={Inst2}
-            onclick={() => console.log('jfhsdjkfh')}
+            id={3}
           />
         </div>
       </div>
