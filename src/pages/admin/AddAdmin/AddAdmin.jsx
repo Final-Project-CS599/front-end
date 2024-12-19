@@ -50,7 +50,7 @@ export default function AddAdmin() {
             <div className="w-75 mx-auto py-5">
         {error!==null? <div className="alert alert-danger">{error}</div>:''}
 
-        <h3 className='pb-4'>Add Admin</h3>
+        <h3 className='pb-4'>Add Admin </h3>
         <form onSubmit={formik.handleSubmit}>
 
             <label htmlFor="name" >First Name <span className='text-danger'>*</span> :</label>

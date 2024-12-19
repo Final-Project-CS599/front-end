@@ -2,25 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 
-
-function Acadmic() {
+function Extra() {
   const items = [
-    { name: ' Statistical Methods', link: '/admin/asacadmic' },
-    { name: 'Computer Science', link: '/admin/csacadmic' },
-    { name: 'Information systems', link: '/admin/isacadmic' },
-    { name: 'Mathematical Methods', link: '/admin/msacadmic' },
-    { name: 'Operation research', link: '/admin/oracadmic' },
-                ];
+    { name: 'Back-end', link: '/admin/backendextra' },
+    { name: 'Front-end', link: '/admin/frontendextra' },
+    { name: 'Languages', link: '/admin/languagesextra' },
+    { name: 'Programing', link: '/admin/programingextra' },
+    { name: 'Others', link: '/admin/otherextra' },
+  ];
 
   return (
     <>
-    <HelmetProvider>
+            <HelmetProvider>
             <Helmet>
                 <meta name='description' content='' />
-                <title>Acadmic courses</title>
+                <title>Extra courses</title>
             </Helmet>
       <h2 className="text-center mb-4  text-black p-3 rounded shadow">
-        Departments
+      Categories
       </h2>
       <div 
         className="container d-flex justify-content-center align-items-center" 
@@ -36,11 +35,11 @@ function Acadmic() {
                   onMouseOver={(e) => {
                     e.currentTarget.style.transform = 'scale(1.1)';
                     e.currentTarget.style.backgroundColor = '#221130';
-                                    }}
+                                     }}
                   onMouseOut={(e) => {
                     e.currentTarget.style.transform = 'scale(1)';
                     e.currentTarget.style.backgroundColor = '#4a028a';
-                                    }} >
+                                     }} >
                   {item.name}
                 </div>
               </Link>
@@ -76,12 +75,13 @@ function Acadmic() {
               e.target.style.color = "#7F55E0";
             }}
           >
-            Add New Department
+            Add New Categories
           </a>
         </div>
+
       </HelmetProvider>
     </>
   );
 }
 
-export default Acadmic;
+export default Extra;
