@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Style from './AddAdmin.module.css';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import {  Formik, useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Audio } from  'react-loader-spinner';
@@ -50,7 +50,7 @@ export default function AddAdmin() {
             <div className="w-75 mx-auto py-5">
         {error!==null? <div className="alert alert-danger">{error}</div>:''}
 
-        <h3 className='pb-4'>Add Student </h3>
+        <h3 className='pb-4'>Add Admin</h3>
         <form onSubmit={formik.handleSubmit}>
 
             <label htmlFor="name" >First Name <span className='text-danger'>*</span> :</label>

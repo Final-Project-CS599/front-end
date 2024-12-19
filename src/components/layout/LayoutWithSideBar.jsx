@@ -11,7 +11,7 @@ const LayoutWithSideBar = () => {
       <MobileNav />
       <div className="d-flex gap-3">
         <SideBar />
-        <div className="w-100 my-3">
+        <div className="w-100 h-100 my-3">
             <Outlet/>
         </div>
       </div>

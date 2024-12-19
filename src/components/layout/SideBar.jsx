@@ -5,17 +5,21 @@ import { NavLink } from 'react-router-dom';
 import NavButton from './../shared/NavButton';
 
 
+
 const SideBar = () => {
   return (
     <div className="d-none d-lg-flex flex-column px-3 mt-1 border-3 border-end border-light" style={{ height: '82vh' }} >
 
       <NavButton text={'Home'} icon={<i className="fa-solid fa-house-user fs-4"></i>} to={'/'} />
+      <NavButton text={'Department'} icon={<i className="fa-solid fa-building fs-4 ps-1"></i>} to={'/admin/AddDepartment'}/>
       <NavButton text={'Courses'} icon={<FaBookOpen className='fs-4 '/>} to={'/admin/courses'} />
       <NavButton text={'Instructors'} icon={<FaUser className='fs-4 '/>} to={'/admin/instructors'} />
       <NavButton text={'Student'} icon={<FaUser  className='fs-4 '/>} to={'/admin/student'} />
       <NavButton text={'HelpDesk'} icon={<i className="fa-solid fa-circle-question fs-4"></i>} to={'/admin/helpdesk'} />
       <NavButton text={'About'} icon={<i className="fa-solid fa-address-card fs-5"></i>} to={'/admin/about'}/>
       <NavButton text={'Payment'} icon={<i className="fa-solid fa-money-check-dollar fs-5"></i>} to={'/admin/Payment'}/>
+      
+
 
 
       <div className="mt-auto w-100">
