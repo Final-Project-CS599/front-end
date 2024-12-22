@@ -11,7 +11,7 @@ export default function Student() {
           <meta name="description" content="" />
           <title>Student</title>
         </Helmet>
-        <div className=" container">
+        <div className=" container" style={{width: "90%"}}>
           <div className="row">
             <div className=" col-md-6 p-2">
               <div className="">
