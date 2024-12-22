@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeLogo from '../../assets/images/imgAdmin/HomeLogo.jpg';
-import { BiSearchAlt } from 'react-icons/bi';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 
 const NavBar = () => {
   let navigate = useNavigate();
@@ -22,26 +22,17 @@ const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <form
-            className="d-flex flex-sm-column flex-lg-row gap-sm-3 gap-lg-5 align-items-sm-start align-items-lg-center "
-            style={{ width: '35%' }}
-          > 
-            {/* <NavLink className="text-decoration-none text-purple " to="/about" >
-              About
-            </NavLink> */}
+        <div className="collapse navbar-collapse " id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             
-            <div className="input-group flex-nowrap w-75">
-              <span className="input-group-text" id="addon-wrapping">
-                <BiSearchAlt />
-              </span>
-              <input className="form-control me-2 input" type="search" placeholder="Search" aria-label="Search" />
-            </div>
+          </ul>
+          
+            <NavLink className="text-decoration-none text-purple me-5 " to="/admin/about" > About </NavLink>
+
             <button className="btn buttoncolor pb-2 me-4">
                 <span onClick={()=>logOut()} className="cursor-pointer"> Logout</span>
             </button>
-          </form>
+
         </div>
       </div>
     </nav>

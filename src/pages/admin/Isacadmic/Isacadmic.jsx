@@ -1,5 +1,6 @@
 import React from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 function Isacadmic() {
   const courses = [
@@ -54,7 +55,7 @@ function Isacadmic() {
           <div className="col-md-12">
             <div> {/* btn add course */}
               <div className="d-flex justify-content-end mt-3">
-                <button href="/admin/addnewcourseacadmic" className="btn"
+                <Link to="/admin/addnewcourseacadmic"   className="btn"
                   style={{ backgroundColor: "#ffffff", color: "#7F55E0", border: "2px solid #7F55E0", borderRadius: "15px",
                     padding: "10px 20px", fontSize: "20px", fontWeight: "bold", textDecoration: "none", display: "flex",
                     alignItems: "center", gap: "8px",
@@ -63,7 +64,7 @@ function Isacadmic() {
                   onMouseLeave={(e) => { e.target.style.backgroundColor = "#ffffff"; e.target.style.color = "#7F55E0";}}
                 >
                   Add New Course
-                </button>
+                </Link>
               </div>
             </div>
           </div>
