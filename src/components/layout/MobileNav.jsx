@@ -51,6 +51,7 @@ const MobileNav = () => {
         </div>
         <div className="offcanvas-body ">
         <NavButton text={'Courses'} icon={<FaBookOpen />} to={'/admin/courses'} />
+        <NavButton text={'Department'} icon={<FaBookOpen />} to={'/admin/AddDepartment'} />
         <NavButton text={'Instructors'} icon={<FaUser />} to={'/admin/instructors'} />
         <NavButton text={'Student'} icon={<FaUser />} to={'/admin/student'} />
         <NavButton text={'HelpDesk'} icon={<MdHelpOutline className='fs-4'/>} to={'/admin/helpdesk'} />
