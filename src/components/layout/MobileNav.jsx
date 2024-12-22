@@ -67,13 +67,8 @@ const MobileNav = () => {
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
         </div>
         <div className="offcanvas-body d-flex flex-column align-items-start">
-          <h3 className="btn">Profile</h3>
-          <div className="input-group flex-nowrap ms-2">
-            <span className="input-group-text" id="addon-wrapping">
-              <BiSearchAlt  className='fs-4'/>
-            </span>
-            <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
-          </div>
+          <Link to="/admin/profile" className="btn">Profile</Link>
+          
         </div>
       </div>
     </>
