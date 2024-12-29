@@ -1,5 +1,6 @@
 import React from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 
 function Isacadmic() {
   //facke data
@@ -55,16 +56,16 @@ function Isacadmic() {
           <div className="col-md-12">
             <div> 
               <div className="d-flex justify-content-end mt-3">
-                <a href="/admin/addnewcourseacadmic" className="btn"
+                <a href="/admin/addnewcourseacadmic" className="btn">
                   style={{ backgroundColor: "#ffffff", color: "#7F55E0", border: "2px solid #7F55E0", borderRadius: "15px",
                     padding: "10px 20px", fontSize: "20px", fontWeight: "bold", textDecoration: "none", display: "flex",
                     alignItems: "center", gap: "8px",
                   }}
                   onMouseEnter={(e) => { e.target.style.backgroundColor = "#7F55E0"; e.target.style.color = "#ffffff"; }}
                   onMouseLeave={(e) => { e.target.style.backgroundColor = "#ffffff"; e.target.style.color = "#7F55E0";}}
-                >
                   Add New Course
                 </a>
+                
               </div>
             </div>
           </div>

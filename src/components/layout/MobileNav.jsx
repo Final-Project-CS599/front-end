@@ -51,6 +51,7 @@ const MobileNav = () => {
         </div>
         <div className="offcanvas-body ">
         <NavButton text={'Courses'} icon={<FaBookOpen />} to={'/admin/courses'} />
+        <NavButton text={'Department'} icon={<FaBookOpen />} to={'/admin/AddDepartment'} />
         <NavButton text={'Instructors'} icon={<FaUser />} to={'/admin/instructors'} />
         <NavButton text={'Student'} icon={<FaUser />} to={'/admin/student'} />
         <NavButton text={'HelpDesk'} icon={<MdHelpOutline className='fs-4'/>} to={'/admin/helpdesk'} />
@@ -67,13 +68,8 @@ const MobileNav = () => {
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
         </div>
         <div className="offcanvas-body d-flex flex-column align-items-start">
-          <h3 className="btn">Profile</h3>
-          <div className="input-group flex-nowrap ms-2">
-            <span className="input-group-text" id="addon-wrapping">
-              <BiSearchAlt  className='fs-4'/>
-            </span>
-            <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
-          </div>
+          <Link to="/admin/profile" className="btn">Profile</Link>
+          
         </div>
       </div>
     </>

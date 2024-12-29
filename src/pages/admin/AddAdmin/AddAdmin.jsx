@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Style from './AddAdmin.module.css';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import {  Formik, useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { Audio } from  'react-loader-spinner';

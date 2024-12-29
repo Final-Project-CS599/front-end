@@ -28,41 +28,53 @@ import Frontendextra from '../pages/admin/Frontendextra/Frontendextra.jsx';
 import Addnewcourseacadmic from'../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
 import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
 import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
+import AddDepartment from "../pages/admin/AddDepartment/AddDepartment.jsx";
+import EditStudent from "../pages/admin/EditStudent/EditStudent.jsx";
+import EditInstructor from "../pages/admin/EditInstructor/EditInstructor.jsx";
+
 
 
 export const router = createBrowserRouter([
   {
     path: '/', element: <LayoutWithSideBar />, children: [
-      { index: true, element: <Home/> },
-      { path: '/admin/courses' , element: <Courses/>},
-      { path: '/admin/acadmic' , element: <Acadmic/>},
+      //pages
+      {index: true, element: <Home/> },
+      {path: '/admin/courses' , element: <Courses/>},
+      {path: '/admin/acadmic' , element: <Acadmic/>},
       {path: '/admin/asacadmic', element: <Asacadmic/>},
       {path: 'admin/isacadmic' , element: <Isacadmic/>},
       {path: 'admin/msacadmic' , element: <Msacadmic/>},
       {path: 'admin/oracadmic' , element: <Oracadmic/>},
       {path:'admin/csacadmic', element: <Csacadmic/>},
-      { path: '/admin/extra' , element: <Extra/>},
-      { path: '/admin/programingextra' , element: <Programingextra/>},
-      { path: '/admin/languagesextra' , element: <Languagesextra/>},
-      { path: '/admin/backendextra' , element: <Backendextra/>},
+      {path: '/admin/extra' , element: <Extra/>},
+      {path: '/admin/programingextra' , element: <Programingextra/>},
+      {path: '/admin/languagesextra' , element: <Languagesextra/>},
+      {path: '/admin/backendextra' , element: <Backendextra/>},
       {path: '/admin/frontendextra', element: <Frontendextra/>},
       { path: '/admin/digitalextra' , element: <Digitalextra/>},
       {path: '/admin/addnewcourseextra', element:<Addnewcourseextra/>},
       {path:'/admin/addnewcourseacadmic', element: <Addnewcourseacadmic/>},
-      { path: '/admin/instructors' , element: <Instructors/>},
-      { path: '/admin/student' , element: <Student/>},
-      { path: '/admin/profile', element: <Profile /> },
-      { path: '/admin/about', element: <About /> },
-      { path: '/admin/registerInstructor' , element: <RegisterInstructors/>},
-      { path: '/admin/registerStudent' , element: <RegisterStudents/>},
-      { path: '/admin/addAdmin' , element: <AddAdmin/>},
-      { path: '/admin/Payment' , element: <Payment/>},
-      { path: '/admin/helpdesk' , element: <Helpdesk/>},
-      { path: '/login' , element: <Login/>},
-      { path: '/forgetPassword' , element:<ForgetPassword/>},
-      { path: '*' , element: <NotFound />}
+      {path: '/admin/instructors' , element: <Instructors/>},
+      {path: '/admin/student' , element: <Student/>},
+      {path: '/admin/profile', element: <Profile /> },
+      {path: '/admin/about', element: <About /> },
+      {path: '/admin/registerInstructor' , element: <RegisterInstructors/>},
+      {path: '/admin/registerStudent' , element: <RegisterStudents/>},
+      {path: '/admin/addAdmin' , element: <AddAdmin/>},
+      {path: '/admin/Payment' , element: <Payment/>},
+      {path: '/admin/helpdesk' , element: <Helpdesk/>},
+      {path: "/admin/addDepartment", element: <AddDepartment /> },
+      {path: "/admin/editStudent/:id", element: <EditStudent /> },
+      {path: "/admin/editInstructor/:id", element: <EditInstructor /> },
+      
+      // login & forget password
+      {path: '/login' , element: <Login/>},
+      {path: '/forgetPassword' , element:<ForgetPassword/>},
+      {path: '*' , element: <NotFound />},
 
-
+      
+//********************************************************************************************************************** */
+      //AcadmicRou
       // {index: true , element:  <AcadmicRou><Home/></AcadmicRou>},
       // { path: 'instructors' , element: <AcadmicRou><Instructors/></AcadmicRou>},
       // { path: 'student' , element: <AcadmicRou><Student/></AcadmicRou>},
@@ -70,7 +82,6 @@ export const router = createBrowserRouter([
       // { path: 'about', element: <AcadmicRou><About /></AcadmicRou> },
       // { path: 'registerInstructor' , element: <AcadmicRou><RegisterInstructors/></AcadmicRou>},
       // { path: 'registerStudent' , element: <AcadmicRou><RegisterStudents/></AcadmicRou>},
-
     ],
   },
 ]);
