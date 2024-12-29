@@ -8,7 +8,7 @@ function Extra() {
     { name: 'Front-end', link: '/admin/frontendextra' },
     { name: 'Languages', link: '/admin/languagesextra' },
     { name: 'Programing', link: '/admin/programingextra' },
-    { name: 'Others', link: '/admin/otherextra' },
+    { name: 'Digital marketing', link: '/admin/digitalextra' },
   ];
 
   return (

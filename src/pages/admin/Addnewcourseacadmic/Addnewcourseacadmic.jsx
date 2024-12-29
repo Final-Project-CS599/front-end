@@ -15,7 +15,7 @@ function AddNewCourseacadmic() {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
-
+// new value
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCourseData({
@@ -23,11 +23,11 @@ function AddNewCourseacadmic() {
       [name]: value,
     });
   };
-
+// data enter
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //  validation for Instructor ID
+    //  validation for Instructor ID cheeck
     if (!courseData.instructorId) {
       setValidationErrors({ instructorId: 'Instructor ID is required' });
       return;
@@ -47,7 +47,7 @@ function AddNewCourseacadmic() {
     });
     setValidationErrors({});
   };
-
+ 
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset the form?')) {
       setCourseData({
@@ -170,6 +170,26 @@ function AddNewCourseacadmic() {
               <option value="Academic">Academic</option>
             </select>
           </div>
+
+              {/* category */}
+              <div className="form-group mb-3">
+                <label htmlFor="category">Select category:</label>
+                <select
+                  className="form-control form-control-lg shadow-sm"
+                  id="category"
+                  name="category"
+                  value={courseData.category}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select category</option>
+                  <option value="introduction">introduction</option>
+                  <option value="number system">number system</option>
+                  <option value="operating">operating</option>
+                  <option value="c++"> c++</option>
+                  <option value="project"> project</option>
+                </select>
+              </div>
 
           {/* Description */}
           <div className="form-group mb-3">

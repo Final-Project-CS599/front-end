@@ -152,7 +152,7 @@ function AddNewCourseextra() {
               <option value="Programing"> Programing</option>
               <option value="Front-end"> Front-end</option>
               <option value="Back-end">Back-end</option>
-              <option value="other"> other</option>
+              <option value="Digital marketing"> Digital marketing</option>
             </select>
           </div>
 
