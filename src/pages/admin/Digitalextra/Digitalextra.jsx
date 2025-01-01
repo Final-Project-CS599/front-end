@@ -1,18 +1,18 @@
 import React from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 
-function Languagesextra() {
+function digitalextra() {
   return (
     <HelmetProvider>
       <Helmet>
         <meta name="description" content="" />
-        <title> Languages - Extra Courses</title>
+        <title> Dgital markting - Extra Courses</title>
       </Helmet>
       <div className="container mt-4">
         <h2
           className="text-center text-white p-3 rounded shadow"
           style={{backgroundColor: '#4a028a',fontSize: '28px',}} >
-          All Languages Courses
+          All Dgital markting Courses
         </h2>
         <div className="d-flex justify-content-end mt-3">
           <a href="/admin/addnewcourseextra" 
@@ -46,4 +46,4 @@ function Languagesextra() {
     </HelmetProvider>
   );
 }
-export default Languagesextra;
+export default digitalextra;

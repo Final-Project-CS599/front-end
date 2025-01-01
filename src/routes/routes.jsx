@@ -23,7 +23,7 @@ import Csacadmic from '../pages/admin/Csacadmic/Csacadmic.jsx';
 import Programingextra from '../pages/admin/Programingextra/Programingextra.jsx';
 import Backendextra from '../pages/admin/Backendextra/Backendextra.jsx';
 import Languagesextra from '../pages/admin/Languagesextra/Languagesextra.jsx';
-import Otherextra from '../pages/admin/Otherextra/Otherextra.jsx';
+import Digitalextra from '../pages/admin/Digitalextra/Digitalextra.jsx';
 import Frontendextra from '../pages/admin/Frontendextra/Frontendextra.jsx';
 import Addnewcourseacadmic from'../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
 import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
       {path: '/admin/languagesextra' , element: <Languagesextra/>},
       {path: '/admin/backendextra' , element: <Backendextra/>},
       {path: '/admin/frontendextra', element: <Frontendextra/>},
-      {path: '/admin/otherextra' , element: <Otherextra/>},
+      { path: '/admin/digitalextra' , element: <Digitalextra/>},
       {path: '/admin/addnewcourseextra', element:<Addnewcourseextra/>},
       {path:'/admin/addnewcourseacadmic', element: <Addnewcourseacadmic/>},
       {path: '/admin/instructors' , element: <Instructors/>},
