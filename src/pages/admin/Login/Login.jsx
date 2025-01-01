@@ -7,19 +7,29 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Bars } from  'react-loader-spinner';
 // import { Helmet } from 'react-helmet';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { UserContext } from '../../../Context/UserContext.jsx';
 
 export default function Login() {
+    // const { token } = useParams();
+    // useEffect(() => {
+    //     if (token) {
+    //         console.log("Token received:", token);
+    //     }
+    // }, [token]);
+
+    let {serUserToken , serUserData} = useContext(UserContext); 
     let navigate = useNavigate();
-    const [error , seterror]= useState(null);
-    const [isLoading , setisLoading] = useState(false);
+    const [error , setError]= useState(null);
+    const [isLoading , seTisLoading] = useState(false);
 
     async function loginSubmit(values){
-        setisLoading(true);
-        let {data} = await axios.post(`https: ` , values)
+        seTisLoading(true);
+        let {data} = await axios.post(`http://localhost:3000/auth/login` , values)
         .catch (
             (err)=> {
-                setisLoading(false);
-                seterror(err)
+                seTisLoading(false);
+                setError(err.response?.data?.message || 'An error occurred');
+                // setError(err)
             }
         )
         localStorage.setItem('userToken' , data.token);
@@ -90,7 +100,7 @@ return <>
 
         </div>
     </div>
-</div>
+    </div>
 </HelmetProvider>
 </>
 }

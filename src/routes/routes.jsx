@@ -68,6 +68,7 @@ export const router = createBrowserRouter([
       {path: "/admin/editInstructor/:id", element: <EditInstructor /> },
       
       // login & forget password
+      {path: '/login/:token', element: <Login/>},
       {path: '/login' , element: <Login/>},
       {path: '/forgetPassword' , element:<ForgetPassword/>},
       {path: '*' , element: <NotFound />},
