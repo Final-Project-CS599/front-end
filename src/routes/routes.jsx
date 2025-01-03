@@ -7,7 +7,7 @@ import Quizzes from '../pages/student/Quizzes';
 import Chat from '../pages/student/Chat';
 import Report from '../pages/student/Report';
 import Home from '../pages/Home';
-import About from '../pages/About';
+
 import Messages from '../pages/student/Messages';
 import Profile from '../pages/student/Profile';
 import InstructorById from '../pages/student/InstructorById';
@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
       { path: '/student/courses/:id', element: <CourseById /> },
       { path: '/student/assignments/:id', element: <AssignmentById /> },
       { path: '/student/quizzes/:id', element: <QuizById /> },
-      { path: '/about', element: <About /> },
+  
     ],
   },
 ]);
