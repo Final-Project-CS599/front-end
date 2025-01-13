@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../../components/shared/Card';
 import img from '../../assets/images/student/7040859.jpg';
 
-const courses = [
+const coursesData = [
   { id: 1, title: 'Web Development', description: 'Course', image: img },
   { id: 2, title: 'Data Science', description: 'Course', image: img },
   { id: 3, title: 'Machine Learning', description: 'Course', image: img },
@@ -16,7 +16,7 @@ const Courses = () => {
     <div>
       <h3 className="mb-3">Courses</h3>
       <div className="row row-cols-1 row-cols-md-3 g-4 mx-0" style={{ overflowX: 'hidden' }}>
-        {courses.map((course) => (
+        {coursesData.map((course) => (
           <div className="col" key={course.id}>
             <Card
               title={course.title}
