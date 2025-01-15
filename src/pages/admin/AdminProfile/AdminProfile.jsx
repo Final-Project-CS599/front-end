@@ -8,52 +8,23 @@ const mockData = [
     firstName: "John",
     lastName: "Doe",
     email: "john@example.com",
-    department: "Math",
-    phone: "",
-    phone2: "",
-    course: [
-      {
-        courseId: "5",
-        courseName: "Algebra",
-        courseCode: "MA254",
-        courseType: "Academic",
-      },
-      {
-        courseId: "40",
-        courseName: "Software Engineering",
-        courseCode: "CS542",
-        courseType: "Extra",
-      },
-    ],
+    role: "Admin",
+    primaryPhone: "0254585868",
+    secondaryPhone: "0125565688",
   },
   {
     id: 2,
     firstName: "Jane",
     lastName: "Smith",
     email: "jane@example.com",
-    department: "CS",
-    course: [
-      {
-        courseId: "56",
-        courseName: "Bio",
-        courseCode: "BI254",
-        courseType: "Extra",
-      },
-      {
-        courseId: "40",
-        courseName: "Software Engineering",
-        courseCode: "CS542",
-        courseType: "Extra",
-      },
-    ],
+    role: "Admin",
   },
   {
     id: 3,
     firstName: "Alice",
     lastName: "Johnson",
     email: "alice@example.com",
-    department: "Arts",
-    course: "History",
+    role: "Admin",
   },
 ];
 
@@ -80,7 +51,7 @@ export default function Profile() {
     <>
       <HelmetProvider>
         <Helmet>
-          <meta name="description" content="" />
+          <meta name="Profile Information" content="" />
           <title>Profile</title>
         </Helmet>
         <div className="w-75 mx-auto">
@@ -93,9 +64,8 @@ export default function Profile() {
                 <input
                   type="text"
                   id="fName"
-                  className=" form-control"
+                  className="form-control"
                   value={user.firstName + " " + user.lastName}
-                  onChange={inputChange}
                   disabled
                 />
               </div>
@@ -108,78 +78,72 @@ export default function Profile() {
                   className="form-control-plaintext"
                   readOnly
                   value={user.email}
-                  onChange={inputChange}
                 />
               </div>
 
-              <div className="col-md-5">
+              <div className="col-md-6">
                 <label htmlFor="national" className=" pt-3">
                   National ID:
                 </label>
                 <input
                   type="number"
                   id="national"
-                  className=" form-control"
+                  className="form-control"
                   value={user.nationalId}
-                  onChange={inputChange}
                   disabled
                 />
-              </div>
-
-              <div className="col-md-3">
-                <label htmlFor="date_Birth" className=" pt-3">
-                  Birth Date:{" "}
-                </label>
-                <input
-                  type="date"
-                  id="date_Birth"
-                  className=" form-control"
-                  value={user.bDate}
-                  onChange={inputChange}
-                />
-              </div>
-
-              <div className="col-md-3">
-                <label htmlFor="gender">Select Gender :</label>
-                <select
-                  className="form-select mt-3"
-                  aria-label="Default select example"
-                  id="gender"
-                  value={user.gender}
-                  onChange={inputChange}
-                  disabled
-                >
-                  <option value="">Select Gender</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                </select>
               </div>
 
               <div className="col-md-6">
-                <label htmlFor="phone" className=" pt-3">
-                  Phone 1<span className="text-danger">*</span> :
+                <label htmlFor="role" className=" pt-3">
+                  Role:
+                </label>
+                <input
+                  type="text"
+                  id="role"
+                  className="form-control-plaintext"                
+                  value={user.role}
+                  readOnly
+                />
+              </div>
+
+              <div className="col-md-6">
+                <label htmlFor="primaryPhone" className=" pt-3">
+                  Primary Phone<span className="text-danger">*</span> :
                 </label>
                 <input
                   type="tel"
-                  id="phone"
-                  className=" form-control"
-                  value={user.phone}
+                  id="primaryPhone"
+                  className="form-control"
+                  value={user.primaryPhone}
                   onChange={inputChange}
                 />
               </div>
 
               <div className="col-md-6">
-                <label htmlFor="phone2" className=" pt-3">
-                  Phone 2:
+                <label htmlFor="secondaryPhone" className=" pt-3">
+                Secondary Phone:
                 </label>
                 <input
                   type="tel"
-                  id="phone2"
-                  className=" form-control"
-                  value={user.phone2}
+                  id="secondaryPhone"
+                  className="form-control"
+                  value={user.secondaryPhone}
                   onChange={inputChange}
                 />
               </div>
+
+              <br />
+          <div className="mt-3 d-flex justify-content-end">
+            <button
+              className="btn buttoncolor shadow"
+              type="submit"
+              value="Submit"
+            >
+              Update
+            </button>
+            </div>
+            <br />
 
               <div className="row row-cols-md-6 mt-3 g-2 mb-4">
                 <div className="col-12">
@@ -223,18 +187,12 @@ export default function Profile() {
           </div>
           <div className="row mb-3 row-cols-md-6">
           <button
-              className="btn buttoncolor shadow"
+              className="btn buttoncolor shadow me-2"
               type="submit"
               value="Submit"
             >
               Submit
             </button>
-          </div>
-        </div>
-      )}
-
-          <br />
-          <div className="mt-3 d-flex justify-content-end">
             <button
               className="btn buttoncolor shadow me-2"
               type="reset"
@@ -242,14 +200,10 @@ export default function Profile() {
             >
               Rollback
             </button>
-            <button
-              className="btn buttoncolor shadow"
-              type="submit"
-              value="Submit"
-            >
-              Update
-            </button>
           </div>
+        </div>
+      )}
+
         </div>
       </HelmetProvider>
     </>

@@ -382,7 +382,7 @@ export default function EditInstructor() {
         <br />
         <div className="mt-3 d-flex justify-content-end">
           <button className="btn buttoncolor shadow me-2" onClick={rollback}>
-            Rollback
+          Delete Student
           </button>
           <button className="btn buttoncolor shadow" onClick={submit}>
             Update

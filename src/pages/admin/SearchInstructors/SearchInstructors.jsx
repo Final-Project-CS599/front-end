@@ -139,7 +139,7 @@ it starts to check the fields and checks if there is an equal data, if not it mo
 
   return (
     <>
-      <div className=" container ms-5 mt-3">
+      <div className=" container ms-5 mt-3"  style={{width: "95%"}}>
         {/*-------div made for the form of search fields and contains setSearch method to reflect the change to the table-----------------------*/}
         <div>
           <form
@@ -173,8 +173,8 @@ it starts to check the fields and checks if there is an equal data, if not it mo
               </div>
             </div>
 
-            <div className="row mt-4">
-              <div className="col row">
+            
+              <div className="col row mt-4">
                 <label htmlFor="firstName" className="col-sm-2 col-form-label">
                   First Name
                 </label>
@@ -194,7 +194,7 @@ it starts to check the fields and checks if there is an equal data, if not it mo
                   />
                 </div>
               </div>
-              <div className="col row">
+              <div className="col row mt-4">
                 <label htmlFor="lastName" className="col-sm-2 col-form-label">
                   Last Name
                 </label>
@@ -214,7 +214,6 @@ it starts to check the fields and checks if there is an equal data, if not it mo
                   />
                 </div>
               </div>
-            </div>
 
             <button type="submit" className="btn buttoncolor shadow mt-4">
               Search

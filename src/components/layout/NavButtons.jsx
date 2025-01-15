@@ -1,5 +1,5 @@
 // components/navigation/navButtons.js
-import { FaBookOpen, FaUser, FaUsers, FaGraduationCap, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaBookOpen, FaUser, FaUsers, FaGraduationCap, FaChalkboardTeacher, FaBuilding } from 'react-icons/fa';
 import {
   MdAssignment,
   MdQuiz,
@@ -16,6 +16,11 @@ export const adminNavButtons = [
     text: 'Dashboard',
     icon: <MdDashboard />,
     to: '/admin/home',
+  },
+  {
+    text: 'Department',
+    icon: <FaBuilding />,
+    to: '/admin/AddDepartment',
   },
   {
     text: 'Courses',

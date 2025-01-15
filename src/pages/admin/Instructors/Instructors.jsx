@@ -11,7 +11,7 @@ export default function Instructors() {
           <meta name="description" content="" />
           <title>Instructors</title>
         </Helmet>
-        <div className=" container" style={{width: "90%"}}>
+        <div className=" container">
           <div className="row">
             <div className=" col-md-6 p-2">
               <div className="">
