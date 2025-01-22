@@ -71,9 +71,9 @@ export const studentNavButtons = [
     to: '/student/chat',
   },
   {
-    text: 'Report',
+    text: 'Help Desk',
     icon: <MdReport />,
-    to: '/student/report',
+    to: '/student/helpDesk',
   },
 ];
 

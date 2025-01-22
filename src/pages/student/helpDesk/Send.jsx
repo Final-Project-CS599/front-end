@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Report = () => {
+const Send = () => {
   return (
     <div>
       <h3>Report</h3>
@@ -19,4 +19,4 @@ const Report = () => {
   );
 };
 
-export default Report;
+export default Send;

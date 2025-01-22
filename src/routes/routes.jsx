@@ -1,15 +1,15 @@
 import { createBrowserRouter } from 'react-router-dom';
-import StudentCourses from '../pages/student/Courses';
+import StudentCourses from '../pages/student/courses/Courses.jsx';
 import StudentInstructors from '../pages/student/Instructors';
 import Assignments from '../pages/student/Assignments';
 import Quizzes from '../pages/student/Quizzes';
 import Chat from '../pages/student/Chat';
-import Report from '../pages/student/Report';
+import Send from '../pages/student/helpDesk/Send.jsx';
 import StudentHome from '../pages/Home';
 import Messages from '../pages/student/Messages';
 import StudentProfile from '../pages/student/Profile';
 import InstructorById from '../pages/student/InstructorById';
-import CourseById from '../pages/student/CourseById';
+import CourseById from '../pages/student/courses/CourseById';
 import AssignmentById from '../pages/student/AssignmentById';
 import QuizById from '../pages/student/QuizById';
 import Home from './../pages/admin/Home/Home';
@@ -43,6 +43,7 @@ import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
 import EditStudent from '../pages/admin/EditStudent/EditStudent.jsx';
 import EditInstructor from '../pages/admin/EditInstructor/EditInstructor.jsx';
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
+import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -81,8 +82,12 @@ export const studentRoutes = [
 
   // Student resources
   {
-    path: '/student/report',
-    element: <Report />,
+    path: '/student/helpDesk/send',
+    element: <Send />,
+  },
+  {
+    path: '/student/helpDesk',
+    element: <ViewMessages />,
   },
   {
     path: '/student/profile',

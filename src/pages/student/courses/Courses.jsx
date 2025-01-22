@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from '../../components/shared/Card';
-import img from '../../assets/images/student/7040859.jpg';
+import Card from '../../../components/shared/Card';
+import img from '../../../assets/images/student/7040859.jpg';
 
 const coursesData = [
   { id: 1, title: 'Web Development', description: 'Course', image: img },
