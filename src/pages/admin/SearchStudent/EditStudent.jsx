@@ -69,6 +69,7 @@ const mockData = [
   },
 ];
 
+
 export default function EditStudent() {
   const { id } = useParams();
   const [user, setUser] = useState(null, { course: [] });
@@ -126,9 +127,7 @@ export default function EditStudent() {
     setUser(selectedUser);
     setOriginUser(JSON.parse(JSON.stringify(selectedUser)));
   }, [id]);
-  const rollback = () => {
-    setUser(JSON.parse(JSON.stringify(originUser)));
-  };
+
 
   //it records the edits made to the DB
   const submit = () => {
@@ -385,8 +384,8 @@ export default function EditStudent() {
 
         <br />
         <div className="mt-3 d-flex justify-content-end">
-          <button className="btn buttoncolor shadow me-2" onClick={rollback}>
-            Rollback
+          <button className="btn buttoncolor shadow me-2">
+            Delete Student
           </button>
           <button className="btn buttoncolor shadow" onClick={submit}>
             Update

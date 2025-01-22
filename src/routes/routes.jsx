@@ -15,7 +15,7 @@ import QuizById from '../pages/student/QuizById';
 import Home from './../pages/admin/Home/Home';
 import Student from './../pages/admin/Student/Student';
 import Instructors from './../pages/admin/Instructors/Instructors';
-import Profile from './../pages/admin/Profile/Profile';
+import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx'
 import RegisterInstructors from './../pages/admin/RegisterInstructors/RegisterInstructors';
 import RegisterStudents from './../pages/admin/RegisterStudent/RegisterStudent';
 import AddAdmin from './../pages/admin/AddAdmin/AddAdmin';
@@ -40,8 +40,8 @@ import Addnewcourseacadmic from '../pages/admin/Addnewcourseacadmic/Addnewcourse
 import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
 import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
 import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
-import EditStudent from '../pages/admin/EditStudent/EditStudent.jsx';
-import EditInstructor from '../pages/admin/EditInstructor/EditInstructor.jsx';
+import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
+import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
 import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
 
@@ -150,7 +150,6 @@ export const router = createBrowserRouter([
       { path: '/login/:token', element: <Login /> },
       { path: '/login', element: <Login /> },
       { path: '/forgetPassword', element: <ForgetPassword /> },
-      ,
     ],
   },
   { path: '*', element: <NotFound /> },

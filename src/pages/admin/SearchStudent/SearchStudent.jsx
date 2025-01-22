@@ -75,7 +75,6 @@ export default function SearchStudent() {
     firstName: "",
     lastName: "",
     department: "",
-    course: "",
   });
 
   const [data, setData] = useState([]);
@@ -138,7 +137,7 @@ it starts to check the fields and checks if there is an equal data, if not it mo
 
   return (
     <>
-      <div className=" container ms-5 mt-3">
+      <div className="container ms-5 mt-3" style={{width: "95%"}}>
         {/*-------div made for the form of search fields and contains setSearch method to reflect the change to the table-----------------------*/}
         <div>
           <form
@@ -172,70 +171,45 @@ it starts to check the fields and checks if there is an equal data, if not it mo
               </div>
             </div>
 
-            <div className="row mt-4">
-              <div className="col row">
-                <label htmlFor="firstName" className="col-sm-2 col-form-label">
-                  First Name
-                </label>
-                <div className="col-7">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="firstName"
-                    placeholder="First name"
-                    value={searchParams.firstName}
-                    onChange={(e) =>
-                      setSearchParams({
-                        ...searchParams,
-                        firstName: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              <div className="col row">
-                <label htmlFor="lastName" className="col-sm-2 col-form-label">
-                  Last Name
-                </label>
-                <div className="col-7">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="lastName"
-                    placeholder="Last name"
-                    value={searchParams.lastName}
-                    onChange={(e) =>
-                      setSearchParams({
-                        ...searchParams,
-                        lastName: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-              </div>
 
-              <div className="row mt-4">
-                <label htmlFor="courseSe" className="col-md-1 col-form-label">
-                  Course
-                </label>
-                <div className="col-7">
-                  <select
-                    className="form-select"
-                    id="courseSe"
-                    value={searchParams.course}
-                    onChange={(e) =>
-                      setSearchParams({
-                        ...searchParams,
-                        course: e.target.value,
-                      })
-                    }
-                  >
-                    <option value="">Choose Course</option>
-                    <option value="Algebra">Algebra</option>
-                    <option value="Biology">Biology</option>
-                    <option value="History">History</option>
-                  </select>
-                </div>
+            <div className="col row mt-4">
+              <label htmlFor="firstName" className="col-sm-2 col-form-label">
+                First Name
+              </label>
+              <div className="col-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  placeholder="First name"
+                  value={searchParams.firstName}
+                  onChange={(e) =>
+                    setSearchParams({
+                      ...searchParams,
+                      firstName: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </div>
+            <div className="col row mt-4">
+              <label htmlFor="lastName" className="col-sm-2 col-form-label">
+                Last Name
+              </label>
+              <div className="col-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                  placeholder="Last name"
+                  value={searchParams.lastName}
+                  onChange={(e) =>
+                    setSearchParams({
+                      ...searchParams,
+                      lastName: e.target.value,
+                    })
+                  }
+                />
               </div>
             </div>
 
