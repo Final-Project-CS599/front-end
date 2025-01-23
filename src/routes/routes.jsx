@@ -3,7 +3,7 @@ import StudentCourses from '../pages/student/courses/Courses.jsx';
 import StudentInstructors from '../pages/student/Instructors';
 import Assignments from '../pages/student/Assignments';
 import Quizzes from '../pages/student/Quizzes';
-import Chat from '../pages/student/Chat';
+import StudentChat from '../pages/student/Chat';
 import Send from '../pages/student/helpDesk/Send.jsx';
 import StudentHome from '../pages/Home';
 import Messages from '../pages/student/Messages';
@@ -44,6 +44,15 @@ import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
 import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
 import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
+import Assignments from '../pages/instructor/Assignment/Assignment';
+import Quizzes from '../pages/instructor/Quizzes/Quizzes';
+import Chat from '../pages/instructor/Chat/Chat';
+import ProfilePage from '../pages/instructor/Profile/Profile';
+import HelpdeskPage from '../pages/instructor/Report/Report'
+import UploadCourse from '../components/shared/UploadCourse';
+import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
+import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
+import MyCourses from '../pages/instructor/courses/mycourses';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -73,7 +82,7 @@ export const studentRoutes = [
   // Communication features
   {
     path: '/student/chat',
-    element: <Chat />,
+    element: <StudentChat />,
   },
   {
     path: '/student/messages',
@@ -146,6 +155,16 @@ export const router = createBrowserRouter([
       { path: '/admin/addDepartment', element: <AddDepartment /> },
       { path: '/admin/editStudent/:id', element: <EditStudent /> },
       { path: '/admin/editInstructor/:id', element: <EditInstructor /> },
+      { path: '/instructor/courses/mycourses', element: <MyCourses /> },
+      { path: '/instructor/instructors', element: <ProfilePage /> },
+      { path: '/instructor/Assignment/Assignment', element: <Assignments /> },
+      { path: '/instructor/Quizzes/quizzes', element: <Quizzes /> },
+      { path: '/instructor/chat', element: <Chat /> },
+      { path: '/instructor/report', element: <HelpdeskPage /> },
+      { path: '/UploadCourse', element: <UploadCourse /> },
+      { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
+      { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
+
       // login & forget password
       { path: '/login/:token', element: <Login /> },
       { path: '/login', element: <Login /> },
