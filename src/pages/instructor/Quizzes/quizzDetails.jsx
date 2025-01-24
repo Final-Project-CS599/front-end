@@ -1,31 +1,29 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 
 const QuizDetailsPage = () => {
-  const [quizFile, setQuizFile] = useState(null);
+  const [quizLink, setQuizLink] = useState('');
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setQuizFile(file);
-    console.log('Selected file:', file);
+  const handleLinkChange = (event) => {
+    setQuizLink(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!quizFile) {
-      alert('Please upload a file before submitting.');
+    if (!quizLink) {
+      alert('Please enter a link before submitting.');
       return;
     }
-    // Perform upload logic here (e.g., send file to server)
-    console.log('Submitting form with file:', quizFile);
-    alert(`Quiz details saved with file: ${quizFile.name}`);
+    // Perform logic here (e.g., send link and other details to server)
+    console.log('Submitting form with link:', quizLink);
+    alert(`Quiz details saved with link: ${quizLink}`);
   };
 
   return (
     <div className="container mt-4">
-      <h2  style={{ color: "#6f42c1" }}>Quiz Details</h2>
+      <h2 style={{ color: "#6f42c1" }}>Quiz Details</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label mt-3" required>Quiz Title</label>
+          <label className="form-label mt-3">Quiz Title</label>
           <input
             type="text"
             className="form-control"
@@ -34,16 +32,16 @@ const QuizDetailsPage = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Number of Questions</label>
+          <label className="form-label">Category</label>
           <input
-            type="number"
+            type="text"
             className="form-control"
-            placeholder="Enter number of questions"
+            placeholder="Enter quiz category"
             required
           />
         </div>
         <div className="mb-3">
-          <label className="form-label" required>Quizz Degree</label>
+          <label className="form-label">Quiz Degree</label>
           <input
             type="number"
             className="form-control"
@@ -52,19 +50,36 @@ const QuizDetailsPage = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label" required>Upload Quiz File</label>
+          <label className="form-label">Publish Date</label>
           <input
-            type="file"
+            type="date"
             className="form-control"
-            accept=".pdf,.doc,.docx,.xlsx"
-            onChange={handleFileChange}
+            placeholder="Enter publish date"
+            required
+          />
+          <label className="form-label mt-3">Instructor Name</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter Instructor Name"
             required
           />
         </div>
-        {quizFile && (
+        <div className="mb-3">
+          <label className="form-label mt-3">Quiz Link</label>
+          <input
+            type="url"
+            className="form-control"
+            placeholder="Enter link to quiz"
+            value={quizLink}
+            onChange={handleLinkChange}
+            required
+          />
+        </div>
+        {quizLink && (
           <div className="mb-3">
             <p className="text-success">
-              Selected file: <strong>{quizFile.name}</strong>
+              Entered link: <strong>{quizLink}</strong>
             </p>
           </div>
         )}
