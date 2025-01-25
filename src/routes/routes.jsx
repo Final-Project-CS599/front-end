@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import StudentCourses from '../pages/student/courses/Courses.jsx';
 import StudentInstructors from '../pages/student/Instructors';
-import Assignments from '../pages/student/Assignments';
-import Quizzes from '../pages/student/Quizzes';
+import StudentAssignments from '../pages/student/Assignments';
+import StudentQuizzes from '../pages/student/Quizzes';
 import StudentChat from '../pages/student/Chat';
 import Send from '../pages/student/helpDesk/Send.jsx';
 import StudentHome from '../pages/Home';
@@ -15,7 +15,7 @@ import QuizById from '../pages/student/QuizById';
 import Home from './../pages/admin/Home/Home';
 import Student from './../pages/admin/Student/Student';
 import Instructors from './../pages/admin/Instructors/Instructors';
-import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx'
+import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx';
 import RegisterInstructors from './../pages/admin/RegisterInstructors/RegisterInstructors';
 import RegisterStudents from './../pages/admin/RegisterStudent/RegisterStudent';
 import AddAdmin from './../pages/admin/AddAdmin/AddAdmin';
@@ -44,11 +44,11 @@ import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
 import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
 import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
-import Assignments from '../pages/instructor/Assignment/Assignment';
+import Assignments from '../pages/instructor/Assignment/Assignments.jsx';
 import Quizzes from '../pages/instructor/Quizzes/Quizzes';
 import Chat from '../pages/instructor/Chat/Chat';
 import ProfilePage from '../pages/instructor/Profile/Profile';
-import HelpdeskPage from '../pages/instructor/Report/Report'
+import HelpdeskPage from '../pages/instructor/Report/Report';
 import UploadCourse from '../components/shared/UploadCourse';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
@@ -72,11 +72,11 @@ export const studentRoutes = [
   },
   {
     path: '/student/assignments',
-    element: <Assignments />,
+    element: <StudentAssignments />,
   },
   {
     path: '/student/quizzes',
-    element: <Quizzes />,
+    element: <StudentQuizzes />,
   },
 
   // Communication features
