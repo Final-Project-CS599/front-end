@@ -10,7 +10,7 @@ function Cscadmic() {
       doctor: "Dr. John Smith",
       code: "MATH-401",
       description: "An advanced course in mathematical theories and applications.",
-      link: "/course-details/1",
+      link:  '/admin/coursepage',
     },
     {
       id: 2,

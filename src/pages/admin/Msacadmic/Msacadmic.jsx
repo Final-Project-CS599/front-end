@@ -9,7 +9,7 @@ function Mscadmic() {
       doctor: "Dr. John Smith",
       code: "MATH-401",
       description: "An advanced course in mathematical theories and applications.",
-      link: "/course-details/1",
+      link: '/admin/coursepage',
     },
     {
       id: 2,
@@ -17,7 +17,7 @@ function Mscadmic() {
       doctor: "Dr. Sarah Johnson",
       code: "PHYS-201",
       description: "Explores the principles of physics with real-world engineering examples.",
-      link: "/course-details/2",
+      link: '/admin/coursepage',
     },
     {
       id: 3,

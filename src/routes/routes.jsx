@@ -20,6 +20,7 @@ import Isacadmic from '../pages/admin/Isacadmic/Isacadmic.jsx';
 import Msacadmic from '../pages/admin/Msacadmic/Msacadmic.jsx';
 import Oracadmic from '../pages/admin/Oracadmic/Oracadmic.jsx';
 import Csacadmic from '../pages/admin/Csacadmic/Csacadmic.jsx';
+import CoursePage from '../pages/admin/CoursePage/CoursePage.jsx';
 import Programingextra from '../pages/admin/Programingextra/Programingextra.jsx';
 import Backendextra from '../pages/admin/Backendextra/Backendextra.jsx';
 import Languagesextra from '../pages/admin/Languagesextra/Languagesextra.jsx';
@@ -54,6 +55,7 @@ export const router = createBrowserRouter([
       { path: '/admin/digitalextra' , element: <Digitalextra/>},
       {path: '/admin/addnewcourseextra', element:<Addnewcourseextra/>},
       {path:'/admin/addnewcourseacadmic', element: <Addnewcourseacadmic/>},
+      {path:'/admin/coursepage', element: <CoursePage/>},
       {path: '/admin/instructors' , element: <Instructors/>},
       {path: '/admin/student' , element: <Student/>},
       {path: '/admin/profile', element: <Profile /> },
@@ -66,6 +68,7 @@ export const router = createBrowserRouter([
       {path: "/admin/addDepartment", element: <AddDepartment /> },
       {path: "/admin/editStudent/:id", element: <EditStudent /> },
       {path: "/admin/editInstructor/:id", element: <EditInstructor /> },
+      
       
       // login & forget password
       {path: '/login/:token', element: <Login/>},
