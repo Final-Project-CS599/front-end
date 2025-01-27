@@ -134,9 +134,6 @@ export default function AddDepartment() {
                       {sortCol.key === "department_code" &&
                         (sortCol.direction === "asc" ? "↑" : "↓")}
                     </th>
-                    <th>
-                      Action
-                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -145,17 +142,6 @@ export default function AddDepartment() {
                       <td>{item.id}</td>
                       <td>{item.department_name}</td>
                       <td>{item.department_code}</td>
-                      <td>
-                        <button
-                          className="btn buttoncolor shadow"
-                          onClick={() => {
-                            setData(data.filter(dept => dept.id !== item.id));
-                            setMessage("Department deleted successfully!");
-                          }}
-                        >
-                          Delete
-                        </button>
-                      </td>
                     </tr>
                   ))}
                 </tbody>

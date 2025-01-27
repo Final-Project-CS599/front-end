@@ -110,8 +110,8 @@ export default function StudentInfo() {
                   " " +
                   (user.midName ? user.midName + " " : "") +
                   user.lastName
-                }                
-                disabled
+                }   
+                onChange={inputChange}                             
               />
             </div>
 
@@ -120,9 +120,9 @@ export default function StudentInfo() {
               <input
                 type="email"
                 id="email"
-                className="form-control-plaintext"
-                readOnly
+                className="form-control"
                 value={user.email}
+                onChange={inputChange}
               />
             </div>
 
@@ -135,48 +135,45 @@ export default function StudentInfo() {
                 id="national"
                 className=" form-control"
                 value={user.nationalId}
-                disabled
-              />
-            </div>
-
-            <div className="col-md-3">
-              <label htmlFor="date_Birth" className=" pt-3">
-                Birth Date:{" "}
-              </label>
-              <input
-                type="date"
-                id="date_Birth"
-                className=" form-control"
-                value={user.bDate}
                 onChange={inputChange}
               />
             </div>
 
             <div className="col-md-3">
-              <label htmlFor="gender">Select Gender :</label>
-              <select
-                className="form-select mt-3"
-                aria-label="Default select example"
+              <label htmlFor="BirthDate" className=" pt-3">
+                Birth Date:
+              </label>
+              <input
+                type="date"
+                id="BirthDate"
+                className=" form-control"
+                value={user.bDate}
+                disabled
+              />
+            </div>
+
+            <div className="col-md-3">
+              <label htmlFor="gender" className=" pt-3">Gender :</label>
+               <input
+               type="data"
                 id="gender"
+                className=" form-control"
                 value={user.gender}
                 disabled
               >
-                <option value="">Select Gender</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-              </select>
+              </input>
             </div>
 
             <div className="col-md-6">
               <label htmlFor="phone" className=" pt-3">
-                Phone 1<span className="text-danger">*</span> :
+                Phone 1:
               </label>
               <input
                 type="tel"
                 id="phone"
                 className=" form-control"
                 value={user.phone}
-                onChange={inputChange}
+                disabled
               />
             </div>
 
@@ -189,7 +186,7 @@ export default function StudentInfo() {
                 id="phone2"
                 className=" form-control"
                 value={user.phone2}
-                onChange={inputChange}
+                disabled
               />
             </div>
 
