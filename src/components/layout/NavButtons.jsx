@@ -88,11 +88,7 @@ export const instructorNavButtons = [
     icon: <FaBookOpen />,
     to: '/instructor/courses',
   },
-  {
-    text: 'Students',
-    icon: <FaUsers />,
-    to: '/instructor/students',
-  },
+ 
   {
     text: 'Assignments',
     icon: <MdAssignment />,
