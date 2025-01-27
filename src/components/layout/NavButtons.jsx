@@ -112,6 +112,10 @@ export const instructorNavButtons = [
     text: 'Chat',
     icon: <BiSolidChat />,
     to: '/instructor/chat',
+  }, {
+    text: 'Help Desk',
+    icon: <MdReport />,
+    to: '/instructor/report',
   },
 ];
 
