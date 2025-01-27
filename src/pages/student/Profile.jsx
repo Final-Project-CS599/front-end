@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
-import { Bounce, toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useUpdateProfile } from '../../api/student/EditProfile';
 import { showToast } from '../../utils/toast';
 

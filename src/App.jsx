@@ -2,7 +2,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/routes.jsx';
 import UserContextProvider from './Context/UserContext.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient();
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <UserContextProvider>
         <RouterProvider router={router} />
       </UserContextProvider>
-      <ReactQueryDevtools initialIsOpen="false" position="bottom-right" />
+      {/* <ReactQueryDevtools initialIsOpen="false" position="bottom-right" /> */}
     </QueryClientProvider>
   );
 }

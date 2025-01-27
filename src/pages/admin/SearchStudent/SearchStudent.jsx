@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGetDepartmentsData } from "../../../api/admin/GetDepartments";
 //import axios from "axios";
 
 const mockData = [
@@ -8,7 +9,7 @@ const mockData = [
     firstName: "John",
     lastName: "Doe",
     email: "john@example.com",
-    department: "Math",
+    department: "Computer Science",
     phone: "",
     phone2: "",
     course: [
@@ -81,6 +82,9 @@ export default function SearchStudent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const { data: departmentData } = useGetDepartmentsData();
+
+
   /* A method used for front-end demo data, it initiates loading of data. 
 it starts to check the fields and checks if there is an equal data, if not it moves to the next field. It fills the found data.*/
   const handleSearch = () => {
@@ -137,7 +141,7 @@ it starts to check the fields and checks if there is an equal data, if not it mo
 
   return (
     <>
-      <div className="container ms-5 mt-3" style={{width: "95%"}}>
+      <div className="container ms-5 mt-3" style={{ width: "95%" }}>
         {/*-------div made for the form of search fields and contains setSearch method to reflect the change to the table-----------------------*/}
         <div>
           <form
@@ -163,10 +167,12 @@ it starts to check the fields and checks if there is an equal data, if not it mo
                     })
                   }
                 >
-                  <option value="">Choose Department</option>
-                  <option value="Math">Math</option>
-                  <option value="CS">CS</option>
-                  <option value="Arts">Arts</option>
+                  <option value="">Choose A department</option>
+                  {departmentData?.departments?.map((department) => (  
+                    <option key={department.id} value={department.department_name}>
+                      {department.department_name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

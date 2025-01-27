@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import InstructorInfo from "./InstructorInfo";
 import InstructorCourses from "./InstructorCourses";
+import InstructorInfo from "./InstructorInfo";
 
 
 const mockData = [
@@ -76,8 +76,8 @@ const mockData = [
 export default function EditInstructor() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
- 
- 
+
+
   useEffect(() => {
     const selectedUser = mockData.find((item) => item.id === parseInt(id));
     setUser(selectedUser);
@@ -88,22 +88,22 @@ export default function EditInstructor() {
 
   return (
     <>
-    <h3 className="pb-4">Edit Instructor </h3>
+      <h3 className="pb-4">Edit Instructor </h3>
       <ul className="nav nav-pills">
-  <li className="nav-item">
-    <a className="nav-link active" data-bs-toggle="tab" aria-current="page" href="#InstructorInfo">Instructor Info</a>
-  </li>
-  <li className="nav-item">
-    <a className="nav-link" data-bs-toggle="tab" href="#InstructorCourses">Instructor Courses</a>
-  </li>
-</ul>
-<div className="w-75 mx-auto mt-5">
+        <li className="nav-item">
+          <a className="nav-link active" data-bs-toggle="tab" aria-current="page" href="#InstructorInfo">Instructor Info</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" data-bs-toggle="tab" href="#InstructorCourses">Instructor Courses</a>
+        </li>
+      </ul>
+      <div className="w-75 mx-auto mt-5">
 
-<div className="tab-content">
-  <div className="tab-pane container active" id="InstructorInfo"><InstructorInfo/></div>
-  <div className="tab-pane container fade" id="InstructorCourses"><InstructorCourses/></div>
-</div>
-</div>
+        <div className="tab-content">
+          <div className="tab-pane container active" id="InstructorInfo"><InstructorInfo /></div>
+          <div className="tab-pane container fade" id="InstructorCourses"><InstructorCourses /></div>
+        </div>
+      </div>
     </>
   );
 }

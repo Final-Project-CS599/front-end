@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useGetDepartmentsData } from "../../../api/admin/GetDepartments";
 
 const mockData = [
   {
@@ -7,7 +8,7 @@ const mockData = [
     firstName: "John",
     lastName: "Doe",
     email: "john@example.com",
-    department: "Math",
+    department: "Computer Science",
     phone: "",
     phone2: "",
     course: [
@@ -73,6 +74,7 @@ const mockData = [
 export default function InstructorInfo() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
+  const { data: departmentData } = useGetDepartmentsData();
 
   const inputChange = (e) => {
     const { name, value } = e.target;
@@ -111,7 +113,6 @@ export default function InstructorInfo() {
                   " " +
                   user.lastName
                 }                
-                disabled
               />
             </div>
 
@@ -120,8 +121,7 @@ export default function InstructorInfo() {
               <input
                 type="email"
                 id="email"
-                className="form-control-plaintext"
-                readOnly
+                className="form-control"
                 value={user.email}
               />
             </div>
@@ -164,9 +164,11 @@ export default function InstructorInfo() {
                 onChange={inputChange}
               >
                 <option value="">{user.department}</option>
-                <option value="1">Department 1</option>
-                <option value="2">Department 2</option>
-                <option value="3">Department 3</option>
+                  {departmentData?.departments?.map((department) => (  
+                    <option key={department.id} value={department.department_name}>
+                      {department.department_name}
+                    </option>
+                  ))}
               </select>
             </div>
           </form>
@@ -175,9 +177,6 @@ export default function InstructorInfo() {
 
         <br />
         <div className="mt-3 d-flex justify-content-end">
-          <button className="btn buttoncolor shadow me-2">
-            Delete Instructor
-          </button>
           <button className="btn buttoncolor shadow" onClick={submit}>
             Update
           </button>

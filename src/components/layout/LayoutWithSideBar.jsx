@@ -4,7 +4,7 @@ import MobileNav from '../layout/MobileNav';
 import SideBar from '../layout/SideBar';
 
 const LayoutWithSideBar = () => {
-  localStorage.setItem('userRole', 'instructor');
+  localStorage.setItem('userRole', 'student');
   return (
     <div className="">
       <NavBar />

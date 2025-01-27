@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGetDepartmentsData } from "../../../api/admin/GetDepartments";
 //import { Link } from "react-router-dom";
 //import axios from "axios";
 //import { HelmetProvider, Helmet } from "react-helmet-async";
@@ -10,7 +11,7 @@ const mockData = [
     firstName: "John",
     lastName: "Doe",
     email: "john@example.com",
-    department: "Math",
+    department: "Computer Science",
     phone: "",
     phone2: "",
     course: [
@@ -73,6 +74,7 @@ const mockData = [
 ];
 
 export default function SearchInstructors() {
+  const { data: departmentData } = useGetDepartmentsData();
   const [searchParams, setSearchParams] = useState({
     firstName: "",
     lastName: "",
@@ -83,6 +85,10 @@ export default function SearchInstructors() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+ 
+
+
 
   /* A method used for front-end demo data, it initiates loading of data. 
 it starts to check the fields and checks if there is an equal data, if not it moves to the next field. It fills the found data.*/
@@ -139,7 +145,7 @@ it starts to check the fields and checks if there is an equal data, if not it mo
 
   return (
     <>
-      <div className=" container ms-5 mt-3"  style={{width: "95%"}}>
+      <div className=" container ms-5 mt-3" style={{ width: "95%" }}>
         {/*-------div made for the form of search fields and contains setSearch method to reflect the change to the table-----------------------*/}
         <div>
           <form
@@ -165,55 +171,57 @@ it starts to check the fields and checks if there is an equal data, if not it mo
                     })
                   }
                 >
-                  <option value="">Choose Department</option>
-                  <option value="Math">Math</option>
-                  <option value="CS">CS</option>
-                  <option value="Arts">Arts</option>
+                  <option value="">Choose A department</option>
+                  {departmentData?.departments?.map((department) => (
+                    <option key={department.id} value={department.department_name}>
+                      {department.department_name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
 
-            
-              <div className="col row mt-4">
-                <label htmlFor="firstName" className="col-sm-2 col-form-label">
-                  First Name
-                </label>
-                <div className="col-7">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="firstName"
-                    placeholder="First name"
-                    value={searchParams.firstName}
-                    onChange={(e) =>
-                      setSearchParams({
-                        ...searchParams,
-                        firstName: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+
+            <div className="col row mt-4">
+              <label htmlFor="firstName" className="col-sm-2 col-form-label">
+                First Name
+              </label>
+              <div className="col-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  placeholder="First name"
+                  value={searchParams.firstName}
+                  onChange={(e) =>
+                    setSearchParams({
+                      ...searchParams,
+                      firstName: e.target.value,
+                    })
+                  }
+                />
               </div>
-              <div className="col row mt-4">
-                <label htmlFor="lastName" className="col-sm-2 col-form-label">
-                  Last Name
-                </label>
-                <div className="col-7">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="lastName"
-                    placeholder="Last name"
-                    value={searchParams.lastName}
-                    onChange={(e) =>
-                      setSearchParams({
-                        ...searchParams,
-                        lastName: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+            </div>
+            <div className="col row mt-4">
+              <label htmlFor="lastName" className="col-sm-2 col-form-label">
+                Last Name
+              </label>
+              <div className="col-7">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                  placeholder="Last name"
+                  value={searchParams.lastName}
+                  onChange={(e) =>
+                    setSearchParams({
+                      ...searchParams,
+                      lastName: e.target.value,
+                    })
+                  }
+                />
               </div>
+            </div>
 
             <button type="submit" className="btn buttoncolor shadow mt-4">
               Search

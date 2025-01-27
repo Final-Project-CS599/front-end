@@ -211,9 +211,6 @@ export default function StudentInfo() {
         </div>
         <br />
         <div className="mt-3 d-flex justify-content-end">
-          <button className="btn buttoncolor shadow me-2">
-            Delete Student
-          </button>
           <button className="btn buttoncolor shadow" onClick={submit}>
             Update
           </button>

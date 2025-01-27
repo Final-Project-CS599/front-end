@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import { addDepartment, useGetDepartmentsData } from "../../../api/admin/GetDepartments";
+import { showToast } from "../../../utils/toast";
+import { ToastContainer } from "react-toastify";
 
 export default function AddDepartment() {
-  const [data, setData] = useState([]);
   const [formData, setFormData] = useState({
     department_name: "",
     department_code: "",
   });
-  const [message, setMessage] = useState("");
   const [sortCol, setSortCol] = useState({ key: null, direction: "asc" });
+
+  const { data: departmentData, refetch } = useGetDepartmentsData();
+  
+  const [sortedDepartments, setSortedDepartments] = useState([]);
+
+  // Update sortedDepartments when departmentData changes
+  useEffect(() => {
+    if (departmentData?.departments) {
+      setSortedDepartments([...departmentData.departments]);
+    }
+  }, [departmentData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,31 +37,53 @@ export default function AddDepartment() {
     }
     setSortCol({ key, direction });
 
-    const sortedData = [...data].sort((a, b) => {
-      if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
-      if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
-      return 0;
+    const sorted = [...sortedDepartments].sort((a, b) => {
+      // Handle numeric sorting for id
+      if (key === "id") {
+        return direction === "asc"
+          ? a[key] - b[key]
+          : b[key] - a[key];
+      }
+
+      // Handle string sorting for other columns
+      const aValue = (a[key] || "").toLowerCase();
+      const bValue = (b[key] || "").toLowerCase();
+
+      if (direction === "asc") {
+        return aValue.localeCompare(bValue);
+      } else {
+        return bValue.localeCompare(aValue);
+      }
     });
 
-    setData(sortedData);
+    setSortedDepartments(sorted);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const newDepartment = {
-      id: data.length + 1,
-      ...formData
-    };
 
-    setData([...data, newDepartment]);
-    setMessage("Department added successfully!");
-    
-    setFormData({
-      department_name: "",
-      department_code: ""
-    });
+    try {
+      // Assuming useAddDepartment().mutateAsync is available
+      await addDepartment({
+        department_name: formData.department_name,
+        department_code: formData.department_code,
+      });
+
+      showToast("Department added successfully!");
+      setFormData({
+        department_name: "",
+        department_code: ""
+      });
+
+      // Refetch departments data after adding
+      refetch();
+    } catch (error) {
+      console.log(error);
+
+      showToast("Error adding department: " + error.response.data.message, 'error');
+    }
   };
+
 
   return (
     <>
@@ -106,58 +140,44 @@ export default function AddDepartment() {
           </form>
 
           <div>
-            <div>
-              <table className="table table-light table-bordered table-striped mt-3 w-75">
-                <thead>
-                  <tr>
-                    <th
-                      onClick={() => handleSort("id")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      #{" "}
-                      {sortCol.key === "id" &&
-                        (sortCol.direction === "asc" ? "↑" : "↓")}
-                    </th>
-                    <th
-                      onClick={() => handleSort("department_name")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      Department Name{" "}
-                      {sortCol.key === "department_name" &&
-                        (sortCol.direction === "asc" ? "↑" : "↓")}
-                    </th>
-                    <th
-                      onClick={() => handleSort("department_code")}
-                      style={{ cursor: "pointer" }}
-                    >
-                      Department Code{" "}
-                      {sortCol.key === "department_code" &&
-                        (sortCol.direction === "asc" ? "↑" : "↓")}
-                    </th>
+            <table className="table table-light table-bordered table-striped mt-3 w-75">
+              <thead>
+                <tr>
+                  <th onClick={() => handleSort("id")} style={{ cursor: "pointer" }}>
+                    # {sortCol.key === "id" && (
+                      <span>{sortCol.direction === "asc" ? "↑" : "↓"}</span>
+                    )}
+                  </th>
+                  <th onClick={() => handleSort("department_name")} style={{ cursor: "pointer" }}>
+                    Department Name {sortCol.key === "department_name" && (
+                      <span>{sortCol.direction === "asc" ? "↑" : "↓"}</span>
+                    )}
+                  </th>
+                  <th onClick={() => handleSort("department_code")} style={{ cursor: "pointer" }}>
+                    Department Code {sortCol.key === "department_code" && (
+                      <span>{sortCol.direction === "asc" ? "↑" : "↓"}</span>
+                    )}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedDepartments.map((item) => (
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.department_name}</td>
+                    <td>{item.department_code}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {data.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
-                      <td>{item.department_name}</td>
-                      <td>{item.department_code}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {data.length === 0 && (
+                ))}
+              </tbody>
+            </table>
+            {sortedDepartments.length === 0 && (
               <div className="w-75 text-center">No results found.</div>
             )}
           </div>
 
-          {message && (
-            <div className="alert mt-4" role="alert">
-              {message}
-            </div>
-          )}
         </div>
+        <ToastContainer />
+
       </HelmetProvider>
     </>
   );

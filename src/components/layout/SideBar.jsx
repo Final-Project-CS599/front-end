@@ -1,9 +1,8 @@
-import React from 'react';
+import { FaUser } from 'react-icons/fa';
 import { IoMdSettings } from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
-import { getNavButtonsByRole } from './NavButtons';
 import NavButton from '../shared/NavButton';
-import { FaUser } from 'react-icons/fa';
+import { getNavButtonsByRole } from './NavButtons';
 
 const SideBar = () => {
   const userRole = localStorage.getItem('userRole'); // Or your auth logic
