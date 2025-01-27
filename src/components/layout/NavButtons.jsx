@@ -88,15 +88,11 @@ export const instructorNavButtons = [
     icon: <FaBookOpen />,
     to: '/instructor/courses',
   },
-  {
-    text: 'Students',
-    icon: <FaUsers />,
-    to: '/instructor/students',
-  },
+ 
   {
     text: 'Assignments',
     icon: <MdAssignment />,
-    to: '/instructor/assignments',
+    to: '/instructor/assignment',
   },
   {
     text: 'Quizzes',
@@ -112,6 +108,10 @@ export const instructorNavButtons = [
     text: 'Chat',
     icon: <BiSolidChat />,
     to: '/instructor/chat',
+  }, {
+    text: 'Help Desk',
+    icon: <MdReport />,
+    to: '/instructor/report',
   },
 ];
 

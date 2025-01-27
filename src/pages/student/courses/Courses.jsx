@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from '../../../components/shared/Card';
 import img from '../../../assets/images/student/7040859.jpg';
 

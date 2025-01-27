@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './UploadCourses.css'
+import './UploadCourses.css';
 function UploadCourse() {
   const [courseDetails, setCourseDetails] = useState({
     title: '',
@@ -7,39 +7,38 @@ function UploadCourse() {
     courseCode: '',
     uploadDate: '',
     instructor: '',
-    material: null
+    courseLink: '', 
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCourseDetails({
       ...courseDetails,
-      [name]: value
-    });
-  };
-
-  const handleFileChange = (e) => {
-    setCourseDetails({
-      ...courseDetails,
-      material: e.target.files[0]
+      [name]: value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // هنا يمكن إضافة الكود الذي يتعامل مع البيانات المدخلة مثل إرسالها إلى الخادم
-    alert('تمت العملية بنجاح');
+    if (!courseDetails.courseLink) {
+      alert('Please enter a quiz link before submitting.');
+      return;
+    }
+    console.log('Submitting form:', courseDetails);
+    alert('Course material uploaded successfully!');
   };
 
   return (
     <div className="container-upload my-3">
-      <h1 className="mb-4" style={{ color: "#6f42c1" }}>
+      <h1 className="mb-4" style={{ color: '#6f42c1' }}>
         Upload Course Material
       </h1>
       <form onSubmit={handleSubmit}>
         {/* Title Input */}
         <div className="mb-3">
-          <label htmlFor="title" className="form-label"> Title</label>
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
           <input
             type="text"
             className="form-control"
@@ -53,7 +52,9 @@ function UploadCourse() {
 
         {/* Description Input */}
         <div className="mb-3">
-          <label htmlFor="description" className="form-label"> Description</label>
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
           <textarea
             className="form-control"
             id="description"
@@ -67,7 +68,9 @@ function UploadCourse() {
 
         {/* Course Code Input */}
         <div className="mb-3">
-          <label htmlFor="courseCode" className="form-label"> Code</label>
+          <label htmlFor="courseCode" className="form-label">
+            Code
+          </label>
           <input
             type="text"
             className="form-control"
@@ -81,7 +84,9 @@ function UploadCourse() {
 
         {/* Upload Date Input */}
         <div className="mb-3">
-          <label htmlFor="uploadDate" className="form-label">Upload Date</label>
+          <label htmlFor="uploadDate" className="form-label">
+            Upload Date
+          </label>
           <input
             type="date"
             className="form-control"
@@ -95,7 +100,9 @@ function UploadCourse() {
 
         {/* Instructor Input */}
         <div className="mb-3">
-          <label htmlFor="instructor" className="form-label">Instructor Name</label>
+          <label htmlFor="instructor" className="form-label">
+            Instructor Name
+          </label>
           <input
             type="text"
             className="form-control"
@@ -107,21 +114,36 @@ function UploadCourse() {
           />
         </div>
 
-        {/* Material File Input */}
+        {/* Quiz Link Input */}
         <div className="mb-3">
-          <label htmlFor="material" className="form-label">Upload Material</label>
+          <label htmlFor="courseLink" className="form-label">
+            Quiz Link
+          </label>
           <input
-            type="file"
+            type="url"
             className="form-control"
-            id="material"
-            name="material"
-            onChange={handleFileChange}
+            id="courseLink"
+            name="courseLink"
+            value={courseDetails.courseLink}
+            onChange={handleInputChange}
+            placeholder="Enter link to quiz"
             required
           />
         </div>
 
+        {/* Display Quiz Link */}
+        {courseDetails.courseLink && (
+          <div className="mb-3">
+            <p className="text-success">
+              Entered link: <strong>{courseDetails.courseLink}</strong>
+            </p>
+          </div>
+        )}
+
         {/* Submit Button */}
-        <button type="submit" className="btn btn-primary w-100">Upload Material</button>
+        <button type="submit" className="btn btn-success">
+          Upload Material
+        </button>
       </form>
     </div>
   );

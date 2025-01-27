@@ -1,11 +1,10 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBar from '../layout/NavBar';
 import MobileNav from '../layout/MobileNav';
 import SideBar from '../layout/SideBar';
 
 const LayoutWithSideBar = () => {
-  localStorage.setItem('userRole', 'admin');
+  localStorage.setItem('userRole', 'instructor');
   return (
     <div className="">
       <NavBar />
