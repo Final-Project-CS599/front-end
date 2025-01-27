@@ -96,7 +96,7 @@ export const instructorNavButtons = [
   {
     text: 'Assignments',
     icon: <MdAssignment />,
-    to: '/instructor/assignments',
+    to: '/instructor/assignment',
   },
   {
     text: 'Quizzes',

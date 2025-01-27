@@ -44,7 +44,7 @@ import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
 import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
 import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
-// import Assignments from '../pages/instructor/Assignment/Assignments';
+import Assignments from '../pages/instructor/Assignment/Assignments';
 import QuizzesInstructor from '../pages/instructor/Quizzes/Quizzes';
 import Chat from '../pages/instructor/Chat/Chat';
 import ProfilePage from '../pages/instructor/Profile/Profile';
@@ -54,6 +54,7 @@ import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import MyCourses from '../pages/instructor/courses/mycourses';
 import ViewQuizz from '../pages/instructor/Quizzes/viewquiz.jsx';
+import ViewAssignment from '../pages/instructor/Assignment/AssignmenView.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -166,6 +167,8 @@ export const router = createBrowserRouter([
       { path: '/Quizzes-details', element: <QuizDetailsPage /> },
       { path: '/view-quiz', element: <ViewQuizz /> },
       { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
+      { path: '/instructor/Assignment/view-assignment', element: <ViewAssignment/> },
+
 
       // login & forget password
       { path: '/login/:token', element: <Login /> },
