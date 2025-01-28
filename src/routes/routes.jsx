@@ -28,6 +28,9 @@ import Digitalextra from '../pages/admin/Digitalextra/Digitalextra.jsx';
 import Frontendextra from '../pages/admin/Frontendextra/Frontendextra.jsx';
 import Addnewcourseacadmic from'../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
 import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
+import PaymentContent from '../pages/admin/PaymentContent/PaymentContent.jsx';
+import AllCourses from '../pages/admin/AllCourses/Allcourses.jsx';
+import AddNewCourse from '../pages/admin/AddNewCourse/AddNewCourse.jsx';
 import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
 import AddDepartment from "../pages/admin/AddDepartment/AddDepartment.jsx";
 import EditStudent from "../pages/admin/EditStudent/EditStudent.jsx";
@@ -56,6 +59,9 @@ export const router = createBrowserRouter([
       {path: '/admin/addnewcourseextra', element:<Addnewcourseextra/>},
       {path:'/admin/addnewcourseacadmic', element: <Addnewcourseacadmic/>},
       {path:'/admin/coursepage', element: <CoursePage/>},
+      {path:'/admin/paymentcontent', element: <PaymentContent/>},
+      {path:'/admin/allcourses', element: <AllCourses/>},
+      {path: '/admin/addnewcourse', element: <AddNewCourse/>},
       {path: '/admin/instructors' , element: <Instructors/>},
       {path: '/admin/student' , element: <Student/>},
       {path: '/admin/profile', element: <Profile /> },

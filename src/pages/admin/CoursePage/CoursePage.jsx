@@ -18,6 +18,7 @@ function CoursePage() {
     endTime: "2025-01-30 12:00 PM",
     description: "An advanced course in mathematical theories and applications.",
   });
+  
 
   const [students, setStudents] = useState([]); // قائمة الطلاب
   const [newStudent, setNewStudent] = useState({ name: "", id: "" }); // بيانات الطالب الجديد
