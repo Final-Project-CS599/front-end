@@ -41,7 +41,7 @@ export default function Login() {
 
     let validateScheme =yup.object({
         email: yup.string().email('Email is invalid').required('Email is required'),
-        password: yup.string().matches(/^[A-Z][a-z0-9]{5,10}$/ , 'Password start with uppercase').required('Password is required')
+        password: yup.string().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z]).{8,}$/ , 'Password start with uppercase').required('Password is required')
     });
     let formik = useFormik({
         initialValues :{
