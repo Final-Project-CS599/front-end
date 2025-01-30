@@ -36,15 +36,13 @@ function Courses() {
                             <h2>Extra</h2>
                             <p>These are extra courses that the student enrolls and buying through the platform, It is available to any student on the platform.</p>
                         </div>
-                    </Link>              
+                </Link>              
                 </div>
-
 
             </main>
 
           
-
-         {/* btn add new course */}
+         {/* btn add new course
          <div className="d-flex justify-content-end mt-3">
                   <a href='/admin/addnewcourse' className="btn"
                     style={{ backgroundColor: "#ffffff", color: "#7F55E0", border: "2px solid #7F55E0", borderRadius: "15px", padding: "10px 20px",
@@ -55,10 +53,10 @@ function Courses() {
                   >
                   Add New Course
                   </a>
-              </div>
+        </div> */}
         
         </div>
     </HelmetProvider>
 </>
                    }
-export default Courses
+export default Courses;
