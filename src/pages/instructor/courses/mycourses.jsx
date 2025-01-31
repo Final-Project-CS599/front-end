@@ -1,140 +1,63 @@
-// import CourseCard from "../../../components/courseCard";
-import './courses.css'
-// const coursesData = [
-//   {  title: "CS Courses", description: "Learn the basics of Computer science field." },
-//   { title: "IT Courses", description: "Learn the basics of Information tech field."},
-//   {  title: "Front-End courses ", description: "Master Bootstrap for responsive designs."},
-//   {  title: "Back-End courses ", description: "Master Bootstrap for responsive designs." },
-//   {  title: "DB courses ", description: "Master Bootstrap for responsive designs." },
-//   {  title: "MS courses ", description: "Master Bootstrap for responsive designs." },
-// ];
-import { useNavigate } from 'react-router-dom';
-function MyCourses() {
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { Button, Table } from "react-bootstrap";
+
+const MyCourses = ({ instructorId }) => {
+  const [materials, setMaterials] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    fetchMaterials();
+  }, []);
+
+  const fetchMaterials = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/courseMaterial/view?instructorId=${instructorId}`);
+      setMaterials(response.data);
+    } catch (error) {
+      console.error("Error fetching materials", error);
+    }
+  };
+
+  const handleDelete = async (m_id) => {
+    try {
+      await axios.delete("http://localhost:5000/courseMaterial/delete", { data: { m_id } });
+      setMaterials(materials.filter((material) => material.m_id !== m_id));
+    } catch (error) {
+      console.error("Error deleting material", error);
+    }
+  };
+
   return (
-    <>
-      <div className="container my-1">
-        <h1 className="mb-4 fs-1" style={{ color: "#6f42c1" }}>
-          Courses
-        </h1>
-
-        <div className="row g-3">
-          {/* Card 1 */}
-          <div className="col-lg-4 col-md-6">
-            <div className='card p-1'>
-            <div className="card p-2">
-              <div className="card-body">
-                <h5 className="card-title">CS500</h5>
-                <p className="card-text">Learn the basics of Computer science field.</p>
-                <button
-                   onClick={() => navigate("/UploadCourse")}
-                  className="card-btn rounded-pill border border-5 text-center ms-4"
-                >
-                  Upload Course Now
-                </button>
-              </div>
-            </div>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="col-lg-4 col-md-6">
-          <div className='card p-1'>
-            <div className="card p-2">
-              <div className="card-body">
-                <h5 className="card-title">cs503</h5>
-                <p className="card-text">Learn the basics of Information tech field.</p>
-                <button
-                  onClick={() => navigate("/UploadCourse")}
-                  className="card-btn rounded-pill border border-5 text-center ms-4"
-                >
-                  Upload Course Now
-                </button>
-              </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="col-lg-4 col-md-6">
-          <div className='card p-1'>
-            <div className="card p-2">
-              <div className="card-body">
-                <h5 className="card-title">Cs510</h5>
-                <p className="card-text">Master MS for Math Science.</p>
-                <button
-                   onClick={() => navigate("/UploadCourse")}
-                  className="card-btn rounded-pill border border-5  text-center ms-4"
-                >
-                  Upload Course Now
-                </button>
-              </div>
-            </div>
-            </div>
-          </div>
-        </div>
-        {/*row 2*/}
-        <div className="row g-3 mt-1">
-          {/* Card 1 */}
-          <div className="col-lg-4 col-md-6">
-          <div className='card p-1'>
-            <div className="card p-2">
-              <div className="card-body">
-                <h5 className="card-title">MS500</h5>
-                <p className="card-text">Master Front-End for responsive designs.</p>
-                <button
-                   onClick={() => navigate("/UploadCourse")}
-                  className="card-btn rounded-pill border border-5  text-center ms-4"
-                >
-                  Upload Course Now
-                </button>
-              </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Card 2 */}
-          <div className="col-lg-4 col-md-6">
-          <div className='card p-1'>
-            <div className="card p-2">
-              <div className="card-body">
-                <h5 className="card-title">MS507</h5>
-                <p className="card-text">Master Back-End for responsive designs.</p>
-                <button
-                  onClick={()=>navigate('/UploadCourse')}
-                  className="card-btn rounded-pill border border-5  text-center ms-4"
-                >
-                  Upload Course Now
-                </button>
-              </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="col-lg-4 col-md-6">
-          <div className='card p-1'>
-            <div className="card p-2">
-              <div className="card-body">
-                <h5 className="card-title">MS527</h5>
-                <p className="card-text">This is DB Courses description.</p>
-                <button
-                  onClick={()=>navigate('/UploadCourse')}
-                  className="card-btn rounded-pill border border-5  text-center ms-4"
-                >
-                  Upload Course Now
-                </button>
-              </div>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <div className="container mt-4">
+      <h2>Course Materials</h2>
+      <Button variant="primary" onClick={() => navigate("/add-material")}>Add Material</Button>
+      <Table striped bordered hover className="mt-3">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {materials.map((material) => (
+            <tr key={material.m_id}>
+              <td>{material.m_title}</td>
+              <td>{material.m_description}</td>
+              <td>{material.m_type}</td>
+              <td>
+                <Button variant="warning" onClick={() => navigate(`/edit-material/${material.m_id}`)}>Edit</Button>
+                <Button variant="danger" onClick={() => handleDelete(material.m_id)} className="ms-2">Delete</Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
-}
-
-
+};
 
 export default MyCourses;

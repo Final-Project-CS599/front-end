@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Form, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const AssignmentDetails = () => {
+const EditAssignment = () => {
+  const { assignmentId } = useParams(); // الحصول على المعرف من الـ URL
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
   const [publishDate, setPublishDate] = useState('');
@@ -13,6 +14,29 @@ const AssignmentDetails = () => {
   const [instructorId, setInstructorId] = useState('');
   const [courseId, setCourseId] = useState('');
   const navigate = useNavigate();
+
+  // تحميل البيانات الحالية للتعيين عند تحميل الصفحة
+  useEffect(() => {
+    const fetchAssignmentData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/get-assignment/${assignmentId}`);
+        const assignment = response.data.Assignment;
+        setType(assignment.a_type);
+        setDescription(assignment.a_description);
+        setPublishDate(assignment.a_publish_date.split('T')[0]); // تنسيق تاريخ النشر
+        setTitle(assignment.a_title);
+        setLink(assignment.a_link);
+        setDegree(assignment.a_degree);
+        setInstructorId(assignment.a_instructor_id);
+        setCourseId(assignment.a_courseId);
+      } catch (error) {
+        console.error('Error fetching assignment data:', error);
+        alert('Failed to load assignment data');
+      }
+    };
+
+    fetchAssignmentData();
+  }, [assignmentId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +61,7 @@ const AssignmentDetails = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/add-assignment', {
+      const response = await axios.put(`http://localhost:5000/edit-assignment/${assignmentId}`, {
         type,
         description,
         publish_date: publishDate,
@@ -47,17 +71,17 @@ const AssignmentDetails = () => {
         instructor_id: instructorId,
         courseId
       });
-      alert('Assignment Added');
+      alert('Assignment Updated');
       navigate('/assignments'); // إعادة التوجيه إلى قائمة التعيينات
     } catch (error) {
-      console.error('Error adding assignment:', error);
-      alert('Failed to add assignment');
+      console.error('Error updating assignment:', error);
+      alert('Failed to update assignment');
     }
   };
 
   return (
     <Container>
-      <h2 className="mt-4">Add Assignment</h2>
+      <h2 className="mt-4">Edit Assignment</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formType" className="mb-3">
           <Form.Label>Type</Form.Label>
@@ -139,11 +163,11 @@ const AssignmentDetails = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Add Assignment
+          Update Assignment
         </Button>
       </Form>
     </Container>
   );
 };
 
-export default AssignmentDetails;
+export default EditAssignment;

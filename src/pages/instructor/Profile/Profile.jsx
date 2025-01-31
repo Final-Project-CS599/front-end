@@ -1,132 +1,147 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import { ToastContainer } from 'react-toastify';
+import { useUpdatesProfile } from '../../../api/instructor/EditProfile.jsx';
+import { showToast } from '../../../utils/toast';
 
-function ProfilePage() {
-  const [profileData, setProfileData] = useState({
-    name: '',
-    email: '',
-    // specialization: '',
-    profilePicture: '',
-    id: '' // أضف `id` هنا إذا كان مطلوبًا
-   ,onSubmit:(values)=>{
-        console.log(values);
-        
-   }
-  });
-  const [isEditing, setIsEditing] = useState(false);
-  const [newProfileData, setNewProfileData] = useState({ ...profileData });
-  const [newImage, setNewImage] = useState(null);
-  const id = profileData.id;
-  useEffect(() => {
-    axios.get(`http://localhost:3000/profile/view-profile/${id}`)
-      .then(response => {
-        setProfileData(response.data);
-        setNewProfileData(response.data);
-      })
-      .catch(error => console.log(error));
-  });
+const ProfilePage = () => {
+  const [phoneNumbers, setPhoneNumbers] = useState(['']);
+  const [password, setPassword] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [gender, setGender] = useState('Male');
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewProfileData({
-      ...newProfileData,
-      [name]: value
-    });
+  const { mutate, isLoading } = useUpdatesProfile();
+
+  const handlePhoneNumberChange = (index, value) => {
+    const newPhoneNumbers = [...phoneNumbers];
+    newPhoneNumbers[index] = value;
+    setPhoneNumbers(newPhoneNumbers);
   };
 
-  const handleImageChange = (e) => {
-    setNewImage(e.target.files[0]);
+  const addPhoneNumber = () => {
+    setPhoneNumbers([...phoneNumbers, '']);
   };
 
-  const handleSave = () => {
-    const formData = new FormData();
-    formData.append('name', newProfileData.name);
-    formData.append('email', newProfileData.email);
-    // formData.append('specialization', newProfileData.specialization);
-    if (newImage) {
-      formData.append('profilePicture', newImage);
+  // Remove a phone number input
+  const removePhoneNumber = (index) => {
+    const newPhoneNumbers = phoneNumbers.filter((_, i) => i !== index);
+    setPhoneNumbers(newPhoneNumbers);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!password || !birthDate || !gender || phoneNumbers.some((num) => !num)) {
+      showToast('Please fill out all fields.', 'error'); // Show error Toast
+      return;
     }
 
-    const id = profileData.id; // تأكد من وجود `id`
-    const token = localStorage.getItem('token'); // أو اجلب التوكن من مصدر آخر
+    // Prepare data for submission
+    const profileData = {
+      phoneNumbers,
+      password,
+      birthDate,
+      gender,
+    };
+    mutate(profileData, {
+      onSuccess: () => {
+        showToast('Profile updated successfully!', 'success'); // Show success Toast
+      },
+      onError: (error) => {
+        showToast(`Error: ${error.message}`, 'error'); // Show error Toast
+      },
+    });
 
-    axios.put(`http://localhost:3000/profile/update-profile/${id}`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}` // إذا كان التوكن مطلوبًا
-      }
-    })
-      .then(response => {
-        setProfileData(newProfileData);
-        setIsEditing(false);
-        alert('Profile updated successfully');
-      })
-      .catch(error => {
-        console.error('Error updating profile', error.response?.data || error.message);
-        alert('Failed to update profile. Please try again.');
-      });
+    // Log the data (you can replace this with an API call)
+    console.log('Profile Data:', profileData);
   };
 
   return (
-    <div className="container mt-2">
-      <h2>{isEditing ? 'Edit Profile' : 'My Profile'}</h2>
-      <div className="row">
-        <div className="col-lg-2">
-          <img
-            src={profileData.profilePicture || 'default-profile.jpg'}
-            alt="Profile"
-            className="img-fluid rounded-circle"
-            style={{ width: '150px', height: '150px' }}
-          />
-          {isEditing && (
-            <input type="file" onChange={handleImageChange} className="form-control mt-3" />
-          )}
+    <div className="container">
+      <h3 className="mb-4">Edit Profile</h3>
+      <form onSubmit={handleSubmit}>
+        {/* Phone Numbers */}
+        <div className="mb-3">
+          <label className="form-label">Phone Numbers</label>
+          <div className="d-flex gap-2 align-items-center">
+            {phoneNumbers.map((phone, index) => (
+              <div key={index} className="input-group w-50">
+                <input
+                  type="text"
+                  className="form-control "
+                  placeholder="Enter phone number"
+                  value={phone}
+                  onChange={(e) => handlePhoneNumberChange(index, e.target.value)}
+                  required
+                />
+                {phoneNumbers.length > 1 && (
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => removePhoneNumber(index)}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
+            ))}
+
+            <FaPlus onClick={addPhoneNumber} className="fs-3 text-purple" />
+          </div>
         </div>
-        <div className="col-lg-8">
-          <div className="mb-3">
-            <label>Name</label>
+
+        {/* Password and Birth Date */}
+        <div className="row my-5">
+          <div className="col-md-6">
+            <label className="form-label">Password</label>
             <input
-              type="text"
-              name="name"
-              value={newProfileData.name}
-              onChange={handleInputChange}
-              disabled={!isEditing}
+              type="password"
               className="form-control"
+              placeholder="Enter new password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
-
-          <div className="mb-3">
-            <label>Email</label>
+          <div className="col-md-6">
+            <label className="form-label">Birth Date</label>
             <input
-              type="email"
-              name="email"
-              value={newProfileData.email}
-              onChange={handleInputChange}
-              disabled={!isEditing}
+              type="date"
               className="form-control"
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+              required
             />
           </div>
-
-          {/* <div className="mb-3">
-            <label>Specialization</label>
-            <input
-              type="text"
-              name="specialization"
-              value={newProfileData.specialization}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-              className="form-control"
-            />
-          </div> */}
-
-          {isEditing ? (
-            <button onClick={handleSave} className="btn btn-primary">Save</button>
-          ) : (
-            <button onClick={() => setIsEditing(true)} className="btn btn-secondary">Edit</button>
-          )}
         </div>
-      </div>
+
+        <div className="row mb-3">
+          <div className="col-md-6">
+            <label className="form-label">Gender</label>
+            <select
+              className="form-select"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              required
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div className="d-flex justify-content-end">
+          <button
+            type="submit"
+            className="btn buttoncolor w-25"
+            disabled={isLoading} // Disable the button while loading
+          >
+            {isLoading ? 'Saving...' : 'Save Changes'}
+          </button>
+        </div>
+      </form>
+      <ToastContainer />
     </div>
   );
-}
+};
 
 export default ProfilePage;

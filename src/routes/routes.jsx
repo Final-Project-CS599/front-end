@@ -49,12 +49,14 @@ import QuizzesInstructor from '../pages/instructor/Quizzes/Quizzes';
 import Chat from '../pages/instructor/Chat/Chat';
 import ProfilePage from '../pages/instructor/Profile/Profile';
 import HelpdeskPage from '../pages/instructor/Report/Report';
-import UploadCourse from '../components/shared/UploadCourse';
+import AddMaterial from '../components/shared/UploadCourse';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import MyCourses from '../pages/instructor/courses/mycourses';
 import ViewQuizz from '../pages/instructor/Quizzes/viewquiz.jsx';
 import ViewAssignment from '../pages/instructor/Assignment/AssignmenView.jsx';
+import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
+import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -163,10 +165,12 @@ export const router = createBrowserRouter([
       { path: '/instructor/quizzes', element: <QuizzesInstructor /> },
       { path: '/instructor/chat', element: <Chat /> },
       { path: '/instructor/report', element: <HelpdeskPage /> },
-      { path: '/UploadCourse', element: <UploadCourse /> },
-      { path: '/Quizzes-details', element: <QuizDetailsPage /> },
+      { path: '/add-material', element: <AddMaterial /> },
+      { path: '/add-exam', element: <QuizDetailsPage /> },
       { path: '/view-quiz', element: <ViewQuizz /> },
-      { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
+      {path:'/edit-exam',element:<EditExam/>},
+      { path: '/add-assignment', element: <AssignDetails /> },
+      {path:"/edit-assignment",element:<EditAssignment/>},
       { path: '/instructor/Assignment/view-assignment', element: <ViewAssignment/> },
 
 
