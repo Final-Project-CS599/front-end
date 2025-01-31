@@ -37,7 +37,7 @@ const AssignmentDetails = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/add-assignment', {
+      const response = await axios.post('http://localhost:3000/assignment/add', {
         type,
         description,
         publish_date: publishDate,

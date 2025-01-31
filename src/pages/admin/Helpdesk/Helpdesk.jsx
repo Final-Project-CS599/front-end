@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import Style from './Helpdesk.module.css';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { HelpdeskData } from './HelpdeskDetails.jsx';
+// import { HelpdeskData } from './HelpdeskDetails.jsx';
 
 
 export default function Helpdesk() {
-    const [helpdeskDetails , sethelpdeskDetails] = useState(HelpdeskData);
+    // const [helpdeskDetails , sethelpdeskDetails] = useState(HelpdeskData);
 
-    const handleDone = (id) => {
-        if(id){
-            const updataDetails = helpdeskDetails.filter((data) => data.id !== id);
-            sethelpdeskDetails(updataDetails);
-        }
-        else{
-            sethelpdeskDetails([]);
-        }
-    }    
+    // const handleDone = (id) => {
+    //     if(id){
+    //         const updataDetails = helpdeskDetails.filter((data) => data.id !== id);
+    //         sethelpdeskDetails(updataDetails);
+    //     }
+    //     else{
+    //         sethelpdeskDetails([]);
+    //     }
+    // }    
     return <>
         <HelmetProvider>
             <Helmet>
@@ -28,7 +28,7 @@ export default function Helpdesk() {
                             <div className=' mb-5'> 
                                 <h2 className='text_color fs-1 fw-bold'>Helpdesk</h2>
                             </div>
-                            {
+                            {/* {
                                 helpdeskDetails.length > 0 ? (
                                     helpdeskDetails.map((data , index)=>{
                                         return(
@@ -54,7 +54,7 @@ export default function Helpdesk() {
                                         </div>
                                     </div>
                                 </div>
-                            )}
+                            )} */}
                         </div>
                     </div>
                 </div>
