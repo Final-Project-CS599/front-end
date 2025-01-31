@@ -112,7 +112,8 @@ export default function InstructorInfo() {
                   user.firstName +
                   " " +
                   user.lastName
-                }                
+                } 
+                onChange={inputChange}               
               />
             </div>
 
@@ -123,6 +124,7 @@ export default function InstructorInfo() {
                 id="email"
                 className="form-control"
                 value={user.email}
+                onChange={inputChange}
               />
             </div>
 
@@ -136,7 +138,7 @@ export default function InstructorInfo() {
                 id="phone"
                 className=" form-control"
                 value={user.phone}
-                onChange={inputChange}
+                disabled
               />
             </div>
 
@@ -149,7 +151,7 @@ export default function InstructorInfo() {
                 id="phone2"
                 className=" form-control"
                 value={user.phone2}
-                onChange={inputChange}
+                disabled
               />
             </div>
 

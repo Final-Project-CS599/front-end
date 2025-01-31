@@ -75,11 +75,6 @@ export default function StudentExtraCourses() {
   const [user, setUser] = useState(null);
   const [sortCol, setSortCol] = useState({ key: null, direction: "asc" });
 
-  const deleteCourse = (index) => {
-    const updatedCourses = user.course.filter((_, i) => i !== index);
-    setUser({ ...user, course: updatedCourses });
-  };
-
   const colSort = (key) => {
     let direction = "asc";
     if (sortCol.key === key && sortCol.direction === "asc") {
@@ -132,7 +127,6 @@ export default function StudentExtraCourses() {
                 {sortCol.key === "courseCode" &&
                   (sortCol.direction === "asc" ? "↑" : "↓")}
               </th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -141,14 +135,6 @@ export default function StudentExtraCourses() {
                 <td>{course.courseId}</td>
                 <td>{course.courseName}</td>
                 <td>{course.courseCode}</td>
-                <td>
-                  <button
-                    className="btn buttoncolor shadow"
-                    onClick={() => deleteCourse(index)}
-                  >
-                    Delete
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>

@@ -32,8 +32,6 @@ const mockData = [
 export default function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
-  const [changePass, showChangePass] = useState(false);
-  // const [originUser, setOriginUser] = useState(null);
 
   useEffect(() => {
     setUser(mockData.find((item) => item.id));
@@ -133,6 +131,19 @@ export default function Profile() {
                 />
               </div>
 
+              <div className="col-md-6">
+              <label htmlFor="password" className=" pt-3">New Password</label>
+            <div className="col-sm-10">
+              <input type="password" className="form-control" placeholder="New Password" id="password"/>
+            </div>
+          </div>
+          <div className="col-md-6">
+          <label htmlFor="ConfirmPassword" className=" pt-3">Confirm Password</label>
+            <div className="col-sm-10">
+              <input type="password" className="form-control" placeholder="Confirm Password" id="ConfirmPassword"/>
+            </div>
+          </div>
+
               <br />
           <div className="mt-3 d-flex justify-content-end">
             <button
@@ -145,64 +156,14 @@ export default function Profile() {
             </div>
             <br />
 
-              <div className="row row-cols-md-6 mt-3 g-2 mb-4">
-                <div className="col-12">
-                  <label className="mt-2" htmlFor="password">
-                    Password
-                  </label>
-                </div>
-                <div className="d-flex justify-content-end">
-                  <button
-                    id="password"
-                    className="btn buttoncolor shadow "
-                    type="button"
-                    onClick={() => showChangePass(!changePass)} 
-                  >
-                    Change Password
-                  </button>
-                </div>
-              </div>
+              
             </form>
           </div>
 
-          {changePass && (
+          
         <div>
-          <div className="row mb-3">
-            <label className="col-sm-2 col-form-label">Old Password</label>
-            <div className="col-sm-10">
-              <input type="password" className="form-control" placeholder="Old Password" />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <label className="col-sm-2 col-form-label">New Password</label>
-            <div className="col-sm-10">
-              <input type="password" className="form-control" placeholder="New Password" />
-            </div>
-          </div>
-          <div className="row mb-3">
-            <label className="col-sm-2 col-form-label">Confirm Password</label>
-            <div className="col-sm-10">
-              <input type="password" className="form-control" placeholder="Confirm Password" />
-            </div>
-          </div>
-          <div className="row mb-3 row-cols-md-6">
-          <button
-              className="btn buttoncolor shadow me-2"
-              type="submit"
-              value="Submit"
-            >
-              Submit
-            </button>
-            <button
-              className="btn buttoncolor shadow me-2"
-              type="reset"
-              value="Reset"
-            >
-              Rollback
-            </button>
-          </div>
+         
         </div>
-      )}
 
         </div>
       </HelmetProvider>

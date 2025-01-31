@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useGetDepartmentsData } from "../../../api/admin/GetDepartments";
 
 const mockData = [
   {
@@ -73,6 +74,7 @@ const mockData = [
 export default function StudentInfo() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
+  const { data: departmentData } = useGetDepartmentsData();
 
   const inputChange = (e) => {
     const { name, value } = e.target;
@@ -89,7 +91,7 @@ export default function StudentInfo() {
     alert(`Edits updated for ID: ${id}`);
     console.log("Updated user data submitted:", user);
   };
-
+  
   if (!user) return <div>Loading...</div>;
 
   return (
@@ -201,9 +203,11 @@ export default function StudentInfo() {
                 onChange={inputChange}
               >
                 <option value="">{user.department}</option>
-                <option value="1">Department 1</option>
-                <option value="2">Department 2</option>
-                <option value="3">Department 3</option>
+                  {departmentData?.departments?.map((department) => (  
+                    <option key={department.id} value={department.department_name}>
+                      {department.department_name}
+                    </option>
+                     ))}
               </select>
             </div>
           </form>

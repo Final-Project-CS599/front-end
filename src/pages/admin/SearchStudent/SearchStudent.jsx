@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetDepartmentsData } from "../../../api/admin/GetDepartments";
-//import axios from "axios";
+
 
 const mockData = [
   {
@@ -138,7 +138,7 @@ it starts to check the fields and checks if there is an equal data, if not it mo
   const handleEditClick = (user) => {
     navigate(`/admin/editStudent/${user.id}`, { state: { user } });
   };
-
+  
   return (
     <>
       <div className="container ms-5 mt-3" style={{ width: "95%" }}>
