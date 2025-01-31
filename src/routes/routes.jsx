@@ -35,7 +35,7 @@ import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
 import AddDepartment from "../pages/admin/AddDepartment/AddDepartment.jsx";
 import EditStudent from "../pages/admin/EditStudent/EditStudent.jsx";
 import EditInstructor from "../pages/admin/EditInstructor/EditInstructor.jsx";
-
+import DeleteCourse from '../pages/admin/DeleteCourse/DeleteCourse.jsx';
 
 
 export const router = createBrowserRouter([
@@ -74,6 +74,7 @@ export const router = createBrowserRouter([
       {path: "/admin/addDepartment", element: <AddDepartment /> },
       {path: "/admin/editStudent/:id", element: <EditStudent /> },
       {path: "/admin/editInstructor/:id", element: <EditInstructor /> },
+      {path: "/admin/deletecourse", element: <DeleteCourse /> },
       
       
       // login & forget password
