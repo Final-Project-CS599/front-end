@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 //auth
 import Login from '../pages/admin/Auth/Login/Login.jsx';
@@ -165,8 +165,7 @@ export const adminRoutes = [
     path: '/admin/profile',
     element: (
       <AcademicRou>
-        {' '}
-        <Profile />{' '}
+        <Profile />
       </AcademicRou>
     ),
   },
