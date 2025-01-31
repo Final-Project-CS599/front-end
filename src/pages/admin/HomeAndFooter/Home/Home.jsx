@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Homedashboard = () => {
+
+const HomeDashboard = () => {
   const [statistics, setStatistics] = useState({});
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const Homedashboard = () => {
     // updates
     axios.get("http://localhost:5000/api/activities").then((response) => {
       setActivities(response.data);                                      });
-                                                                       
+
   }, []);
 
   return (
@@ -71,4 +72,4 @@ const Homedashboard = () => {
   );
 };
 
-export default Homedashboard;
+export default HomeDashboard;

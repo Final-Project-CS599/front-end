@@ -17,12 +17,9 @@ const assignmentsData = {
 };
 
 const Assignments = () => {
-
-c
-
   return (
     <div>
-      <CourseDropDown title="Assignments"  type="assignments" />
+      <CourseDropDown title="Assignments" type="assignments" />
     </div>
   );
 };

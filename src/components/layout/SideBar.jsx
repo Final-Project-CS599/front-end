@@ -1,12 +1,23 @@
-import { FaUser } from 'react-icons/fa';
+import React, { useContext, useEffect } from 'react';
 import { IoMdSettings } from 'react-icons/io';
-import { NavLink } from 'react-router-dom';
-import NavButton from '../shared/NavButton';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { getNavButtonsByRole } from './NavButtons';
+import NavButton from '../shared/NavButton';
+import { FaUser, FaUserPlus } from 'react-icons/fa';
+import { UserContext } from '../../Context/UserContext.jsx';
 
 const SideBar = () => {
-  const userRole = localStorage.getItem('userRole'); // Or your auth logic
-  const navButtons = getNavButtonsByRole(userRole);
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const navButtons = getNavButtonsByRole(userData.role);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (userData?.role === 'admin' || userData?.role === 'sAdmin') {
+      navigate('/admin/addAdmin');
+    } else {
+      return;
+    }
+  };
 
   return (
     <div
@@ -16,14 +27,22 @@ const SideBar = () => {
       {navButtons.map((button) => (
         <NavButton key={button.to} text={button.text} icon={button.icon} to={button.to} />
       ))}
+
       <div className="mt-auto w-100">
         <div className="d-flex align-items-center gap-2 mb-3 w-100">
-          <FaUser size={50} />
-          <div className="w-100">
-            <p className="mb-0">User Name</p>
-            <small className="text-muted">{userRole}</small>
+          <div onClick={handleClick} style={{ cursor: 'pointer' }}>
+            {userData?.role === 'admin' || userData?.role === 'sAdmin' ? (
+              <FaUserPlus color="#5f6774" size={50} />
+            ) : (
+              <FaUser color="#5f6774" size={50} />
+            )}
           </div>
-          <NavLink to={`/${userRole}/profile`}>
+
+          <div className="w-100">
+            <p className="mb-0">{userData?.fullName}</p>
+            <small className="text-muted">{userData?.role}</small>
+          </div>
+          <NavLink to={`/${userData?.role === 'sAdmin' ? 'admin' : userData?.role}/profile`}>
             <IoMdSettings color="#5f6774" />
           </NavLink>
         </div>
