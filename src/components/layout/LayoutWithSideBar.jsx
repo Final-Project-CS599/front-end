@@ -5,25 +5,19 @@ import MobileNav from '../layout/MobileNav';
 import SideBar from '../layout/SideBar';
 import { getHomePath } from './NavButtons.jsx';
 
-
 const LayoutWithSideBar = () => {
-  const location = useLocation();
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const userData = JSON.parse(localStorage.getItem('userData'));
 
-  const noSidebarPaths = ["/login", "/confirmEmail", "/forgetPassword", "/ResetPassword"];
-  const isHidden = !userData || noSidebarPaths.includes(location.pathname); 
-  
   if (!userData) {
     return <Navigate to="/login" />;
   }
 
-
   return (
     <div className="">
-      {!isHidden && <NavBar />}
-      {!isHidden && <MobileNav />}
+      <NavBar />
+      <MobileNav />
       <div className="d-flex gap-3">
-        {!isHidden && <SideBar userData={userData} />}
+        <SideBar />
         <div className="container w-100 my-3">
           <div className="row">
             <div className="col-md-12">
@@ -37,4 +31,3 @@ const LayoutWithSideBar = () => {
 };
 
 export default LayoutWithSideBar;
-

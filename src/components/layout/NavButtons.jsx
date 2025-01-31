@@ -1,5 +1,11 @@
-// components/navigation/navButtons.js
-import { FaBookOpen, FaUser, FaUsers, FaGraduationCap, FaChalkboardTeacher, FaBuilding } from 'react-icons/fa';
+import {
+  FaBookOpen,
+  FaUser,
+  FaUsers,
+  FaGraduationCap,
+  FaChalkboardTeacher,
+  FaBuilding,
+} from 'react-icons/fa';
 import {
   MdAssignment,
   MdQuiz,
@@ -113,6 +119,11 @@ export const instructorNavButtons = [
     icon: <BiSolidChat />,
     to: '/instructor/chat',
   },
+  {
+    text: 'Help Desk',
+    icon: <MdReport />,
+    to: '/instructor/report',
+  },
 ];
 
 // Helper function to get nav buttons by role
@@ -130,18 +141,18 @@ export const getNavButtonsByRole = (role) => {
   }
 };
 
-
 export const getHomePath = (role) => {
-    switch (role) {
-      case 'admin':
-      case 'sAdmin':
-        return '/admin/home';
-      case 'instructor':
-        return '/instructor/courses/mycourses';
-      case 'student':
-      case 'user':
-        return '/';
-      default:
-        return '/login';
-    }
-  };
+  switch (role) {
+    case 'admin':
+    case 'sAdmin':
+      return '/admin/home';
+    case 'instructor':
+      return '/instructor/courses/mycourses';
+    case 'student':
+      return '/student/courses';
+    case 'user':
+      return '/';
+    default:
+      return '/login';
+  }
+};

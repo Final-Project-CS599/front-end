@@ -64,71 +64,291 @@ import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import MyCourses from '../pages/instructor/courses/mycourses';
 
-
-
 export const studentRoutes = [
   // Student dashboard/home
-  { index: true, element: <StudentHome />, },
+  { index: true, element: <StudentHome /> },
   // Main student features
-  { path: '/student/courses', element: <StudentCourses />, },
-  { path: '/student/instructors', element: <StudentInstructors />, },
-  { path: '/student/assignments', element: <StudentAssignments />, },
-  { path: '/student/quizzes', element: <StudentQuizzes />, },
+  { path: '/student/courses', element: <StudentCourses /> },
+  { path: '/student/instructors', element: <StudentInstructors /> },
+  { path: '/student/assignments', element: <StudentAssignments /> },
+  { path: '/student/quizzes', element: <StudentQuizzes /> },
   // Communication features
-  { path: '/student/chat', element: <StudentChat />, },
-  { path: '/student/messages', element: <Messages />, },
+  { path: '/student/chat', element: <StudentChat /> },
+  { path: '/student/messages', element: <Messages /> },
   // Student resources
-  { path: '/student/helpDesk/send', element: <Send />, },
-  { path: '/student/helpDesk', element: <ViewMessages />, },
-  { path: '/student/profile', element: <StudentProfile />, },
+  { path: '/student/helpDesk/send', element: <Send /> },
+  { path: '/student/helpDesk', element: <ViewMessages /> },
+  { path: '/student/profile', element: <StudentProfile /> },
   // Dynamic routes for detailed views
-  { path: '/student/instructors/:id', element: <InstructorById />, },
-  { path: '/student/courses/:id', element: <CourseById />, },
-  { path: '/student/assignments/:id', element: <AssignmentById />, },
-  { path: '/student/quizzes/:id', element: <QuizById />, },
+  { path: '/student/instructors/:id', element: <InstructorById /> },
+  { path: '/student/courses/:id', element: <CourseById /> },
+  { path: '/student/assignments/:id', element: <AssignmentById /> },
+  { path: '/student/quizzes/:id', element: <QuizById /> },
 ];
 
 export const adminRoutes = [
-    //AcadmicRou //pages
-    { index: true, element: <AcademicRou><HomeDashboard /></AcademicRou> },
-    { path: '/admin/home', element: <AcademicRou> <HomeDashboard/> </AcademicRou>  },
-    //auth User
-    { path: '/admin/addAdmin' , element: <AcademicRou> <AddAdmin/> </AcademicRou> },
-    { path: '/admin/instructors' , element:  <AcademicRou> <Instructors/> </AcademicRou>},
-    { path: '/admin/student' , element: <AcademicRou> <Student/> </AcademicRou> },
-    { path: '/admin/registerInstructor' , element: <AcademicRou> <RegisterInstructors/> </AcademicRou> },
-    { path: '/admin/registerStudent' , element:  <AcademicRou> <RegisterStudents/> </AcademicRou>},
-    //helpDesk
-    { path: '/admin/helpDesk' , element: <AcademicRou> <HelpDesk/> </AcademicRou> },
-    { path: '/admin/profile', element: <AcademicRou> <Profile /> </AcademicRou>  },
-    // Courses
-    { path: '/admin/courses' , element: <AcademicRou> <Courses/> </AcademicRou>},
-    { path: '/admin/acadmic' , element: <AcademicRou> <Acadmic/> </AcademicRou>},
-    { path: '/admin/asacadmic', element: <AcademicRou> <Asacadmic/> </AcademicRou> },
-    { path: 'admin/isacadmic' , element: <AcademicRou> <Isacadmic/> </AcademicRou>},
-    { path: 'admin/msacadmic' , element: <AcademicRou> <Msacadmic/> </AcademicRou>},
-    { path: 'admin/oracadmic' , element: <AcademicRou> <Oracadmic/> </AcademicRou> },
-    { path: 'admin/csacadmic', element: <AcademicRou> <Csacadmic/> </AcademicRou>},
-    { path: '/admin/extra' , element: <AcademicRou> <Extra/> </AcademicRou>},
-    { path: '/admin/programingextra' , element: <AcademicRou> <Programingextra/> </AcademicRou>},
-    { path: '/admin/languagesextra' , element: <AcademicRou> <Languagesextra/> </AcademicRou>},
-    { path: '/admin/backendextra' , element: <AcademicRou> <Backendextra/> </AcademicRou>},
-    { path: '/admin/frontendextra', element: <AcademicRou> <Frontendextra/> </AcademicRou>},
-    { path: '/admin/digitalextra' , element: <AcademicRou> <Digitalextra/> </AcademicRou>},
-    { path: '/admin/addnewcourseextra', element:<AcademicRou> <Addnewcourseextra/> </AcademicRou>},
-    { path: '/admin/addnewcourseacadmic', element: <AcademicRou> <Addnewcourseacadmic/> </AcademicRou>},
-    //Payment
-    {path: '/admin/Payment' , element: <AcademicRou> <Payment/> </AcademicRou> },
-    //Department
-    {path: "/admin/addDepartment", element:  <AcademicRou> <AddDepartment /> </AcademicRou> },
-    {path: "/admin/editStudent/:id", element: <AcademicRou> <EditStudent /> </AcademicRou>},
-    {path: "/admin/editInstructor/:id", element: <AcademicRou> <EditInstructor />  </AcademicRou>},
+  //AcadmicRou //pages
+  {
+    index: true,
+    element: (
+      <AcademicRou>
+        <HomeDashboard />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/home',
+    element: (
+      <AcademicRou>
+        {' '}
+        <HomeDashboard />{' '}
+      </AcademicRou>
+    ),
+  },
+  //auth User
+  {
+    path: '/admin/addAdmin',
+    element: (
+      <AcademicRou>
+        {' '}
+        <AddAdmin />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/instructors',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Instructors />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/student',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Student />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/registerInstructor',
+    element: (
+      <AcademicRou>
+        {' '}
+        <RegisterInstructors />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/registerStudent',
+    element: (
+      <AcademicRou>
+        {' '}
+        <RegisterStudents />{' '}
+      </AcademicRou>
+    ),
+  },
+  //helpDesk
+  {
+    path: '/admin/helpDesk',
+    element: (
+      <AcademicRou>
+        {' '}
+        <HelpDesk />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/profile',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Profile />{' '}
+      </AcademicRou>
+    ),
+  },
+  // Courses
+  {
+    path: '/admin/courses',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Courses />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/acadmic',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Acadmic />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/asacadmic',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Asacadmic />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: 'admin/isacadmic',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Isacadmic />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: 'admin/msacadmic',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Msacadmic />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: 'admin/oracadmic',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Oracadmic />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: 'admin/csacadmic',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Csacadmic />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/extra',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Extra />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/programingextra',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Programingextra />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/languagesextra',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Languagesextra />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/backendextra',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Backendextra />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/frontendextra',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Frontendextra />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/digitalextra',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Digitalextra />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/addnewcourseextra',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Addnewcourseextra />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/addnewcourseacadmic',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Addnewcourseacadmic />{' '}
+      </AcademicRou>
+    ),
+  },
+  //Payment
+  {
+    path: '/admin/Payment',
+    element: (
+      <AcademicRou>
+        {' '}
+        <Payment />{' '}
+      </AcademicRou>
+    ),
+  },
+  //Department
+  {
+    path: '/admin/addDepartment',
+    element: (
+      <AcademicRou>
+        {' '}
+        <AddDepartment />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/editStudent/:id',
+    element: (
+      <AcademicRou>
+        {' '}
+        <EditStudent />{' '}
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/editInstructor/:id',
+    element: (
+      <AcademicRou>
+        {' '}
+        <EditInstructor />{' '}
+      </AcademicRou>
+    ),
+  },
 ];
-
 
 export const router = createBrowserRouter([
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
   // {
@@ -136,21 +356,22 @@ export const router = createBrowserRouter([
   //   element: <ConfirmEmail />,
   // },
   {
-    path: "/forgetPassword",
+    path: '/forgetPassword',
     element: <ForgetPassword />,
   },
   {
-    path: "/ForgetPasswordVerifyCode",
+    path: '/ForgetPasswordVerifyCode',
     element: <ForgetPasswordDetalis />,
   },
   {
-    path: "/ResetPassword",
+    path: '/ResetPassword',
     element: <ResetPassword />,
   },
   {
-    path: '/', element: <LayoutWithSideBar/>,
+    path: '/',
+    element: <LayoutWithSideBar />,
     children: [
-      ...studentRoutes, 
+      ...studentRoutes,
       ...adminRoutes,
 
       //instructor
