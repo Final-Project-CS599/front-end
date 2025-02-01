@@ -3,6 +3,7 @@ import HomeLogo from '../../assets/images/imgAdmin/HomeLogo.jpg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { getHomePath } from './NavButtons.jsx';
 
+
 const NavBar = () => {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));

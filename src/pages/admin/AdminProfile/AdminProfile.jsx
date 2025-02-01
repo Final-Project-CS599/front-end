@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import { useEditAdminData, useGetAdminData } from "../../../api/admin/EditProfile";
+import { showToast } from "../../../utils/toast";
+import { ToastContainer } from "react-toastify";
+
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -18,16 +21,18 @@ export default function Profile() {
     setUser({ ...user, [name]: value });
   }
 
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const { primaryPhone, secondaryPhone, newPassword, confirmPassword } = user;
 
     if (newPassword !== confirmPassword) {
-      // Handle password mismatch
+      showToast("Passwords don't match!", { type: "error" });
       return;
     }
+  
+    setIsSubmitting(true);
 
     mutate({
       primaryPhone,
@@ -36,11 +41,14 @@ export default function Profile() {
       confirmPassword
     }, {
       onSuccess: () => {
+        showToast("Data updated successfully!", { type: "success" });
         refetch();
+        setIsSubmitting(false);
       },
       onError: (error) => {
-        // Handle error (show error message)
-        console.error(error);
+        showToast(error.message || "Update failed", { type: "error" });
+      console.error(error);
+      setIsSubmitting(false);
       }
     });
   };
@@ -159,16 +167,17 @@ export default function Profile() {
 
             <div className="mt-3 d-flex justify-content-end">
               <button
-                className="btn buttoncolor shadow"
+                className="btn btn-purple buttoncolor {`${isSubmitting ? 'opacity-50' : ''}`} "
                 type="submit"
-                value="Submit"
-              >
-                Update
+                disabled={isSubmitting}
+                             >
+                {isSubmitting ? 'Updating...' : 'Update'}
               </button>
             </div>
           </form>
         </div>
       </div>
+      <ToastContainer />
     </HelmetProvider>
   );
 }

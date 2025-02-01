@@ -3,6 +3,7 @@ import MobileNav from '../layout/MobileNav';
 import NavBar from '../layout/NavBar';
 import SideBar from '../layout/SideBar';
 
+
 const LayoutWithSideBar = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
 

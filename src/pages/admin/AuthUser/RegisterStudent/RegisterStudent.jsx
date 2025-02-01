@@ -33,13 +33,13 @@ export default function RegisterStudents() {
         lastName: yup.string().min(2 , 'lastName minlength is 2').max(100 , 'lastName maxlength is 100').required('lastName is required'),
         middleName: yup.string().min(2 , 'middleName minlength is 2').max(100 , 'middleName maxlength is 100').required('middleName is required'),
         email: yup.string().email('Email is invalid').required('Email is required'),
-        phone1: yup.string().matches(phoneRegExp, 'Phone number is invalid').required('At least one phone number is required'),
-        phone2: yup.string().matches(phoneRegExp, 'Phone number is invalid').optional(),
+        phone1: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').required('At least one phone number is required'),
+        phone2: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').optional(),
         numberNational: yup.string().matches(/^[0-9]{14,}$/ , 'numberNational ID is invalid (example: 01234567890123)').required('numberNational ID is required'),
         department: yup.string().min(1, 'department minlength is 1').max(100 , 'department maxlength is 100').required('department is required'),
         gander: yup.string().oneOf(['Male', 'Female'], 'Gender must be either Male or Female').default('Female').required('Gander is required'),
         DOB: yup.string().max(new Date(), 'Date of Birth must be less than today').required('Date of Birth is required'),
-        password: yup.string().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z]).{8,}$/, 'Password start with uppercase').required('Password is required'),
+        password: yup.string().matches(/^[0-9]{14,}$/, ' Password National ID 14 digits (example: 12345678910145) ').required('Password is required'),
         confirmPassword: yup.string().oneOf([yup.ref("password")] , 'Password and confirmPassword').required('RePassword is required')
     });
 
@@ -93,7 +93,9 @@ return <>
             {formik.errors.lastName && formik.touched.lastName?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.lastName}</div>:''}
             
             <label htmlFor="email" className=' pt-3'>Email <span className='text-danger'>*</span> :</label>
-            <input type='email' id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.email} name='email'/>
+            <input type='email' id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
+                value={formik.values.email} name='email' autoComplete="username"
+            />
             {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-3 p-2">{formik.errors.email}</div>:''}
             
             <label htmlFor="phone1" className=' pt-3'>Phone1 <span className='text-danger'>*</span> :</label>
@@ -137,13 +139,17 @@ return <>
             {formik.errors.DOB && formik.touched.DOB? <div className="alert alert-danger mt-2 p-2">{formik.errors.DOB}</div>:''}
             
 
-            <label htmlFor="password" className=' pt-3'>Password <span className='text-danger'>*</span> :</label>
-            <input type='password' id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.password} name='password'/>
+            <label htmlFor="password" className=' pt-3'>Password (NID) <span className='text-danger'>*</span> :</label>
+            <input type='password' id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
+                value={formik.values.password} name='password' autoComplete="new-password"
+            />
             {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
             
 
-            <label htmlFor="confirmPassword" className=' pt-3'>confirm-Password<span className='text-danger'>*</span> :</label>
-            <input type='Password' id='confirmPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.confirmPassword} name='confirmPassword'/>
+            <label htmlFor="confirmPassword" className=' pt-3'> confirm-Password (NID) <span className='text-danger'>*</span> :</label>
+            <input type='password' id='confirmPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
+                value={formik.values.confirmPassword} name='confirmPassword'  autoComplete="new-password"
+            />
             {formik.errors.confirmPassword && formik.touched.confirmPassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.confirmPassword}</div>:''}
             
             {isLoading? <button  type=' buttom' className='btn bg-main text-white mt-2'>
@@ -156,7 +162,7 @@ return <>
                     wrapperClass="wrapper-class"
                     visible={true}
                 />
-                </button> :<button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  mt-2 mt-4'>Add User</button>
+                </button> :<button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  mt-2 mt-4'>Add Student</button>
             }
         </form>
     </div>

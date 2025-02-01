@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 //auth
+import ConfirmEmail from '../pages/admin/Auth/ConfirmEmail/ConfirmEmail.jsx';
 import Login from '../pages/admin/Auth/Login/Login.jsx';
-// import ConfirmEmail from '../pages/admin/Auth/ConfirmEmail/ConfirmEmail.jsx';
 import ForgetPassword from './../pages/admin/Auth/ForgetPassword/ForgetPassword.jsx';
 import ForgetPasswordDetalis from './../pages/admin/Auth/ForgetPasswordDetalis/ForgetPasswordDetalis.jsx';
 import ResetPassword from './../pages/admin/Auth/ResetPassword/ResetPassword.jsx';
@@ -13,14 +13,14 @@ import RegisterInstructors from '../pages/admin/AuthUser/RegisterInstructors/Reg
 import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterStudent.jsx';
 import Student from '../pages/admin/AuthUser/Student/Student.jsx';
 //home route
+import HelpDesk from '../pages/admin/Helpdesk/HelpDesk.jsx';
 import HomeDashboard from '../pages/admin/HomeAndFooter/Home/Home.jsx';
-import HelpDesk from './../pages/admin/HelpDesk/HelpDesk.jsx';
 //Academic Router & Notfound
 import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRou.jsx';
 import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
 //student
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
-import AddMaterial from '../components/shared/UploadCourse';
+import UploadCourse from '../components/shared/UploadCourse';
 import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
 import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
 import Addnewcourseacadmic from '../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
@@ -43,15 +43,11 @@ import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
 import StudentHome from '../pages/student/Home.jsx';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import Assignments from '../pages/instructor/Assignment/Assignments.jsx';
-import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
 import Chat from '../pages/instructor/Chat/Chat';
 import MyCourses from '../pages/instructor/courses/mycourses';
-import ViewCourses from '../pages/instructor/courses/ViewCourseById.jsx';
 import ProfilePage from '../pages/instructor/Profile/Profile';
-import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import Quizzes from '../pages/instructor/Quizzes/Quizzes';
-import ViewQuizz from '../pages/instructor/Quizzes/viewquiz.jsx';
 import HelpdeskPage from '../pages/instructor/Report/Report';
 import AssignmentById from '../pages/student/AssignmentById';
 import StudentAssignments from '../pages/student/Assignments';
@@ -91,7 +87,7 @@ export const studentRoutes = [
 ];
 
 export const adminRoutes = [
-  //AcadmicRou //pages
+  //AcademicRou //pages
   {
     index: true,
     element: (
@@ -104,8 +100,7 @@ export const adminRoutes = [
     path: '/admin/home',
     element: (
       <AcademicRou>
-        {' '}
-        <HomeDashboard />{' '}
+        <HomeDashboard />
       </AcademicRou>
     ),
   },
@@ -114,8 +109,7 @@ export const adminRoutes = [
     path: '/admin/addAdmin',
     element: (
       <AcademicRou>
-        {' '}
-        <AddAdmin />{' '}
+        <AddAdmin />
       </AcademicRou>
     ),
   },
@@ -123,8 +117,7 @@ export const adminRoutes = [
     path: '/admin/instructors',
     element: (
       <AcademicRou>
-        {' '}
-        <Instructors />{' '}
+        <Instructors />
       </AcademicRou>
     ),
   },
@@ -132,8 +125,7 @@ export const adminRoutes = [
     path: '/admin/student',
     element: (
       <AcademicRou>
-        {' '}
-        <Student />{' '}
+        <Student />
       </AcademicRou>
     ),
   },
@@ -141,8 +133,7 @@ export const adminRoutes = [
     path: '/admin/registerInstructor',
     element: (
       <AcademicRou>
-        {' '}
-        <RegisterInstructors />{' '}
+        <RegisterInstructors />
       </AcademicRou>
     ),
   },
@@ -150,8 +141,7 @@ export const adminRoutes = [
     path: '/admin/registerStudent',
     element: (
       <AcademicRou>
-        {' '}
-        <RegisterStudents />{' '}
+        <RegisterStudents />
       </AcademicRou>
     ),
   },
@@ -160,8 +150,7 @@ export const adminRoutes = [
     path: '/admin/helpDesk',
     element: (
       <AcademicRou>
-        {' '}
-        <HelpDesk />{' '}
+        <HelpDesk />
       </AcademicRou>
     ),
   },
@@ -178,8 +167,7 @@ export const adminRoutes = [
     path: '/admin/courses',
     element: (
       <AcademicRou>
-        {' '}
-        <Courses />{' '}
+        <Courses />
       </AcademicRou>
     ),
   },
@@ -187,8 +175,7 @@ export const adminRoutes = [
     path: '/admin/acadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Acadmic />{' '}
+        <Acadmic />
       </AcademicRou>
     ),
   },
@@ -196,8 +183,7 @@ export const adminRoutes = [
     path: '/admin/asacadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Asacadmic />{' '}
+        <Asacadmic />
       </AcademicRou>
     ),
   },
@@ -205,8 +191,7 @@ export const adminRoutes = [
     path: 'admin/isacadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Isacadmic />{' '}
+        <Isacadmic />
       </AcademicRou>
     ),
   },
@@ -214,8 +199,7 @@ export const adminRoutes = [
     path: 'admin/msacadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Msacadmic />{' '}
+        <Msacadmic />
       </AcademicRou>
     ),
   },
@@ -223,8 +207,7 @@ export const adminRoutes = [
     path: 'admin/oracadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Oracadmic />{' '}
+        <Oracadmic />
       </AcademicRou>
     ),
   },
@@ -232,8 +215,7 @@ export const adminRoutes = [
     path: 'admin/csacadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Csacadmic />{' '}
+        <Csacadmic />
       </AcademicRou>
     ),
   },
@@ -241,8 +223,7 @@ export const adminRoutes = [
     path: '/admin/extra',
     element: (
       <AcademicRou>
-        {' '}
-        <Extra />{' '}
+        <Extra />
       </AcademicRou>
     ),
   },
@@ -250,8 +231,7 @@ export const adminRoutes = [
     path: '/admin/programingextra',
     element: (
       <AcademicRou>
-        {' '}
-        <Programingextra />{' '}
+        <Programingextra />
       </AcademicRou>
     ),
   },
@@ -259,8 +239,7 @@ export const adminRoutes = [
     path: '/admin/languagesextra',
     element: (
       <AcademicRou>
-        {' '}
-        <Languagesextra />{' '}
+        <Languagesextra />
       </AcademicRou>
     ),
   },
@@ -268,8 +247,7 @@ export const adminRoutes = [
     path: '/admin/backendextra',
     element: (
       <AcademicRou>
-        {' '}
-        <Backendextra />{' '}
+        <Backendextra />
       </AcademicRou>
     ),
   },
@@ -277,8 +255,7 @@ export const adminRoutes = [
     path: '/admin/frontendextra',
     element: (
       <AcademicRou>
-        {' '}
-        <Frontendextra />{' '}
+        <Frontendextra />
       </AcademicRou>
     ),
   },
@@ -286,8 +263,7 @@ export const adminRoutes = [
     path: '/admin/digitalextra',
     element: (
       <AcademicRou>
-        {' '}
-        <Digitalextra />{' '}
+        <Digitalextra />
       </AcademicRou>
     ),
   },
@@ -295,8 +271,7 @@ export const adminRoutes = [
     path: '/admin/addnewcourseextra',
     element: (
       <AcademicRou>
-        {' '}
-        <Addnewcourseextra />{' '}
+        <Addnewcourseextra />
       </AcademicRou>
     ),
   },
@@ -304,8 +279,7 @@ export const adminRoutes = [
     path: '/admin/addnewcourseacadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Addnewcourseacadmic />{' '}
+        <Addnewcourseacadmic />
       </AcademicRou>
     ),
   },
@@ -314,8 +288,7 @@ export const adminRoutes = [
     path: '/admin/Payment',
     element: (
       <AcademicRou>
-        {' '}
-        <Payment />{' '}
+        <Payment />
       </AcademicRou>
     ),
   },
@@ -324,8 +297,7 @@ export const adminRoutes = [
     path: '/admin/addDepartment',
     element: (
       <AcademicRou>
-        {' '}
-        <AddDepartment />{' '}
+        <AddDepartment />
       </AcademicRou>
     ),
   },
@@ -333,8 +305,7 @@ export const adminRoutes = [
     path: '/admin/editStudent/:id',
     element: (
       <AcademicRou>
-        {' '}
-        <EditStudent />{' '}
+        <EditStudent />
       </AcademicRou>
     ),
   },
@@ -342,8 +313,7 @@ export const adminRoutes = [
     path: '/admin/editInstructor/:id',
     element: (
       <AcademicRou>
-        {' '}
-        <EditInstructor />{' '}
+        <EditInstructor />
       </AcademicRou>
     ),
   },
@@ -354,10 +324,10 @@ export const router = createBrowserRouter([
     path: '/login',
     element: <Login />,
   },
-  // {
-  //   path: "/confirmEmail",
-  //   element: <ConfirmEmail />,
-  // },
+  {
+    path: '/confirmEmail',
+    element: <ConfirmEmail />,
+  },
   {
     path: '/forgetPassword',
     element: <ForgetPassword />,
@@ -378,27 +348,15 @@ export const router = createBrowserRouter([
       ...adminRoutes,
 
       //instructor
-      { path: '/instructor/add-material', element: <MyCourses /> },
+      { path: '/instructor/courses/mycourses', element: <MyCourses /> },
       { path: '/instructor/instructors', element: <ProfilePage /> },
       { path: '/instructor/Assignment/Assignment', element: <Assignments /> },
       { path: '/instructor/Quizzes/quizzes', element: <Quizzes /> },
       { path: '/instructor/chat', element: <Chat /> },
       { path: '/instructor/report', element: <HelpdeskPage /> },
-      { path: '/add-material', element: <AddMaterial /> },
-      { path: '/add-exam', element: <QuizDetailsPage /> },
-      { path: '/view-quiz', element: <ViewQuizz /> },
-      { path: '/edit-exam', element: <EditExam /> },
-      { path: '/add-assignment', element: <AssignDetails /> },
-      { path: '/edit-assignment', element: <EditAssignment /> },
-      { path: '/instructor/viewcourse', element: <ViewCourses /> },
-
-      // //Auth login & forget password
-      // { path: '/confirmEmail', element: <ConfirmEmail/> },
-      // { path: '/login' , element: <Login/>},
-      // // {path: '/forgetPassword/:token', element: <ForgetPassword/>},
-      // { path: '/forgetPassword' , element:<ForgetPassword/>},
-      // { path: '/ForgetPasswordVerifyCode' , element:<ForgetPasswordDetalis/>},
-      // { path: '/ResetPassword' , element:<ResetPassword/>},
+      { path: '/UploadCourse', element: <UploadCourse /> },
+      { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
+      { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
     ],
   },
 

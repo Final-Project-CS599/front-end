@@ -7,11 +7,9 @@ import { useGetStudentById } from "../../../api/admin/users";
 
 export default function EditStudent() {
   const { id } = useParams();
-
   const { data: studentData } = useGetStudentById(id);
   const [user, setUser] = useState(null);
 
-  // Initialize user state once student data is loaded
   useEffect(() => {
     if (studentData?.student) {
       const selectedUser = studentData.student;
@@ -27,10 +25,10 @@ export default function EditStudent() {
       <h3 className="pb-4">Edit Student </h3>
       <ul className="nav nav-pills">
         <li className="nav-item">
-          <a className="nav-link active" data-bs-toggle="tab" aria-current="page" href="#StudentInfo">Student Info</a>
+          <a className="nav-link active buttoncolor" data-bs-toggle="tab" aria-current="page" href="#StudentInfo">Student Info</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" data-bs-toggle="tab" href="#StudentCourses">Student Courses</a>
+          <a className="nav-link buttoncolor" data-bs-toggle="tab" href="#StudentCourses">Student Courses</a>
         </li>
       </ul>
       <div className="w-75 mx-auto mt-5">
