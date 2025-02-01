@@ -1,10 +1,8 @@
-import React from 'react';
+import { FaUser, FaUserCircle, FaUserPlus } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import HomeLogo from '../../assets/images/imgAdmin/HomeLogo.jpg';
-import { FaUserCircle } from 'react-icons/fa';
 import NavButton from '../shared/NavButton';
 import { getNavButtonsByRole } from './NavButtons';
-import { FaUser, FaUserPlus } from 'react-icons/fa';
 
 
 const MobileNav = () => {
@@ -89,7 +87,7 @@ const MobileNav = () => {
             <small className="text-muted">{userData?.role}</small>
           </div>
 
-          <Link to={`/${userData.role}/profile`} className="btn pb-4 pt-3 ">
+          <Link to={(userData?.role === 'admin' || userData?.role === 'sAdmin') ? `/admin/profile` : `/${userData.role}/profile`} className="btn pb-4 pt-3 ">
             Profile
           </Link>
 

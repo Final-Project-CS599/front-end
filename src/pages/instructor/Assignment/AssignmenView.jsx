@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { useGetAssignment } from "../../../api/instructor/assignments.js";
 
 const ViewAssignment = () => {
+
+const {data}= useGetAssignment()
+
     const [assignment, setAssignment] = useState([
         {
             id: "1",

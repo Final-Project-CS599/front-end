@@ -1,58 +1,78 @@
-import { Link } from 'react-router-dom';
-import './quizz.css';
+import  { useState, useEffect } from "react";
+import axios from "axios";
+import { Button, Table, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const QuizzesInstructor = () => {
+  const [exams, setExams] = useState([]);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchExams();
+  }, []);
+
+  const fetchExams = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/exams");
+      setExams(response.data);
+    } catch (error) {
+      setError("Error fetching exams");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/exams/${id}`);
+      setExams(exams.filter((exam) => exam.e_id !== id));
+    } catch (error) {
+      setError("Error deleting exam");
+    }
+  };
+
   return (
     <div className="container mt-4">
-      <h2 style={{ color: "#6f42c1" }}>Quizzes</h2>
-      <div className="row">
-        {/* Final Quiz Box */}
-        <div className="col-md-12 mt-2">
-          <div className="card-card1 shadow-sm">
-            <div className="card-card1-body">
-              <h5 className="card-card1-title ms-3 mb-4"style={{ color: "#6f42c1" }} >Final Quiz</h5>
-              <p className="card-card1-text ms-3">
-                Manage and add final quizzes for your course.
-              </p>
-              <Link to={'/quizzes-details'} className="btn btn-success ms-4">       
-                Add Quiz
-              </Link>
-              <Link
-                className="btn btn-primary ms-4"
-                to={'/view-quiz'}
-              >
-                View Quizzes
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Mid-Term Quiz Box */}
-        <div className="col-md-12 mt-5">
-          <div className="card-card1 shadow-sm">
-            <div className="card-card1-body">
-              <h5 className="card-card1-title ms-3 mb-3" style={{ color: "#6f42c1" }}>Mid-Term Quiz</h5>
-              <p className="card-card1-text ms-3">
-                Manage and add mid-term quizzes for your course.
-              </p>
-              <Link
-                className="btn btn-success ms-4"
-                to={'/quizzes-details'}
-              >
-                Add Quiz
-              </Link>
-              <Link
-                className="btn btn-primary ms-4"
-                to={'/view-quiz'}
-              >
-                View Quizzes
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h2>Exams List</h2>
+      
+      {/* إضافة زر Add Exam */}
+      <Button variant="success" className="mb-3" onClick={() => navigate("/add-exam")}>
+        Add Exam
+      </Button>
+      
+      {error && <Alert variant="danger">{error}</Alert>}
+      
+      <Table striped bordered hover className="mt-3">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Degree</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {exams.map((exam) => (
+            <tr key={exam.e_id}>
+              <td>{exam.e_title}</td>
+              <td>{exam.e_description}</td>
+              <td>{exam.e_degree}</td>
+              <td>{exam.e_type === "mid-term" ? "Mid-Term" : "Final Exam"}</td>
+              <td>
+                <Button variant="warning" onClick={() => navigate(`/edit-exam/${exam.e_id}`)}>
+                  Edit
+                </Button>
+                <Button variant="danger" onClick={() => handleDelete(exam.e_id)} className="ms-2">
+                  Delete
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };
+
 
 export default QuizzesInstructor;

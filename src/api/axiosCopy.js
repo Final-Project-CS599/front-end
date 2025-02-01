@@ -7,18 +7,23 @@ export const axiosInstance = axios.create({
   },
 });
 
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem('userToken');
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
+axiosInstance.interceptors.request.use(
+  (config) => {
+<<<<<<< HEAD
+    const token = localStorage.getItem('userToken'); //role
+    //set and get token in local storage for messages
+=======
+    const token = localStorage.getItem('userToken');
+>>>>>>> 967d27c811f74b25ccf07e3783fdb6e0bd358107
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 // axiosInstance.interceptors.response.use(
 //   (response) => response,

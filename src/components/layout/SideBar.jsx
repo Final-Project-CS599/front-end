@@ -1,10 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import { FaUser, FaUserPlus } from 'react-icons/fa';
 import { IoMdSettings } from 'react-icons/io';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getNavButtonsByRole } from './NavButtons';
 import NavButton from '../shared/NavButton';
-import { FaUser, FaUserPlus } from 'react-icons/fa';
-import { UserContext } from '../../Context/UserContext.jsx';
+import { getNavButtonsByRole } from './NavButtons';
 
 const SideBar = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
@@ -41,7 +39,7 @@ const SideBar = () => {
             <p className="mb-0">{userData?.fullName}</p>
             <small className="text-muted">{userData?.role}</small>
           </div>
-          <NavLink to={`/${userData?.role === 'sAdmin' ? 'admin' : userData?.role}/profile`}>
+          <NavLink to={`/${userData?.role === 'sAdmin' ? 'admin' : userData?.role}/profile`} >
             <IoMdSettings color="#5f6774" />
           </NavLink>
         </div>

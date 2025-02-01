@@ -1,80 +1,13 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-
-const mockData = [
-  {
-    id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    email: "john@example.com",
-    department: "Math",
-    phone: "",
-    phone2: "",
-    course: [
-      {
-        courseId: "5",
-        courseName: "Algebra",
-        courseCode: "MA254",
-        courseType: "Academic",
-      },
-      {
-        courseId: "40",
-        courseName: "Software Engineering",
-        courseCode: "CS542",
-        courseType: "Extra",
-      },
-    ],
-  },
-  {
-    id: 2,
-    firstName: "Jane",
-    lastName: "Smith",
-    email: "jane@example.com",
-    department: "CS",
-    course: [
-      {
-        courseId: "56",
-        courseName: "Bio",
-        courseCode: "BI254",
-        courseType: "Extra",
-      },
-      {
-        courseId: "40",
-        courseName: "Software Engineering",
-        courseCode: "CS542",
-        courseType: "Extra",
-      },
-    ],
-  },
-  {
-    id: 3,
-    firstName: "Alice",
-    lastName: "Johnson",
-    email: "alice@example.com",
-    department: "Arts",
-    course: [
-      {
-        courseId: "56",
-        courseName: "History",
-        courseCode: "BI254",
-        courseType: "Extra",
-      },
-      {
-        courseId: "40",
-        courseName: "Software Engineering",
-        courseCode: "CS542",
-        courseType: "Extra",
-      },
-    ],
-  },
-];
+import { useState } from "react";
+import { useGetStudentAcademicCourses } from "../../../api/admin/users";
 
 
 export default function StudentAcademicCourses() {
   const { id } = useParams();
-  const [user, setUser] = useState(null);
   const [sortCol, setSortCol] = useState({ key: null, direction: "asc" });
-
+  
+  const { data: courses = [], isLoading, error } = useGetStudentAcademicCourses(id);
 
   const colSort = (key) => {
     let direction = "asc";
@@ -82,72 +15,70 @@ export default function StudentAcademicCourses() {
       direction = "desc";
     }
     setSortCol({ key, direction });
-
-    const sortedCourses = [...user.course].sort((a, b) => {
-      if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
-      if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
-      return 0;
-    });
-    setUser({ ...user, course: sortedCourses });
   };
 
-  useEffect(() => {
-    const selectedUser = mockData.find((item) => item.id === parseInt(id));
-    setUser(selectedUser);
-  }, [id]);
+  const getSortedCourses = () => {
+    if (!courses.length) return [];
+    
+    return [...courses].sort((a, b) => {
+      if (a[sortCol.key] < b[sortCol.key]) return sortCol.direction === "asc" ? -1 : 1;
+      if (a[sortCol.key] > b[sortCol.key]) return sortCol.direction === "asc" ? 1 : -1;
+      return 0;
+    });
+  };
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) {
+    // Handle specific error cases from backend
+    if (error.response?.status === 404) {
+      return <div>No academic courses found for this student.</div>;
+    }
+    return <div>{error.response?.data?.message || 'Something went wrong'}</div>;
+  }
 
-  if (!user) return <div>Loading...</div>;
+  const sortedCourses = sortCol.key ? getSortedCourses() : courses;
 
   return (
-    <>
-
-      <div>
-        <table className="table table-light table-bordered table-striped mt-4">
-          <thead>
-            <tr>
-              <th
-                onClick={() => colSort("courseId")}
-                style={{ cursor: "pointer" }}
-              >
-                Course Id{" "}
-                {sortCol.key === "courseId" &&
-                  (sortCol.direction === "asc" ? "↑" : "↓")}
-              </th>
-              <th
-                onClick={() => colSort("courseName")}
-                style={{ cursor: "pointer" }}
-              >
-                Course Name{" "}
-                {sortCol.key === "courseName" &&
-                  (sortCol.direction === "asc" ? "↑" : "↓")}
-              </th>
-              <th
-                onClick={() => colSort("courseCode")}
-                style={{ cursor: "pointer" }}
-              >
-                Course Code{" "}
-                {sortCol.key === "courseCode" &&
-                  (sortCol.direction === "asc" ? "↑" : "↓")}
-              </th>
+    <div>
+      <table className="table table-light table-bordered table-striped mt-4">
+        <thead>
+          <tr>
+            <th
+              onClick={() => colSort("courseId")}
+              style={{ cursor: "pointer" }}
+            >
+              Course ID{" "}
+              {sortCol.key === "courseId" &&
+                (sortCol.direction === "asc" ? "↑" : "↓")}
+            </th>
+            <th
+              onClick={() => colSort("courseName")}
+              style={{ cursor: "pointer" }}
+            >
+              Course Name{" "}
+              {sortCol.key === "courseName" &&
+                (sortCol.direction === "asc" ? "↑" : "↓")}
+            </th>
+            <th
+              onClick={() => colSort("courseCode")}
+              style={{ cursor: "pointer" }}
+            >
+              Course Code{" "}
+              {sortCol.key === "courseCode" &&
+                (sortCol.direction === "asc" ? "↑" : "↓")}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedCourses.map((course) => (
+            <tr key={course.courseId}>
+              <td>{course.courseId}</td>
+              <td>{course.courseName}</td>
+              <td>{course.courseCode}</td>
             </tr>
-          </thead>
-          <tbody>
-            {user.course.map((course, index) => (
-              <tr key={index}>
-                {
-                  <>
-                    <td>{course.courseId}</td>
-                    <td>{course.courseName}</td>
-                    <td>{course.courseCode}</td>
-                  </>
-                }
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-    </>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
