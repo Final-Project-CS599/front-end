@@ -1,41 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGetHelpDeskMessages } from '../../../api/student/HelpDesk';
 
 const ViewMessages = () => {
-  const [messages, setMessages] = useState([]);
-
   const { data, isLoading } = useGetHelpDeskMessages();
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      const data = [
-        { id: 1, email: 'user1@example.com', message: 'I need help with my account.' },
-        { id: 2, email: 'user2@example.com', message: 'How do I reset my password?' },
-      ];
-      setMessages(data);
-    };
-
-    fetchMessages();
-  }, []);
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>HelpDesk Messages</h3>
-        <Link to="/student/helpDesk/send" className="btn  btn-outline-purple">
+        <Link to="/student/helpDesk/send" className="btn btn-outline-purple">
           Send Message
         </Link>
       </div>
-
-      {/* Display Helpdesk Messages */}
-      <div className="list-group">
-        {messages.map((msg) => (
-          <div key={msg.id} className="list-group-item mb-3">
-            <h6>{msg.email}</h6>
-            <p>{msg.message}</p>
-          </div>
-        ))}
-      </div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="list-group">
+          {data?.data?.messages?.length > 0 ? (
+            data.data.messages.map((msg) => (
+              <div key={msg.hd_id} className="list-group-item mb-3">
+                <div className="d-flex justify-content-between">
+                  <h6>{msg.hd_title}</h6>
+                  <h6>{msg.hd_status}</h6>
+                </div>
+                <p>{msg.hd_description}</p>
+              </div>
+            ))
+          ) : (
+            <p>No messages found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

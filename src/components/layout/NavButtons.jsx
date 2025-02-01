@@ -57,6 +57,11 @@ export const adminNavButtons = [
 
 export const studentNavButtons = [
   {
+    text: 'Dashboard',
+    icon: <MdDashboard />,
+    to: '/student/home',
+  },
+  {
     text: 'My Courses',
     icon: <FaBookOpen />,
     to: '/student/courses',

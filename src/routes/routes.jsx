@@ -40,7 +40,7 @@ import Payment from '../pages/admin/Payment/Payment.jsx';
 import Programingextra from '../pages/admin/Programingextra/Programingextra.jsx';
 import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
 import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
-import StudentHome from '../pages/Home';
+import StudentHome from '../pages/student/Home.jsx';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import Assignments from '../pages/instructor/Assignment/Assignments.jsx';
 import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
@@ -70,7 +70,7 @@ import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
-  { index: true, element: <StudentHome /> },
+  { index: true, path: '/student/home', element: <StudentHome /> },
   // Main student features
   { path: '/student/courses', element: <StudentCourses /> },
   { path: '/student/instructors', element: <StudentInstructors /> },
@@ -346,7 +346,7 @@ export const adminRoutes = [
         <EditInstructor />{' '}
       </AcademicRou>
     ),
-  }, 
+  },
 ];
 
 export const router = createBrowserRouter([
@@ -387,10 +387,10 @@ export const router = createBrowserRouter([
       { path: '/add-material', element: <AddMaterial /> },
       { path: '/add-exam', element: <QuizDetailsPage /> },
       { path: '/view-quiz', element: <ViewQuizz /> },
-      {path:'/edit-exam',element:<EditExam/>},
+      { path: '/edit-exam', element: <EditExam /> },
       { path: '/add-assignment', element: <AssignDetails /> },
-      {path:"/edit-assignment",element:<EditAssignment/>},
-      {path:'/instructor/viewcourse',element:<ViewCourses/>}
+      { path: '/edit-assignment', element: <EditAssignment /> },
+      { path: '/instructor/viewcourse', element: <ViewCourses /> },
 
       // //Auth login & forget password
       // { path: '/confirmEmail', element: <ConfirmEmail/> },
