@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import NavBar from '../layout/NavBar';
+import { Navigate, Outlet } from 'react-router-dom';
 import MobileNav from '../layout/MobileNav';
+import NavBar from '../layout/NavBar';
 import SideBar from '../layout/SideBar';
-import { getHomePath } from './NavButtons.jsx';
 
 const LayoutWithSideBar = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));

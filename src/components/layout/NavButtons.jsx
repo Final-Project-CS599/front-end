@@ -92,7 +92,7 @@ export const instructorNavButtons = [
   {
     text: 'My Courses',
     icon: <FaBookOpen />,
-    to: '/instructor/courses/mycourses',
+    to: '/instructor/viewcourse',
   },
   {
     text: 'Students',
@@ -102,7 +102,7 @@ export const instructorNavButtons = [
   {
     text: 'Assignments',
     icon: <MdAssignment />,
-    to: '/instructor/assignments',
+    to: '/instructor/Assignment/Assignment',
   },
   {
     text: 'Quizzes',
