@@ -15,7 +15,6 @@ export default function AddDepartment() {
   
   const [sortedDepartments, setSortedDepartments] = useState([]);
 
-  // Update sortedDepartments when departmentData changes
   useEffect(() => {
     if (departmentData?.departments) {
       setSortedDepartments([...departmentData.departments]);
@@ -38,14 +37,12 @@ export default function AddDepartment() {
     setSortCol({ key, direction });
 
     const sorted = [...sortedDepartments].sort((a, b) => {
-      // Handle numeric sorting for id
       if (key === "id") {
         return direction === "asc"
           ? a[key] - b[key]
           : b[key] - a[key];
       }
 
-      // Handle string sorting for other columns
       const aValue = (a[key] || "").toLowerCase();
       const bValue = (b[key] || "").toLowerCase();
 
@@ -63,7 +60,6 @@ export default function AddDepartment() {
     e.preventDefault();
 
     try {
-      // Assuming useAddDepartment().mutateAsync is available
       await addDepartment({
         department_name: formData.department_name,
         department_code: formData.department_code,
@@ -75,7 +71,6 @@ export default function AddDepartment() {
         department_code: ""
       });
 
-      // Refetch departments data after adding
       refetch();
     } catch (error) {
       console.log(error);

@@ -335,11 +335,10 @@ export const adminRoutes = [
     ),
   },
   {
-    path: '/admin/editInstructor/:id',
+    path: '/admin/editInstructors/:id',
     element: (
       <AcademicRou>
-        {' '}
-        <EditInstructor />{' '}
+        <EditInstructor />
       </AcademicRou>
     ),
   },
@@ -386,7 +385,7 @@ export const router = createBrowserRouter([
 
       // //Auth login & forget password
       // { path: '/confirmEmail', element: <ConfirmEmail/> },
-      // { path: '/login' , element: <Login/>},
+      //{ path: '/login' , element: <Login/>},
       // // {path: '/forgetPassword/:token', element: <ForgetPassword/>},
       // { path: '/forgetPassword' , element:<ForgetPassword/>},
       // { path: '/ForgetPasswordVerifyCode' , element:<ForgetPasswordDetalis/>},

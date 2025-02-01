@@ -2,10 +2,12 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useGetDepartmentsData } from "../../../api/admin/GetDepartments";
 import { useEditStudent, useGetStudentById } from "../../../api/admin/users";
+import { showToast } from "../../../utils/toast";
+import { ToastContainer } from "react-toastify";
 
 export default function StudentInfo() {
   const { id } = useParams();
-  const { data: studentData } = useGetStudentById(id);
+  const { data: studentData, refetch } = useGetStudentById(id);
   const [user, setUser] = useState(null);
   const { data: departmentData } = useGetDepartmentsData();
   const { mutate } = useEditStudent();
@@ -17,7 +19,7 @@ export default function StudentInfo() {
     }
   }, [studentData]);
 
-  // Handle input change for editable fields
+ 
   const inputChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -26,21 +28,32 @@ export default function StudentInfo() {
     }));
   };
 
-  // Handle form submission
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const submit = () => {
-    // Create the update body with only the editable fields
-    const updateBody = {
+    const fullName = user.firstName + " " + (user.middleName ? user.middleName + " " : "") + user.lastName;
+  const [firstName, middleName, lastName] = fullName.split(" ");
+    
+  const updateBody = {
       email: user.email,
       nationalId: user.nationalId,
       department: user.department,
-      // Add other editable fields here if needed
+      firstName,
+    middleName: middleName || "",
+    lastName: lastName || middleName || "",
     };
-
-    // Call the mutate function with the update body and the student ID
-    mutate({ id, updateBody });
+    mutate({ id, updateBody }, {
+          onSuccess: () => {
+            showToast("Data updated successfully!", { type: "success" });
+            refetch();
+            setIsSubmitting(false);
+          },
+          onError: (error) => {
+            showToast(error.message || "Update failed", { type: "error" });
+          console.error(error);
+          setIsSubmitting(false);
+          }});
   };
 
-  // If user data is not yet loaded, show loading indicator
   if (!user) return <div>Loading...</div>;
 
   return (
@@ -56,10 +69,17 @@ export default function StudentInfo() {
               value={
                 user.firstName +
                 " " +
-                (user.midName ? user.midName + " " : "") +
+                (user.middleName ? user.middleName + " " : "") +
                 user.lastName
               }
-              readOnly // Full name should be read-only as it combines multiple fields
+              onChange={(e) => {
+                const nameParts = e.target.value.split(" ");
+                setUser({
+                  ...user,
+                  firstName: nameParts[0] || "",
+                  middleName: nameParts.length > 2 ? nameParts[1] : "",
+                  lastName: nameParts.length > 2 ? nameParts[2] : nameParts[1] || ""
+                });}}
             />
           </div>
           <div className="col-md-6">
@@ -78,7 +98,7 @@ export default function StudentInfo() {
               National ID:
             </label>
             <input
-              type="number"
+              type="text"
               id="national"
               className="form-control"
               name="nationalId"
@@ -87,14 +107,14 @@ export default function StudentInfo() {
             />
           </div>
           <div className="col-md-3">
-            <label htmlFor="BirthDate" className="pt-3">
+            <label htmlFor="birthDate" className="pt-3">
               Birth Date:
             </label>
             <input
               type="date"
-              id="BirthDate"
+              id="birthDate"
               className="form-control"
-              value={user.bDate}
+              value={user.dateOfBirth}
               disabled
             />
           </div>
@@ -119,7 +139,7 @@ export default function StudentInfo() {
               id="phone"
               className="form-control"
               name="phone"
-              value={user.phone}
+              value={user.phones[0]}
               disabled
             />
           </div>
@@ -132,7 +152,7 @@ export default function StudentInfo() {
               id="phone2"
               className="form-control"
               name="phone2"
-              value={user.phone2}
+              value={user.phones[1]}
               disabled
             />
           </div>
@@ -161,10 +181,13 @@ export default function StudentInfo() {
       </div>
       <br />
       <div className="mt-3 d-flex justify-content-end">
-        <button className="btn buttoncolor shadow" onClick={submit}>
-          Update
+        <button className="btn btn-purple buttoncolor {`${isSubmitting ? 'opacity-50' : ''}`} "
+                type="submit"
+                disabled={isSubmitting} onClick={submit}>
+          {isSubmitting ? 'Updating...' : 'Update'}
         </button>
       </div>
+      <ToastContainer />
     </>
   );
 }
