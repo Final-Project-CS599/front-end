@@ -1,5 +1,11 @@
-// components/navigation/navButtons.js
-import { FaBookOpen, FaUser, FaUsers, FaGraduationCap, FaChalkboardTeacher, FaBuilding } from 'react-icons/fa';
+import {
+  FaBookOpen,
+  FaUser,
+  FaUsers,
+  FaGraduationCap,
+  FaChalkboardTeacher,
+  FaBuilding,
+} from 'react-icons/fa';
 import {
   MdAssignment,
   MdQuiz,
@@ -86,7 +92,7 @@ export const instructorNavButtons = [
   {
     text: 'My Courses',
     icon: <FaBookOpen />,
-    to: '/instructor/courses/mycourses',
+    to: '/instructor/viewcourse',
   },
   {
     text: 'Students',
@@ -96,7 +102,7 @@ export const instructorNavButtons = [
   {
     text: 'Assignments',
     icon: <MdAssignment />,
-    to: '/instructor/assignments',
+    to: '/instructor/Assignment/Assignment',
   },
   {
     text: 'Quizzes',
@@ -112,6 +118,11 @@ export const instructorNavButtons = [
     text: 'Chat',
     icon: <BiSolidChat />,
     to: '/instructor/chat',
+  },
+  {
+    text: 'Help Desk',
+    icon: <MdReport />,
+    to: '/instructor/report',
   },
 ];
 
@@ -130,18 +141,18 @@ export const getNavButtonsByRole = (role) => {
   }
 };
 
-
 export const getHomePath = (role) => {
-    switch (role) {
-      case 'admin':
-      case 'sAdmin':
-        return '/admin/home';
-      case 'instructor':
-        return '/instructor/courses/mycourses';
-      case 'student':
-      case 'user':
-        return '/';
-      default:
-        return '/login';
-    }
-  };
+  switch (role) {
+    case 'admin':
+    case 'sAdmin':
+      return '/admin/home';
+    case 'instructor':
+      return '/instructor/courses/mycourses';
+    case 'student':
+      return '/student/courses';
+    case 'user':
+      return '/';
+    default:
+      return '/login';
+  }
+};

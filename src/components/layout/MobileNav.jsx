@@ -1,36 +1,28 @@
-import React from 'react';
+import { FaUser, FaUserCircle, FaUserPlus } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import HomeLogo from '../../assets/images/imgAdmin/HomeLogo.jpg';
-import { FaUserCircle } from 'react-icons/fa';
 import NavButton from '../shared/NavButton';
 import { getNavButtonsByRole } from './NavButtons';
-import { FaUser, FaUserPlus } from 'react-icons/fa';
-
 
 const MobileNav = () => {
   const navigate = useNavigate();
-
   const userData = JSON.parse(localStorage.getItem('userData'));
-
-  if (!userData) {
-    return null;
-  }
   const navButtons = getNavButtonsByRole(userData.role);
 
   const handleClick = () => {
     if (userData?.role === 'admin' || userData?.role === 'sAdmin') {
-        navigate('/admin/addAdmin');
+      navigate('/admin/addAdmin');
     } else {
       return;
     }
   };
-    
+
   function logOut() {
     localStorage.removeItem('userToken');
     localStorage.removeItem('userData');
     navigate('/login');
   }
-  
+
   return (
     <>
       <nav className="navbar d-lg-none navbar-expand-lg navbar-light bg-light position-relative">
@@ -61,7 +53,9 @@ const MobileNav = () => {
       <div className="offcanvas offcanvas-start" tabIndex="-1" id="leftOffcanvas">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title">
-            {userData?.role ? `${userData.role.charAt(0).toUpperCase() + userData.role.slice(1)} Menu` : "Menu"}
+            {userData?.role
+              ? `${userData.role.charAt(0).toUpperCase() + userData.role.slice(1)} Menu`
+              : 'Menu'}
           </h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
@@ -72,25 +66,23 @@ const MobileNav = () => {
         </div>
       </div>
 
-
       <div className="offcanvas offcanvas-end" tabIndex="-1" id="rightOffcanvas">
         <div className="offcanvas-header">
           <h5 className="offcanvas-title">Profile Menu</h5>
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div className="offcanvas-body d-flex flex-column align-items-start ">
-
-          <div onClick={handleClick} style={{ cursor: 'pointer'}}>
-              {userData?.role === 'admin' || userData?.role === 'sAdmin' ? (
-                <FaUserPlus color="#5f6774" size={50} />
-              ) : (
-                <FaUser color="#5f6774" size={50} />
-              )}
+          <div onClick={handleClick} style={{ cursor: 'pointer' }}>
+            {userData?.role === 'admin' || userData?.role === 'sAdmin' ? (
+              <FaUserPlus color="#5f6774" size={30} />
+            ) : (
+              <FaUser color="#5f6774" size={30} />
+            )}
           </div>
 
           <div className="w-100 pt-4">
-            <p className="mb-0">{userData?.fullName || 'User Name'}</p>
-            <small className="text-muted">{userData?.role || 'No Role'}</small>
+            <p className="mb-0">{userData?.fullName}</p>
+            <small className="text-muted">{userData?.role}</small>
           </div>
 
           <Link to={`/${userData.role}/profile`} className="btn pb-4 pt-3 ">
@@ -99,7 +91,6 @@ const MobileNav = () => {
 
           <button className="btn buttoncolor pb-2 me-4">
             <span onClick={() => logOut()} className="cursor-pointer">
-              {' '}
               Logout
             </span>
           </button>

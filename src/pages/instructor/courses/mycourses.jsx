@@ -9,7 +9,7 @@ const MyCourses = ({ instructorId }) => {
 
   useEffect(() => {
     fetchMaterials();
-  }, []);
+  }, [instructorId]);
 
   const fetchMaterials = async () => {
     try {

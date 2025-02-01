@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { ToastContainer } from 'react-toastify';
-import { useUpdatesProfile } from '../../../api/instructor/EditProfile.jsx';
 import { showToast } from '../../../utils/toast';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+import { useUpdateProfile } from '../../../api/instructor/EditProfileInst.js';
 
 const ProfilePage = () => {
   const [phoneNumbers, setPhoneNumbers] = useState(['']);
   const [password, setPassword] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [gender, setGender] = useState('Male');
+  const navigate = useNavigate();
 
-  const { mutate, isLoading } = useUpdatesProfile();
+  const { mutate, isLoading } = useUpdateProfile();
 
   const handlePhoneNumberChange = (index, value) => {
     const newPhoneNumbers = [...phoneNumbers];
@@ -22,7 +23,6 @@ const ProfilePage = () => {
     setPhoneNumbers([...phoneNumbers, '']);
   };
 
-  // Remove a phone number input
   const removePhoneNumber = (index) => {
     const newPhoneNumbers = phoneNumbers.filter((_, i) => i !== index);
     setPhoneNumbers(newPhoneNumbers);
@@ -31,28 +31,26 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!password || !birthDate || !gender || phoneNumbers.some((num) => !num)) {
-      showToast('Please fill out all fields.', 'error'); // Show error Toast
+    if (!password || !phoneNumbers.every((num) => num.trim() !== '')) {
+      showToast('Please fill out all fields.', 'error');
       return;
     }
 
-    // Prepare data for submission
     const profileData = {
       phoneNumbers,
-      password,
-      birthDate,
-      gender,
+      password
     };
+
     mutate(profileData, {
       onSuccess: () => {
-        showToast('Profile updated successfully!', 'success'); // Show success Toast
+        showToast('Profile updated successfully!', 'success');
+        setTimeout(() => navigate('/dashboard'), 2000);
       },
       onError: (error) => {
-        showToast(`Error: ${error.message}`, 'error'); // Show error Toast
+        showToast(`Error: ${error.message}`, 'error');
       },
     });
 
-    // Log the data (you can replace this with an API call)
     console.log('Profile Data:', profileData);
   };
 
@@ -60,7 +58,6 @@ const ProfilePage = () => {
     <div className="container">
       <h3 className="mb-4">Edit Profile</h3>
       <form onSubmit={handleSubmit}>
-        {/* Phone Numbers */}
         <div className="mb-3">
           <label className="form-label">Phone Numbers</label>
           <div className="d-flex gap-2 align-items-center">
@@ -68,7 +65,7 @@ const ProfilePage = () => {
               <div key={index} className="input-group w-50">
                 <input
                   type="text"
-                  className="form-control "
+                  className="form-control"
                   placeholder="Enter phone number"
                   value={phone}
                   onChange={(e) => handlePhoneNumberChange(index, e.target.value)}
@@ -85,12 +82,10 @@ const ProfilePage = () => {
                 )}
               </div>
             ))}
-
-            <FaPlus onClick={addPhoneNumber} className="fs-3 text-purple" />
+            <FaPlus onClick={addPhoneNumber} className="fs-3 text-primary" />
           </div>
         </div>
 
-        {/* Password and Birth Date */}
         <div className="row my-5">
           <div className="col-md-6">
             <label className="form-label">Password</label>
@@ -103,37 +98,13 @@ const ProfilePage = () => {
               required
             />
           </div>
-          <div className="col-md-6">
-            <label className="form-label">Birth Date</label>
-            <input
-              type="date"
-              className="form-control"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-              required
-            />
-          </div>
         </div>
 
-        <div className="row mb-3">
-          <div className="col-md-6">
-            <label className="form-label">Gender</label>
-            <select
-              className="form-select"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              required
-            >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </div>
-        </div>
         <div className="d-flex justify-content-end">
           <button
             type="submit"
             className="btn buttoncolor w-25"
-            disabled={isLoading} // Disable the button while loading
+            disabled={isLoading}
           >
             {isLoading ? 'Saving...' : 'Save Changes'}
           </button>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import axios from 'axios';
-import { Button, Form, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { Button, Form, Container } from 'react-bootstrap';
+import { useAddAssignment } from "../../../api/instructor/assignments";
 
 const AssignmentDetails = () => {
   const [type, setType] = useState('');
@@ -10,55 +10,53 @@ const AssignmentDetails = () => {
   const [title, setTitle] = useState('');
   const [link, setLink] = useState('');
   const [degree, setDegree] = useState('');
-  const [instructorId, setInstructorId] = useState('');
-  const [courseId, setCourseId] = useState('');
-  const navigate = useNavigate();
+  const [courseId, setCourseId] = useState(''); 
 
-  const handleSubmit = async (e) => {
+  const navigate = useNavigate();
+  const { mutate: addAssignment } = useAddAssignment();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    // التحقق من أن جميع الحقول تم إدخالها
-    if (!type || !description || !publishDate || !title || !link || !degree || !instructorId || !courseId) {
+    if (!type || !description || !publishDate || !title || !link || !degree || !courseId) {
       alert('All fields are required');
       return;
     }
 
-    // التحقق من أن نوع التعيين يجب أن يكون إما "extra" أو "academic"
-    if (type !== 'extra' && type !== 'academic') {
-      alert('Assignment type must be either "extra" or "academic"');
-      return;
-    }
-
-    // التحقق من صحة الرابط (URL)
     const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
     if (!urlPattern.test(link)) {
       alert('Please enter a valid link');
       return;
     }
 
-    try {
-      const response = await axios.post('http://localhost:3000/assignment/add', {
-        type,
-        description,
-        publish_date: publishDate,
-        title,
-        link,
-        degree,
-        instructor_id: instructorId,
-        courseId
-      });
-      alert('Assignment Added');
-      navigate('/assignments'); // إعادة التوجيه إلى قائمة التعيينات
-    } catch (error) {
-      console.error('Error adding assignment:', error);
-      alert('Failed to add assignment');
-    }
+    const assignmentData = { type, description, publish_date: publishDate, title, link, degree, courseId };
+
+    addAssignment(assignmentData, {
+      onSuccess: () => {
+        alert('Assignment Added Successfully');
+        navigate(`/course/${courseId}/assignments`);
+      },
+      onError: (error) => {
+        console.error('Error adding assignment:', error);
+        alert('Failed to add assignment');
+      }
+    });
   };
 
   return (
     <Container>
       <h2 className="mt-4">Add Assignment</h2>
       <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formCourseId" className="mb-3">
+          <Form.Label>Course ID</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter Course ID" 
+            value={courseId} 
+            onChange={(e) => setCourseId(e.target.value)} 
+          />
+        </Form.Group>
+
         <Form.Group controlId="formType" className="mb-3">
           <Form.Label>Type</Form.Label>
           <Form.Control 
@@ -115,26 +113,6 @@ const AssignmentDetails = () => {
             placeholder="Enter assignment degree" 
             value={degree} 
             onChange={(e) => setDegree(e.target.value)} 
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formInstructorId" className="mb-3">
-          <Form.Label>Instructor ID</Form.Label>
-          <Form.Control 
-            type="number" 
-            placeholder="Enter instructor ID" 
-            value={instructorId} 
-            onChange={(e) => setInstructorId(e.target.value)} 
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formCourseId" className="mb-3">
-          <Form.Label>Course ID</Form.Label>
-          <Form.Control 
-            type="number" 
-            placeholder="Enter course ID" 
-            value={courseId} 
-            onChange={(e) => setCourseId(e.target.value)} 
           />
         </Form.Group>
 

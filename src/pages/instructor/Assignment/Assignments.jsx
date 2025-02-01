@@ -2,22 +2,20 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Table, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useGetAssignments } from '../../../api/instructor/assignments.js';
+import { useGetAssignment } from '../../../api/instructor/assignments.js';
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
-  const [selectedType, setSelectedType] = useState(''); // النوع الذي تم اختياره
+  const [selectedType, setSelectedType] = useState('');
   const navigate = useNavigate();
 
-  const {data} = useGetAssignments()
+  const {data} = useGetAssignment()
 
   console.log(data)
 
-  // جلب المهام عند تحميل الصفحة
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        // جلب المهام بناءً على النوع المحدد
         const response = await axios.get(`http://localhost:3000/assignment?type=${selectedType}`);
         setAssignments(response.data.Assignments);
       } catch (error) {
@@ -26,9 +24,8 @@ const Assignments = () => {
     };
 
     fetchAssignments();
-  }, [selectedType]); // تحديث عند تغيير النوع
+  }, [selectedType]); 
 
-  // حذف مهمة
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:3000/assignment/delete/${id}`);

@@ -13,7 +13,7 @@ const updateProfile = async (profileData, id) => {
   return response.json();
 };
 
-export const useUpdatesProfile = () => {
+export const useUpdateProfile = () => {
   return useMutation({
     mutationKey: ['updateProfile'],
     mutationFn: updateProfile,
