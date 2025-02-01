@@ -310,7 +310,7 @@ export const adminRoutes = [
     ),
   },
   {
-    path: '/admin/editInstructor/:id',
+    path: '/admin/editInstructors/:id',
     element: (
       <AcademicRou>
         <EditInstructor />
