@@ -12,20 +12,12 @@ import ForgetPassword from './../pages/admin/ForgetPassword/ForgetPassword';
 import NotFound from './../pages/admin/NotFound/NotFound';
 import LayoutWithSideBar from './../components/layout/LayoutWithSideBar';
 import Courses from '../pages/admin/Courses/Courses.jsx';
+import Departments from '../pages/admin/Departments/Department.jsx';
+import Sections from '../pages/admin/Sections/Sections.jsx';
 import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
 import Extra from '../pages/admin/Extra/Extra.jsx';
 import Payment from '../pages/admin/Payment/Payment.jsx';
-import Asacadmic from '../pages/admin/Asacadmic/Asacadmic.jsx';
-import Isacadmic from '../pages/admin/Isacadmic/Isacadmic.jsx';
-import Msacadmic from '../pages/admin/Msacadmic/Msacadmic.jsx';
-import Oracadmic from '../pages/admin/Oracadmic/Oracadmic.jsx';
-import Csacadmic from '../pages/admin/Csacadmic/Csacadmic.jsx';
 import CoursePage from '../pages/admin/CoursePage/CoursePage.jsx';
-import Programingextra from '../pages/admin/Programingextra/Programingextra.jsx';
-import Backendextra from '../pages/admin/Backendextra/Backendextra.jsx';
-import Languagesextra from '../pages/admin/Languagesextra/Languagesextra.jsx';
-import Digitalextra from '../pages/admin/Digitalextra/Digitalextra.jsx';
-import Frontendextra from '../pages/admin/Frontendextra/Frontendextra.jsx';
 import Addnewcourseacadmic from'../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
 import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
 import PaymentContent from '../pages/admin/PaymentContent/PaymentContent.jsx';
@@ -44,18 +36,10 @@ export const router = createBrowserRouter([
       //pages
       {index: true, element: <Home/> },
       {path: '/admin/courses' , element: <Courses/>},
+      {path:'/admin/departments', element: <Departments/>},
+      {path:'/admin/sections', element: <Sections/>},
       {path: '/admin/acadmic' , element: <Acadmic/>},
-      {path: '/admin/asacadmic', element: <Asacadmic/>},
-      {path: 'admin/isacadmic' , element: <Isacadmic/>},
-      {path: 'admin/msacadmic' , element: <Msacadmic/>},
-      {path: 'admin/oracadmic' , element: <Oracadmic/>},
-      {path:'admin/csacadmic', element: <Csacadmic/>},
       {path: '/admin/extra' , element: <Extra/>},
-      {path: '/admin/programingextra' , element: <Programingextra/>},
-      {path: '/admin/languagesextra' , element: <Languagesextra/>},
-      {path: '/admin/backendextra' , element: <Backendextra/>},
-      {path: '/admin/frontendextra', element: <Frontendextra/>},
-      { path: '/admin/digitalextra' , element: <Digitalextra/>},
       {path: '/admin/addnewcourseextra', element:<Addnewcourseextra/>},
       {path:'/admin/addnewcourseacadmic', element: <Addnewcourseacadmic/>},
       {path:'/admin/coursepage', element: <CoursePage/>},

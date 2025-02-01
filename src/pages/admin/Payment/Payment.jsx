@@ -8,26 +8,26 @@ function PaymentMessages() {
       id: 1,
       email: "john.doe@example.com",
       imageUrl: "https://via.placeholder.com/150",
-      link: "/admin/paymentcontent" // إضافة الرابط لكل رسالة
+      // link: "/admin/paymentcontent" // إضافة الرابط لكل رسالة
     },
     {
       id: 2,
       email: "jane.smith@example.com",
       imageUrl: "https://via.placeholder.com/150",
-      link: "/admin/paymentcontent"
+      // link: "/admin/paymentcontent"
     },
     {
       id: 3,
       email: "mike.johnson@example.com",
       imageUrl: "https://via.placeholder.com/150",
-      link: "/payment/3"
+      // link: "/admin/paymentcontent"
     }
   ];
 
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-4">Payment Messages</h2>
-      <div className="list-group">
+      <Link  to='/admin/paymentcontent' className="list-group">
         {messages.map((msg) => (
           <Link key={msg.id} to={msg.link} className="text-decoration-none">
             <div className="list-group-item mb-3 shadow-sm">
@@ -40,7 +40,7 @@ function PaymentMessages() {
             </div>
           </Link>
         ))}
-      </div>
+      </Link>
     </div>
   );
 };
