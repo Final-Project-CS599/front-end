@@ -169,8 +169,7 @@ export const adminRoutes = [
     path: '/admin/profile',
     element: (
       <AcademicRou>
-        {' '}
-        <Profile />{' '}
+        <Profile />
       </AcademicRou>
     ),
   },

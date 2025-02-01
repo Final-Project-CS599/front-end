@@ -85,7 +85,7 @@ const MobileNav = () => {
             <small className="text-muted">{userData?.role}</small>
           </div>
 
-          <Link to={`/${userData.role}/profile`} className="btn pb-4 pt-3 ">
+          <Link to={(userData?.role === 'admin' || userData?.role === 'sAdmin') ? `/admin/profile` : `/${userData.role}/profile`} className="btn pb-4 pt-3 ">
             Profile
           </Link>
 

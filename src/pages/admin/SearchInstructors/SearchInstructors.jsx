@@ -79,7 +79,6 @@ export default function SearchInstructors() {
     firstName: "",
     lastName: "",
     department: "",
-    course: "",
   });
 
   const [data, setData] = useState([]);
@@ -142,7 +141,7 @@ it starts to check the fields and checks if there is an equal data, if not it mo
   const handleEditClick = (user) => {
     navigate(`/admin/editInstructor/${user.id}`, { state: { user } });
   };
-
+ 
   return (
     <>
       <div className=" container ms-5 mt-3" style={{ width: "95%" }}>

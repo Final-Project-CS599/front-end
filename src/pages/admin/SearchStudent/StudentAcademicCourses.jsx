@@ -74,32 +74,7 @@ export default function StudentAcademicCourses() {
   const { id } = useParams();
   const [user, setUser] = useState(null);
   const [sortCol, setSortCol] = useState({ key: null, direction: "asc" });
-  const [editableRowIndex, setEditableRowIndex] = useState(null);
 
- 
-
-  const deleteCourse = (index) => {
-    const updatedCourses = user.course.filter((_, i) => i !== index);
-    setUser({ ...user, course: updatedCourses });
-  };
-
-  const addCourse = () => {
-    const newCourse = {
-      courseId: "",
-      courseName: "",
-      courseCode: "",
-      courseType: "",
-    };
-    setUser({ ...user, course: [...user.course, newCourse] });
-    setEditableRowIndex(user.course.length);
-  };
-
-  const updateCourseField = (index, field, value) => {
-    const updatedCourses = user.course.map((course, i) =>
-      i === index ? { ...course, [field]: value } : course
-    );
-    setUser({ ...user, course: updatedCourses });
-  };
 
   const colSort = (key) => {
     let direction = "asc";
@@ -125,102 +100,53 @@ export default function StudentAcademicCourses() {
   if (!user) return <div>Loading...</div>;
 
   return (
-    <>       
+    <>
 
-        <div>
-          <table className="table table-light table-bordered table-striped mt-4">
-            <thead>
-              <tr>
-                <th
-                  onClick={() => colSort("courseId")}
-                  style={{ cursor: "pointer" }}
-                >
-                  Course Id{" "}
-                  {sortCol.key === "courseId" &&
-                    (sortCol.direction === "asc" ? "↑" : "↓")}
-                </th>
-                <th
-                  onClick={() => colSort("courseName")}
-                  style={{ cursor: "pointer" }}
-                >
-                  Course Name{" "}
-                  {sortCol.key === "courseName" &&
-                    (sortCol.direction === "asc" ? "↑" : "↓")}
-                </th>
-                <th
-                  onClick={() => colSort("courseCode")}
-                  style={{ cursor: "pointer" }}
-                >
-                  Course Code{" "}
-                  {sortCol.key === "courseCode" &&
-                    (sortCol.direction === "asc" ? "↑" : "↓")}
-                </th>
-                <th>Actions</th>
+      <div>
+        <table className="table table-light table-bordered table-striped mt-4">
+          <thead>
+            <tr>
+              <th
+                onClick={() => colSort("courseId")}
+                style={{ cursor: "pointer" }}
+              >
+                Course Id{" "}
+                {sortCol.key === "courseId" &&
+                  (sortCol.direction === "asc" ? "↑" : "↓")}
+              </th>
+              <th
+                onClick={() => colSort("courseName")}
+                style={{ cursor: "pointer" }}
+              >
+                Course Name{" "}
+                {sortCol.key === "courseName" &&
+                  (sortCol.direction === "asc" ? "↑" : "↓")}
+              </th>
+              <th
+                onClick={() => colSort("courseCode")}
+                style={{ cursor: "pointer" }}
+              >
+                Course Code{" "}
+                {sortCol.key === "courseCode" &&
+                  (sortCol.direction === "asc" ? "↑" : "↓")}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {user.course.map((course, index) => (
+              <tr key={index}>
+                {
+                  <>
+                    <td>{course.courseId}</td>
+                    <td>{course.courseName}</td>
+                    <td>{course.courseCode}</td>
+                  </>
+                }
               </tr>
-            </thead>
-            <tbody>
-              {user.course.map((course, index) => (
-                <tr key={index}>
-                  {editableRowIndex === index ? (
-                    <>
-                      <td>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={course.courseId}
-                          onChange={(e) =>
-                            updateCourseField(index, "courseId", e.target.value)
-                          }
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={course.courseName}
-                          onChange={(e) =>
-                            updateCourseField(index, "courseName", e.target.value)
-                          }
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={course.courseCode}
-                          onChange={(e) =>
-                            updateCourseField(index, "courseCode", e.target.value)
-                          }
-                        />
-                      </td>
-                     
-                    </>
-                  ) : (
-                    <>
-                      <td>{course.courseId}</td>
-                      <td>{course.courseName}</td>
-                      <td>{course.courseCode}</td>
-                    </>
-                  )}
-                  <td>
-                    <button
-                      className="btn buttoncolor shadow"
-                      onClick={() => deleteCourse(index)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button
-            className="btn buttoncolor shadow me-2 mb-2"
-            onClick={addCourse}
-          >
-            Add Course
-          </button>
-        </div>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
     </>
   );
