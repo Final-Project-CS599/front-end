@@ -17,54 +17,36 @@ export default function ForgetPasswordDetalis() {
   // axios.defaults.withCredentials = true;
   
     async function verifyResetCode(values){
-      setIsLoading(true);
-      setError(null); 
-      try {
-        let {data} = await axios.patch(`http://localhost:3000/auth/verifyCode`, values 
-        );
-      console.log("Verification code is valid:", data);
-        navigate('/ResetPassword');
+        setIsLoading(true);
+        setError(null); 
+        try {
+          let {data} = await axios.patch(`http://localhost:3000/auth/verifyCode`, values );
+          navigate('/ResetPassword');
 
-    }catch (err) {
-      setIsLoading(false);
-      if (err.response) {
-          setError(err.response.data.message || "An error occurred");
-      } else if (err.request) {
-          setError("Network error. Please check your connection.");
-      } else {
-          setError("An unexpected error occurred.");
-      }
-
-      console.log("Error:", err);
-  }
-      // }catch (err){
-      //     setIsLoading(false);
-      //     console.log("Error ", err);
-      //     setError(err.response?.data?.message  || "An error occurred");
-      // }
+        }catch (err) {
+          setIsLoading(false);
+          if (err.response) {
+              setError(err.response.data.message || "An error occurred");
+          } else if (err.request) {
+              setError("Network error. Please check your connection.");
+          } else {
+              setError("An unexpected error occurred.");
+          }
+        }
     }
 
-      // let {data} = await axios.post(`http://localhost:3000/auth/verifyCode` , values)
-      // .catch (
-      //   (err)=> {
-      //     setIsLoading(false);
-      //     console.log(err);
-      //     setError(err.response.data.message);
-      //   }
-      // )
-      // navigate('/ResetPassword');
+    let validateScheme =yup.object({
+        email: yup.string().email('Email is invalid').required('Email is required'),
+        code: yup.string().matches(/^[A-Za-z0-9\-+_$!%*#?&]{6}$/ , 'please check your email to code (send Code Check to email)').required('number is required'),
+    })
 
-  let validateScheme =yup.object({
-    email: yup.string().email('Email is invalid').required('Email is required'),
-    code: yup.string().matches(/^[A-Za-z0-9\-+_$!%*#?&]{6}$/ , 'number start with uppercase').required('number is required'),
-  })
-
-  let formik = useFormik({
-    initialValues :{
-      code:'',
-    }, validationSchema:validateScheme,  
-    onSubmit:verifyResetCode 
-  })
+    let formik = useFormik({
+        initialValues :{
+            email:'',
+            code:'',
+        }, validationSchema:validateScheme,    
+        onSubmit:verifyResetCode 
+    })
 
 return <>
 <HelmetProvider>
@@ -81,7 +63,7 @@ return <>
             <form onSubmit={formik.handleSubmit}>
 
                 <input type='email' placeholder="Email" id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
-                    value={formik.values.email} name='email'
+                    value={formik.values.email} name='email' autoComplete="username"
                 />
                 {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-2 p-2">{formik.errors.email}</div>:''}
 

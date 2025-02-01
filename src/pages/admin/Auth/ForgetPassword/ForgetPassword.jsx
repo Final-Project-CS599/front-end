@@ -55,7 +55,7 @@ export default function ForgetPassword() {
             <form onSubmit={formik.handleSubmit}>
                 <h1 className=' fw-bolder'>please enter your verification code</h1>
                 <input type='email' placeholder="Email" id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
-                      value={formik.values.email} name='email'
+                      value={formik.values.email} name='email' autoComplete="username"
                 />
                 {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-2 p-2">{formik.errors.email}</div>:''}
                 {isLoading? <button  type=' button' className='btn bg-main text-white mt-2'>

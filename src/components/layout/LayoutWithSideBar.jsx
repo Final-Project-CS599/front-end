@@ -5,6 +5,7 @@ import MobileNav from '../layout/MobileNav';
 import SideBar from '../layout/SideBar';
 import { getHomePath } from './NavButtons.jsx';
 
+
 const LayoutWithSideBar = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
 

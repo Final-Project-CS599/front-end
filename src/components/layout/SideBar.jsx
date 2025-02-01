@@ -27,14 +27,13 @@ const SideBar = () => {
       {navButtons.map((button) => (
         <NavButton key={button.to} text={button.text} icon={button.icon} to={button.to} />
       ))}
-
       <div className="mt-auto w-100">
         <div className="d-flex align-items-center gap-2 mb-3 w-100">
-          <div onClick={handleClick} style={{ cursor: 'pointer' }}>
+          <div onClick={handleClick}>
             {userData?.role === 'admin' || userData?.role === 'sAdmin' ? (
-              <FaUserPlus color="#5f6774" size={50} />
+              <FaUserPlus color="#5f6774" size={50}  style={{ cursor: 'pointer' }}/>
             ) : (
-              <FaUser color="#5f6774" size={50} />
+              <FaUser color="#5f6774" size={50}  />
             )}
           </div>
 

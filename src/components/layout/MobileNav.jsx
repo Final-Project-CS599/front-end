@@ -6,7 +6,9 @@ import NavButton from '../shared/NavButton';
 import { getNavButtonsByRole } from './NavButtons';
 import { FaUser, FaUserPlus } from 'react-icons/fa';
 
+
 const MobileNav = () => {
+  
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));
   const navButtons = getNavButtonsByRole(userData.role);
@@ -74,9 +76,9 @@ const MobileNav = () => {
           <button type="button" className="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div className="offcanvas-body d-flex flex-column align-items-start ">
-          <div onClick={handleClick} style={{ cursor: 'pointer' }}>
+          <div onClick={handleClick} >
             {userData?.role === 'admin' || userData?.role === 'sAdmin' ? (
-              <FaUserPlus color="#5f6774" size={30} />
+              <FaUserPlus color="#5f6774" size={30}  style={{ cursor: 'pointer' }}/>
             ) : (
               <FaUser color="#5f6774" size={30} />
             )}
