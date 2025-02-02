@@ -1,63 +1,82 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useGetInstructorMessages } from '../../../api/message';
+import SendMessage from './SendMessage'; // Import the SendMessage component
 
 const ChatWindow = () => {
-  const [messages, setMessages] = useState([
-    { text: 'Hello, how can I help you today?', sender: 'Instructor' },
-    { text: 'I have a question about the assignment.', sender: 'Student' },
-  ]);
+  const { data, isLoading, isError, refetch } = useGetInstructorMessages();
+  const [messages, setMessages] = useState([]);
+  const [showComposeModal, setShowComposeModal] = useState(false);
 
-  const [newMessage, setNewMessage] = useState('');
-
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== '') {
-      setMessages([...messages, { text: newMessage, sender: 'Instructor' }]);
-      setNewMessage('');
+  useEffect(() => {
+    if (data?.messages) {
+      setMessages(data.messages);
     }
+  }, [data]);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error fetching messages</div>;
+
+  const formatDate = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    };
+    return new Date(dateString).toLocaleString('en-US', options);
   };
-  const handleDeleteMessage = (index) => {
-    const updatedMessages = messages.filter((_, i) => i !== index);
-    setMessages(updatedMessages);
-  };
+
   return (
     <div className="container mt-4">
-      <div className="cardchat shadow">
-        <div className="card-header  text-white" style={{backgroundColor:'#bd5de2'}}>
-          <h4>Instructor Chat</h4>
-        </div>
-        <div className="card-body" style={{ height: '400px', overflowY: 'scroll' }}>
-          <div className="chat-box">
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`message ${msg.sender === 'Instructor' ? 'text-white' : 'bg-light'}`}
-                style={{ marginBottom: '10px', borderRadius: '10px', padding: '10px' ,backgroundColor:"#bd5de2"}}
-              >
-                <strong>{msg.sender}: </strong>{msg.text}
-
-                <button
-                  className="btn btn-danger btn-sm ms-2"
-                  onClick={() => handleDeleteMessage(index)}
-                  style={{ float: 'right' }}
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="card-footer">
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Type your message..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <button className="btn btn-primary" onClick={handleSendMessage}>Send</button>
-          </div>
-        </div>
+      <div className="d-flex justify-content-between align-items-center">
+        <h3 className="text-left mb-4">Messages</h3>
+        <button className="btn btn-outline-purple mb-4" onClick={() => setShowComposeModal(true)}>
+          Compose New Message
+        </button>
       </div>
+
+      {/* Messages List */}
+      {messages.length === 0 ? (
+        <div className="text-center py-5">
+          <h4>No messages found.</h4>
+          <p className="text-muted">You don't have any messages yet.</p>
+        </div>
+      ) : (
+        <div className="list-group">
+          {messages.map((message, index) => (
+            <div key={index} className="list-group-item">
+              <div className="d-flex justify-content-between align-items-center mb-2">
+                <strong className="sender">
+                  {message?.student_first_name} {message?.student_last_name}
+                </strong>
+                <small className="text-muted">{formatDate(message.m_updated_at)}</small>
+              </div>
+              <h6 className="mb-1 text-muted">{message.student_email}</h6>
+              <div className="d-flex justify-content-between">
+                <p className="mb-1 text-muted">Message: {message.m_message}</p>
+                <p className="mb-1 text-muted"> {message.type}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Compose Modal */}
+      {showComposeModal && (
+        <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <SendMessage
+                onClose={() => setShowComposeModal(false)}
+                role="instructor"
+                onMessageSent={() => refetch()}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
