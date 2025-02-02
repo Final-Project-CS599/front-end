@@ -41,6 +41,7 @@ import Chat from '../pages/instructor/Chat/Chat';
 import MyCourses from '../pages/instructor/courses/mycourses';
 import ProfilePage from '../pages/instructor/Profile/Profile';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
+import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
 
 
 
@@ -80,7 +81,6 @@ export const adminRoutes = [
   { path: '/admin/registerStudent', element: <AcademicRou> <RegisterStudents /> </AcademicRou> },
   //helpDesk
   { path: '/admin/helpDesk', element: <AcademicRou> <HelpDesk /> </AcademicRou> },
-  { path: '/admin/profile', element: <AcademicRou> <Profile /> </AcademicRou> },
   // Courses
   { path: '/admin/courses', element: <AcademicRou> <Courses /> </AcademicRou> },
   { path: '/admin/acadmic', element: <AcademicRou> <Acadmic /> </AcademicRou> },
@@ -99,6 +99,7 @@ export const adminRoutes = [
   { path: '/admin/paymentcontent', element: <AcademicRou> <PaymentContent /> </AcademicRou> },
 
   //Department
+  { path: '/admin/profile', element: <AcademicRou> <AdminProfile/> </AcademicRou> },
   { path: "/admin/addDepartment", element: <AcademicRou> <AddDepartment /> </AcademicRou> },
   { path: "/admin/editStudent/:id", element: <AcademicRou> <EditStudent /> </AcademicRou> },
   { path: "/admin/editInstructor/:id", element: <AcademicRou> <EditInstructor />  </AcademicRou> },
