@@ -40,23 +40,8 @@ function Courses() {
                 </div>
 
             </main>
-
-          
-         {/* btn add new course
-         <div className="d-flex justify-content-end mt-3">
-                  <a href='/admin/addnewcourse' className="btn"
-                    style={{ backgroundColor: "#ffffff", color: "#7F55E0", border: "2px solid #7F55E0", borderRadius: "15px", padding: "10px 20px",
-                      fontSize: "20px", fontWeight: "bold", textDecoration: "none", display: "flex", alignItems: "center", gap: "8px",
-                    }}
-                    onMouseEnter={(e) => { e.target.style.backgroundColor = "#7F55E0"; e.target.style.color = "#ffffff"; }}
-                    onMouseLeave={(e) => { e.target.style.backgroundColor = "#ffffff"; e.target.style.color = "#7F55E0"; }}
-                  >
-                  Add New Course
-                  </a>
-        </div> */}
-        
         </div>
     </HelmetProvider>
-</>
+           </>
                    }
 export default Courses;

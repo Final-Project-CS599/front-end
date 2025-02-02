@@ -22,6 +22,7 @@ import Addnewcourseacadmic from'../pages/admin/Addnewcourseacadmic/Addnewcoursea
 import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
 import PaymentContent from '../pages/admin/PaymentContent/PaymentContent.jsx';
 import AllCourses from '../pages/admin/AllCourses/Allcourses.jsx';
+import AllAcademic from '../pages/admin/AllAcademic/AllAcademic.jsx';
 import AddNewCourse from '../pages/admin/AddNewCourse/AddNewCourse.jsx';
 import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
 import AddDepartment from "../pages/admin/AddDepartment/AddDepartment.jsx";
@@ -45,6 +46,7 @@ export const router = createBrowserRouter([
       {path:'/admin/coursepage', element: <CoursePage/>},
       {path:'/admin/paymentcontent', element: <PaymentContent/>},
       {path:'/admin/allcourses', element: <AllCourses/>},
+      {path:'/admin/allacademic', element: <AllAcademic/>},
       {path: '/admin/addnewcourse', element: <AddNewCourse/>},
       {path: '/admin/instructors' , element: <Instructors/>},
       {path: '/admin/student' , element: <Student/>},

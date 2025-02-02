@@ -11,11 +11,10 @@ function AllCourses() {
       try {
         const response = await fetch("http://localhost:3000/courses/getAllCourses");
         if (!response.ok) {
-          throw new Error("Failed to fetch courses");
-        }
+          throw new Error("Error servers: for all courses");
+                          }
         const result = await response.json();
-        
-        
+    
         console.log("Fetched Courses:", result);
         
         if (result.data && Array.isArray(result.data)) {
@@ -23,11 +22,13 @@ function AllCourses() {
         } else {
           throw new Error("Invalid data format received");
         }
-      } catch (err) {
+          } 
+      catch (err) {
         setError(err.message);
-      } finally {
+                  } 
+      finally {
         setLoading(false);
-      }
+              }
     };
 
     fetchCourses();
@@ -110,6 +111,7 @@ function AllCourses() {
             </div>
           ))}
         </div>
+
               {/* btn delete course */}
               <div className="d-flex justify-content-end mt-3">
                       <a href='/admin/deletecourse' className="btn"
@@ -121,7 +123,7 @@ function AllCourses() {
                       >
                      delete Course
                       </a>
-                  </div>
+              </div>
       </div>
     </HelmetProvider>
   );
