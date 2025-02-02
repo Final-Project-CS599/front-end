@@ -42,6 +42,22 @@ import MyCourses from '../pages/instructor/courses/mycourses';
 import ProfilePage from '../pages/instructor/Profile/Profile';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
+import StudentCourses from '../pages/admin/SearchStudent/StudentCourses.jsx';
+import Quizzes from '../pages/instructor/Quizzes/Quizzes';
+import HelpdeskPage from '../pages/instructor/Report/Report';
+import AssignmentById from '../pages/student/AssignmentById';
+import StudentAssignments from '../pages/student/Assignments';
+import StudentChat from '../pages/student/Chat';
+import CourseById from '../pages/student/courses/CourseById';
+import Send from '../pages/student/helpDesk/Send.jsx';
+import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
+import InstructorById from '../pages/student/InstructorById';
+import StudentInstructors from '../pages/student/Instructors';
+import Messages from '../pages/student/Messages';
+import StudentProfile from '../pages/student/Profile';
+import QuizById from '../pages/student/QuizById';
+import StudentQuizzes from '../pages/student/Quizzes';
+import Courses from '../pages/admin/Courses/Courses.jsx';
 
 
 
@@ -49,15 +65,15 @@ import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
-  { index: true, element: <StudentHome />, },
+  { index: true, element: <StudentHome /> },
   // Main student features
-  { path: '/student/courses', element: <StudentCourses />, },
-  { path: '/student/instructors', element: <StudentInstructors />, },
-  { path: '/student/assignments', element: <StudentAssignments />, },
-  { path: '/student/quizzes', element: <StudentQuizzes />, },
+  { path: '/student/courses', element: <StudentCourses /> },
+  { path: '/student/instructors', element: <StudentInstructors /> },
+  { path: '/student/assignments', element: <StudentAssignments /> },
+  { path: '/student/quizzes', element: <StudentQuizzes /> },
   // Communication features
-  { path: '/student/chat', element: <StudentChat />, },
-  { path: '/student/messages', element: <Messages />, },
+  { path: '/student/chat', element: <StudentChat /> },
+  { path: '/student/messages', element: <Messages /> },
   // Student resources
   { path: '/student/helpDesk/send', element: <Send /> },
   { path: '/student/helpDesk', element: <ViewMessages /> },
