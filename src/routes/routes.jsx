@@ -34,7 +34,6 @@ import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextr
 import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
 import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
 import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
-import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
 import StudentHome from '../pages/student/Home.jsx';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import Assignments from '../pages/instructor/Assignment/Assignments.jsx';
@@ -42,8 +41,6 @@ import Chat from '../pages/instructor/Chat/Chat';
 import MyCourses from '../pages/instructor/courses/mycourses';
 import ProfilePage from '../pages/instructor/Profile/Profile';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
-import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
-import MyCourses from '../pages/instructor/courses/mycourses';
 
 
 
@@ -51,14 +48,14 @@ import MyCourses from '../pages/instructor/courses/mycourses';
 
 export const studentRoutes = [
   // Student dashboard/home
-  { index: true, element: <StudentHome/>, },
+  { index: true, element: <StudentHome />, },
   // Main student features
-  { path: '/student/courses', element: <StudentCourses/>, },
-  { path: '/student/instructors', element: <StudentInstructors/>, },
-  { path: '/student/assignments', element: <StudentAssignments/>, },
-  { path: '/student/quizzes', element: <StudentQuizzes/>, },
+  { path: '/student/courses', element: <StudentCourses />, },
+  { path: '/student/instructors', element: <StudentInstructors />, },
+  { path: '/student/assignments', element: <StudentAssignments />, },
+  { path: '/student/quizzes', element: <StudentQuizzes />, },
   // Communication features
-  { path: '/student/chat', element: <StudentChat/>, },
+  { path: '/student/chat', element: <StudentChat />, },
   { path: '/student/messages', element: <Messages />, },
   // Student resources
   { path: '/student/helpDesk/send', element: <Send /> },
@@ -72,39 +69,39 @@ export const studentRoutes = [
 ];
 
 export const adminRoutes = [
-    //AcadmicRou //pages
-    { index: true, element: <AcademicRou><HomeDashboard /></AcademicRou> },
-    { path: '/admin/home', element: <AcademicRou> <HomeDashboard/> </AcademicRou>  },
-    //auth User
-    { path: '/admin/addAdmin' , element: <AcademicRou> <AddAdmin/> </AcademicRou> },
-    { path: '/admin/instructors' , element:  <AcademicRou> <Instructors/> </AcademicRou>},
-    { path: '/admin/student' , element: <AcademicRou> <Student/> </AcademicRou> },
-    { path: '/admin/registerInstructor' , element: <AcademicRou> <RegisterInstructors/> </AcademicRou> },
-    { path: '/admin/registerStudent' , element:  <AcademicRou> <RegisterStudents/> </AcademicRou>},
-    //helpDesk
-    { path: '/admin/helpDesk' , element: <AcademicRou> <HelpDesk/> </AcademicRou> },
-    { path: '/admin/profile', element: <AcademicRou> <Profile /> </AcademicRou>  },
-    // Courses
-    { path: '/admin/courses' , element: <AcademicRou> <Courses/> </AcademicRou>},
-    { path: '/admin/acadmic' , element: <AcademicRou> <Acadmic/> </AcademicRou>},
-    { path: '/admin/extra' , element: <AcademicRou> <Extra/> </AcademicRou>},
-    { path: '/admin/addnewcourseextra', element:<AcademicRou> <Addnewcourseextra/> </AcademicRou>},
-    { path: '/admin/addnewcourseacadmic', element: <AcademicRou> <Addnewcourseacadmic/> </AcademicRou>},
-    { path: '/admin/deletecourse', element: <AcademicRou> <DeleteCourse/> </AcademicRou>},
-    { path: '/admin/departments', element: <AcademicRou> <Departments/> </AcademicRou>},
-    { path: '/admin/allcourses', element: <AcademicRou> <AllCourses/> </AcademicRou>},
-    {path:'/admin/allacademic', element: <AllAcademic/>},
+  //AcadmicRou //pages
+  { index: true, element: <AcademicRou><HomeDashboard /></AcademicRou> },
+  { path: '/admin/home', element: <AcademicRou> <HomeDashboard /> </AcademicRou> },
+  //auth User
+  { path: '/admin/addAdmin', element: <AcademicRou> <AddAdmin /> </AcademicRou> },
+  { path: '/admin/instructors', element: <AcademicRou> <Instructors /> </AcademicRou> },
+  { path: '/admin/student', element: <AcademicRou> <Student /> </AcademicRou> },
+  { path: '/admin/registerInstructor', element: <AcademicRou> <RegisterInstructors /> </AcademicRou> },
+  { path: '/admin/registerStudent', element: <AcademicRou> <RegisterStudents /> </AcademicRou> },
+  //helpDesk
+  { path: '/admin/helpDesk', element: <AcademicRou> <HelpDesk /> </AcademicRou> },
+  { path: '/admin/profile', element: <AcademicRou> <Profile /> </AcademicRou> },
+  // Courses
+  { path: '/admin/courses', element: <AcademicRou> <Courses /> </AcademicRou> },
+  { path: '/admin/acadmic', element: <AcademicRou> <Acadmic /> </AcademicRou> },
+  { path: '/admin/extra', element: <AcademicRou> <Extra /> </AcademicRou> },
+  { path: '/admin/addnewcourseextra', element: <AcademicRou> <Addnewcourseextra /> </AcademicRou> },
+  { path: '/admin/addnewcourseacadmic', element: <AcademicRou> <Addnewcourseacadmic /> </AcademicRou> },
+  { path: '/admin/deletecourse', element: <AcademicRou> <DeleteCourse /> </AcademicRou> },
+  { path: '/admin/departments', element: <AcademicRou> <Departments /> </AcademicRou> },
+  { path: '/admin/allcourses', element: <AcademicRou> <AllCourses /> </AcademicRou> },
+  { path: '/admin/allacademic', element: <AllAcademic /> },
 
 
 
-    //Payment
-    {path: '/admin/payment' , element: <AcademicRou> <Payment/> </AcademicRou> },
-    {path: '/admin/paymentcontent' , element: <AcademicRou> <PaymentContent/> </AcademicRou> },
+  //Payment
+  { path: '/admin/payment', element: <AcademicRou> <Payment /> </AcademicRou> },
+  { path: '/admin/paymentcontent', element: <AcademicRou> <PaymentContent /> </AcademicRou> },
 
-    //Department
-    {path: "/admin/addDepartment", element:  <AcademicRou> <AddDepartment /> </AcademicRou> },
-    {path: "/admin/editStudent/:id", element: <AcademicRou> <EditStudent /> </AcademicRou>},
-    {path: "/admin/editInstructor/:id", element: <AcademicRou> <EditInstructor />  </AcademicRou>},
+  //Department
+  { path: "/admin/addDepartment", element: <AcademicRou> <AddDepartment /> </AcademicRou> },
+  { path: "/admin/editStudent/:id", element: <AcademicRou> <EditStudent /> </AcademicRou> },
+  { path: "/admin/editInstructor/:id", element: <AcademicRou> <EditInstructor />  </AcademicRou> },
 ];
 
 export const router = createBrowserRouter([
