@@ -8,8 +8,8 @@ const Messages = () => {
   const [showComposeModal, setShowComposeModal] = useState(false);
 
   useEffect(() => {
-    if (data?.messages) {
-      setMessages(data.messages);
+    if (data?.data?.messages) {
+      setMessages(data.data.messages);
     }
   }, [data]);
 
@@ -48,11 +48,16 @@ const Messages = () => {
           {messages.map((message, index) => (
             <div key={index} className="list-group-item">
               <div className="d-flex justify-content-between align-items-center mb-2">
-                <strong className="sender">{message.sender}</strong>
+                <strong className="sender">
+                  {message?.i_firstName} {message?.i_lastName}
+                </strong>
                 <small className="text-muted">{formatDate(message.m_updated_at)}</small>
               </div>
-              <h6 className="mb-1 text-primary">{message.subject}</h6>
-              <p className="mb-1 text-muted">{message.m_message}</p>
+              <h6 className="mb-1 text-muted">{message.i_email}</h6>
+              <div className="d-flex justify-content-between">
+                <p className="mb-1 text-muted">Message: {message.m_message}</p>
+                <p className="mb-1 text-muted"> {message.type}</p>
+              </div>
             </div>
           ))}
         </div>

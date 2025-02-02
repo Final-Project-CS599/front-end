@@ -1,11 +1,26 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Button, Table } from "react-bootstrap";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Button, Table } from 'react-bootstrap';
+import { getCourses } from '../../../api/instructor/courses';
 
 const MyCourses = ({ instructorId }) => {
   const [materials, setMaterials] = useState([]);
+  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
+
+  const getData = async () => {
+    try {
+      const data = await getCourses();
+      setCourses(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   useEffect(() => {
     fetchMaterials();
@@ -13,26 +28,30 @@ const MyCourses = ({ instructorId }) => {
 
   const fetchMaterials = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/courseMaterial/view?instructorId=${instructorId}`);
+      const response = await axios.get(
+        `http://localhost:3000/courseMaterial/view?instructorId=${instructorId}`
+      );
       setMaterials(response.data);
     } catch (error) {
-      console.error("Error fetching materials", error);
+      console.error('Error fetching materials', error);
     }
   };
 
   const handleDelete = async (m_id) => {
     try {
-      await axios.delete("http://localhost:5000/courseMaterial/delete", { data: { m_id } });
+      await axios.delete('http://localhost:5000/courseMaterial/delete', { data: { m_id } });
       setMaterials(materials.filter((material) => material.m_id !== m_id));
     } catch (error) {
-      console.error("Error deleting material", error);
+      console.error('Error deleting material', error);
     }
   };
 
   return (
     <div className="container mt-4">
       <h2>Course Materials</h2>
-      <Button variant="primary" onClick={() => navigate("/add-material")}>Add Material</Button>
+      <Button variant="primary" onClick={() => navigate('/add-material')}>
+        Add Material
+      </Button>
       <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
@@ -49,8 +68,19 @@ const MyCourses = ({ instructorId }) => {
               <td>{material.m_description}</td>
               <td>{material.m_type}</td>
               <td>
-                <Button variant="warning" onClick={() => navigate(`/edit-material/${material.m_id}`)}>Edit</Button>
-                <Button variant="danger" onClick={() => handleDelete(material.m_id)} className="ms-2">Delete</Button>
+                <Button
+                  variant="warning"
+                  onClick={() => navigate(`/edit-material/${material.m_id}`)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDelete(material.m_id)}
+                  className="ms-2"
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}

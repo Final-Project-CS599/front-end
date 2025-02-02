@@ -1,46 +1,77 @@
-import  { useState, useEffect } from "react";
-import axios from "axios";
-import { Button, Table, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Button, Table, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDeleteExam, useGetExam } from '../../../api/instructor/exam';
 
 const QuizzesInstructor = () => {
   const [exams, setExams] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchExams();
-  }, []);
+  const { data, isLoading, isError, refetch } = useGetExam();
+  const { mutate } = useDeleteExam();
 
-  const fetchExams = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/exams");
-      setExams(response.data);
-    } catch (error) {
-      setError("Error fetching exams");
-    }
-  };
+  //
+  // Handle loading state
+  if (isLoading) {
+    return <p>Loading exams...</p>;
+  }
+
+  // Handle error state
+  if (isError) {
+    return (
+      <Alert variant="danger" className="mt-4">
+        Error fetching exams. Please try again later.
+      </Alert>
+    );
+  }
+
+  // Handle empty data
+  if (!data || data?.data?.length === 0) {
+    return (
+      <div className="container mt-4">
+        <div className="d-flex justify-content-between">
+          <h2>Exams List</h2>
+          <Button
+            className="mb-3 btn-outline-purple"
+            onClick={() => navigate('/instructor/Quizzes/Quizzes-details')}
+          >
+            Add Exam
+          </Button>
+        </div>
+        <Alert variant="info" className="mt-3">
+          No exams found. Click "Add Exam" to create a new exam.
+        </Alert>
+      </div>
+    );
+  }
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3000/exams/${id}`);
-      setExams(exams.filter((exam) => exam.e_id !== id));
-    } catch (error) {
-      setError("Error deleting exam");
-    }
+    mutate(id, {
+      onSuccess: () => {
+        refetch();
+      },
+      onError: (error) => {
+        setError(error);
+      },
+    });
   };
 
   return (
     <div className="container mt-4">
-      <h2>Exams List</h2>
-      
-      {/* إضافة زر Add Exam */}
-      <Button variant="success" className="mb-3" onClick={() => navigate("/add-exam")}>
-        Add Exam
-      </Button>
-      
+      <div className="d-flex justify-content-between">
+        <h2>Exams List</h2>
+        <Button
+          className="mb-3 btn-outline-purple"
+          onClick={() => navigate('/instructor/Quizzes/Quizzes-details')}
+        >
+          Add Exam
+        </Button>
+      </div>
+
       {error && <Alert variant="danger">{error}</Alert>}
-      
+
       <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
@@ -52,14 +83,17 @@ const QuizzesInstructor = () => {
           </tr>
         </thead>
         <tbody>
-          {exams.map((exam) => (
+          {data?.data?.map((exam) => (
             <tr key={exam.e_id}>
               <td>{exam.e_title}</td>
               <td>{exam.e_description}</td>
               <td>{exam.e_degree}</td>
-              <td>{exam.e_type === "mid-term" ? "Mid-Term" : "Final Exam"}</td>
+              <td>{exam.e_type === 'mid-term' ? 'Mid-Term' : 'Final Exam'}</td>
               <td>
-                <Button variant="warning" onClick={() => navigate(`/edit-exam/${exam.e_id}`)}>
+                <Button
+                  variant="warning"
+                  onClick={() => navigate(`/instructor/Quizzes/edit/${exam.e_id}`)}
+                >
                   Edit
                 </Button>
                 <Button variant="danger" onClick={() => handleDelete(exam.e_id)} className="ms-2">
@@ -73,6 +107,5 @@ const QuizzesInstructor = () => {
     </div>
   );
 };
-
 
 export default QuizzesInstructor;
