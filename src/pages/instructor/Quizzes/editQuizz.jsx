@@ -35,15 +35,6 @@ const EditExam = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Prepare the body object
-    const body = {
-      title: examData.e_title,
-      description: examData.e_description,
-      degree: examData.e_degree,
-      type: examData.e_type,
-      link: examData.e_link,
-    };
-
     // Call the mutation
     mutate(
       {

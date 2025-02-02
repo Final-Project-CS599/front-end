@@ -60,6 +60,7 @@ import StudentQuizzes from '../pages/student/Quizzes';
 import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx';
 import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
 import Courses from '../pages/admin/Courses/Courses.jsx';
+import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -331,6 +332,7 @@ export const router = createBrowserRouter([
       { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
       { path: '/instructor/Quizzes/edit/:id', element: <EditExam /> },
       { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
+      { path: '/instructor/Assignment/edit/:id', element: <EditAssignment /> },
     ],
   },
 
