@@ -5,15 +5,6 @@ import { getHomePath } from './NavButtons.jsx';
 
 
 const NavBar = () => {
-  // let navigate = useNavigate();
-  // function logOut() {
-  //   // localStorage.setItem('userToken' , null);
-  //   localStorage.removeItem('userToken');
-  //   // serUserToken(null);
-  //   navigate('/login');
-  // } 
-
-  
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));
 
@@ -22,7 +13,7 @@ const NavBar = () => {
     localStorage.removeItem('userData');
     navigate('/login');
   }
-  
+
   return (
     <nav className="navbar pb-0 d-none d-lg-flex navbar-expand-lg navbar-light bg-light w-100 ">
       <div className="container-fluid">
@@ -45,7 +36,6 @@ const NavBar = () => {
 
           <button className="btn buttoncolor pb-2 me-4">
             <span onClick={() => logOut()} className="cursor-pointer">
-              {' '}
               Logout
             </span>
           </button>

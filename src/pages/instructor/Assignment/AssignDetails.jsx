@@ -1,93 +1,126 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Form, Container } from 'react-bootstrap';
+import { useAddAssignment } from "../../../api/instructor/assignments";
 
 const AssignmentDetails = () => {
-  const [assignLink, setassignLink] = useState('');
+  const [type, setType] = useState('');
+  const [description, setDescription] = useState('');
+  const [publishDate, setPublishDate] = useState('');
+  const [title, setTitle] = useState('');
+  const [link, setLink] = useState('');
+  const [degree, setDegree] = useState('');
+  const [courseId, setCourseId] = useState(''); 
 
-  const handleLinkChange = (event) => {
-    setassignLink(event.target.value);
-  };
+  const navigate = useNavigate();
+  const { mutate: addAssignment } = useAddAssignment();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!assignLink) {
-      alert('Please enter a link before submitting.');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!type || !description || !publishDate || !title || !link || !degree || !courseId) {
+      alert('All fields are required');
       return;
     }
-    // Perform logic here (e.g., send link and other details to server)
-    console.log('Submitting form with link:', assignLink);
-    alert(`Quiz details saved with link: ${assignLink}`);
+
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    if (!urlPattern.test(link)) {
+      alert('Please enter a valid link');
+      return;
+    }
+
+    const assignmentData = { type, description, publish_date: publishDate, title, link, degree, courseId };
+
+    addAssignment(assignmentData, {
+      onSuccess: () => {
+        alert('Assignment Added Successfully');
+        navigate(`/course/${courseId}/assignments`);
+      },
+      onError: (error) => {
+        console.error('Error adding assignment:', error);
+        alert('Failed to add assignment');
+      }
+    });
   };
 
   return (
-    <div className="container mt-4">
-      <h2 style={{ color: "#6f42c1" }}>Assignment Details</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label mt-3">Assignment Title</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter quiz title"
-            required
+    <Container>
+      <h2 className="mt-4">Add Assignment</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formCourseId" className="mb-3">
+          <Form.Label>Course ID</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter Course ID" 
+            value={courseId} 
+            onChange={(e) => setCourseId(e.target.value)} 
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Category</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter quiz category"
-            required
+        </Form.Group>
+
+        <Form.Group controlId="formType" className="mb-3">
+          <Form.Label>Type</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter assignment type (extra or academic)" 
+            value={type} 
+            onChange={(e) => setType(e.target.value)} 
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Assignment Degree</label>
-          <input
-            type="number"
-            className="form-control"
-            placeholder="Enter Total Degree"
-            required
+        </Form.Group>
+
+        <Form.Group controlId="formDescription" className="mb-3">
+          <Form.Label>Description</Form.Label>
+          <Form.Control 
+            as="textarea" 
+            placeholder="Enter assignment description" 
+            value={description} 
+            onChange={(e) => setDescription(e.target.value)} 
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Publish Date</label>
-          <input
-            type="date"
-            className="form-control"
-            placeholder="Enter publish date"
-            required
+        </Form.Group>
+
+        <Form.Group controlId="formPublishDate" className="mb-3">
+          <Form.Label>Publish Date</Form.Label>
+          <Form.Control 
+            type="date" 
+            value={publishDate} 
+            onChange={(e) => setPublishDate(e.target.value)} 
           />
-          <label className="form-label mt-3">Instructor Name</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter Instructor Name"
-            required
+        </Form.Group>
+
+        <Form.Group controlId="formTitle" className="mb-3">
+          <Form.Label>Title</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter assignment title" 
+            value={title} 
+            onChange={(e) => setTitle(e.target.value)} 
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label mt-3">Assignment Link</label>
-          <input
-            type="url"
-            className="form-control"
-            placeholder="Enter link to quiz"
-            value={assignLink}
-            onChange={handleLinkChange}
-            required
+        </Form.Group>
+
+        <Form.Group controlId="formLink" className="mb-3">
+          <Form.Label>Link</Form.Label>
+          <Form.Control 
+            type="text" 
+            placeholder="Enter assignment link" 
+            value={link} 
+            onChange={(e) => setLink(e.target.value)} 
           />
-        </div>
-        {assignLink && (
-          <div className="mb-3">
-            <p className="text-success">
-              Entered link: <strong>{assignLink}</strong>
-            </p>
-          </div>
-        )}
-        <button type="submit" className="btn btn-success">
-          Save Assignment
-        </button>
-      </form>
-    </div>
+        </Form.Group>
+
+        <Form.Group controlId="formDegree" className="mb-3">
+          <Form.Label>Degree</Form.Label>
+          <Form.Control 
+            type="number" 
+            placeholder="Enter assignment degree" 
+            value={degree} 
+            onChange={(e) => setDegree(e.target.value)} 
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Add Assignment
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

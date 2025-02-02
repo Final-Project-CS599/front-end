@@ -19,7 +19,6 @@ export default function Login() {
     const [isLoading , setIsLoading] = useState(false);
 
     async function loginSubmit(values) {
-        console.log("Values: ", values);
         setIsLoading(true);
         try {
             let { data } = await axios.post(`http://localhost:3000/auth/login?ln=en`, values);
@@ -57,10 +56,10 @@ export default function Login() {
         }
     }
 
-
+    
     let validateScheme =yup.object({
         email: yup.string().email('Email is invalid').required('Email is required'),
-        password: yup.string().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z]).{8,}$/ , 'Password start with uppercase').required('Password is required')
+        password: yup.string().matches(/^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9!@#$%^&*-_+=]{8,}$/, 'password (example: 12345678 , A.s12345 , a1234567)').required('Password is required'),
     });
     let formik = useFormik({
         initialValues :{

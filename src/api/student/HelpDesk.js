@@ -6,7 +6,7 @@ const getMessages = async () => {
 };
 
 const sendMessage = async (messageData) => {
-  const response = await axiosInstance.post(`/student/help-desk/messages`, messageData);
+  const response = await axiosInstance.post(`/student/help-desk/send`, messageData);
   return response.data;
 };
 

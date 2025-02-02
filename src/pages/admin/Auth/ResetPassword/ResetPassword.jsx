@@ -6,11 +6,9 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bars } from  'react-loader-spinner';
 import { Helmet } from 'react-helmet';
-import { UserContext } from './../../../../Context/UserContext';
 
 
 export default function ResetPassword() {
-  let {strUserToken , setUserData} = useContext(UserContext); 
   let navigate = useNavigate();
   const [error , setError]= useState(null);
   const [isLoading , setIsLoading] = useState(false);
@@ -29,7 +27,7 @@ export default function ResetPassword() {
 
     let validateScheme =yup.object({
       email: yup.string().email('Email is invalid').required('Email is required'),
-      newPassword: yup.string().matches(/^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z]).{8,}$/ , 'Password start with uppercase').required('Password is required'),
+      newPassword: yup.string().matches(/^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9!@#$%^&*-_+=]{8,}$/, 'password (example: 12345678 , A.s12345 , a1234567)').required('Password is required'),
       confirmPassword: yup.string().oneOf([yup.ref('newPassword')] , 'newPassword not match confirmPassword').required('confirmPassword is required')
     })
 
@@ -60,14 +58,6 @@ export default function ResetPassword() {
                   value={formik.values.email} name='email' autoComplete="username"
               />
               {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-2 p-2">{formik.errors.email}</div>:''}
-              
-              {/* <label htmlFor="newPassword" className=' my-3'>newPassword :</label>
-              <input type='password' id='newPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.newPassword} name='newPassword'/>
-              {formik.errors.newPassword && formik.touched.newPassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.newPassword}</div>:''}
-              
-              <label htmlFor="confirmPassword" className=' my-3'>confirmPassword :</label>
-              <input type='password' id='confirmPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.confirmPassword} name='confirmPassword'/>
-              {formik.errors.confirmPassword && formik.touched.confirmPassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.confirmPassword}</div>:''} */}
 
               <label htmlFor="newPassword" className='my-3'>newPassword :</label>
               <input type='password' id='newPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className='form-control' 
@@ -77,7 +67,7 @@ export default function ResetPassword() {
 
               <label htmlFor="confirmPassword" className='my-3'>confirmPassword :</label>
               <input type='password' id='confirmPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className='form-control' 
-                    value={formik.values.confirmPassword} name='confirmPassword' autoComplete="new-password" // تجنب تحذيرات console ومش بيظهر اى قيم متخزية فى chrome
+                    value={formik.values.confirmPassword} name='confirmPassword' autoComplete="new-password" 
 
               />
               {formik.errors.confirmPassword && formik.touched.confirmPassword ? <div className="alert alert-danger mt-2 p-2">{formik.errors.confirmPassword}</div> : ''}
@@ -95,7 +85,7 @@ export default function ResetPassword() {
                   />
                   </button> : <> 
                       <div className=' d-flex align-items-center'>
-                          <button type='submit' className='btn buttoncolor shadow mt-3 px-3 py-3'>Get Password</button>
+                          <button type='submit' className='btn buttoncolor shadow mt-3 px-3 py-3'>Reset Password</button>
                       </div>
                   </>
                 }

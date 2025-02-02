@@ -1,39 +1,26 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 //auth
+import ConfirmEmail from '../pages/admin/Auth/ConfirmEmail/ConfirmEmail.jsx';
 import Login from '../pages/admin/Auth/Login/Login.jsx';
-// import ConfirmEmail from '../pages/admin/Auth/ConfirmEmail/ConfirmEmail.jsx';
 import ForgetPassword from './../pages/admin/Auth/ForgetPassword/ForgetPassword.jsx';
 import ForgetPasswordDetalis from './../pages/admin/Auth/ForgetPasswordDetalis/ForgetPasswordDetalis.jsx';
 import ResetPassword from './../pages/admin/Auth/ResetPassword/ResetPassword.jsx';
 //auth User
 import AddAdmin from '../pages/admin/AuthUser/AddAdmin/AddAdmin.jsx';
-import Student from '../pages/admin/AuthUser/Student/Student.jsx';
 import Instructors from '../pages/admin/AuthUser/Instructors/Instructors.jsx';
 import RegisterInstructors from '../pages/admin/AuthUser/RegisterInstructors/RegisterInstructors.jsx';
 import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterStudent.jsx';
+import Student from '../pages/admin/AuthUser/Student/Student.jsx';
 //home route
+import HelpDesk from '../pages/admin/Helpdesk/HelpDesk.jsx';
 import HomeDashboard from '../pages/admin/HomeAndFooter/Home/Home.jsx';
-import HelpDesk from './../pages/admin/HelpDesk/HelpDesk.jsx';
 //Academic Router & Notfound
 import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRou.jsx';
 import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
 //student
-import StudentCourses from '../pages/student/courses/Courses.jsx';
-import StudentInstructors from '../pages/student/Instructors';
-import StudentAssignments from '../pages/student/Assignments';
-import StudentQuizzes from '../pages/student/Quizzes';
-import StudentChat from '../pages/student/Chat';
-import Send from '../pages/student/helpDesk/Send.jsx';
-import StudentHome from '../pages/Home';
-import Messages from '../pages/student/Messages';
-import StudentProfile from '../pages/student/Profile';
-import InstructorById from '../pages/student/InstructorById';
-import CourseById from '../pages/student/courses/CourseById';
-import AssignmentById from '../pages/student/AssignmentById';
-import QuizById from '../pages/student/QuizById';
-import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx';
-import Courses from '../pages/admin/Courses/Courses.jsx';
+import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
+import UploadCourse from '../components/shared/UploadCourse';
 import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
 import Extra from '../pages/admin/Extra/Extra.jsx';
 import AllCourses from '../pages/admin/AllCourses/Allcourses.jsx';
@@ -47,14 +34,13 @@ import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextr
 import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
 import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
 import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
-import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
-import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
+import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
+import StudentHome from '../pages/student/Home.jsx';
+import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import Assignments from '../pages/instructor/Assignment/Assignments.jsx';
-import Quizzes from '../pages/instructor/Quizzes/Quizzes';
 import Chat from '../pages/instructor/Chat/Chat';
+import MyCourses from '../pages/instructor/courses/mycourses';
 import ProfilePage from '../pages/instructor/Profile/Profile';
-import HelpdeskPage from '../pages/instructor/Report/Report';
-import UploadCourse from '../components/shared/UploadCourse';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import MyCourses from '../pages/instructor/courses/mycourses';
@@ -75,14 +61,14 @@ export const studentRoutes = [
   { path: '/student/chat', element: <StudentChat/>, },
   { path: '/student/messages', element: <Messages />, },
   // Student resources
-  { path: '/student/helpDesk/send', element: <Send />, },
-  { path: '/student/helpDesk', element: <ViewMessages />, },
-  { path: '/student/profile', element: <StudentProfile />, },
+  { path: '/student/helpDesk/send', element: <Send /> },
+  { path: '/student/helpDesk', element: <ViewMessages /> },
+  { path: '/student/profile', element: <StudentProfile /> },
   // Dynamic routes for detailed views
-  { path: '/student/instructors/:id', element: <InstructorById />, },
-  { path: '/student/courses/:id', element: <CourseById />, },
-  { path: '/student/assignments/:id', element: <AssignmentById />, },
-  { path: '/student/quizzes/:id', element: <QuizById />, },
+  { path: '/student/instructors/:id', element: <InstructorById /> },
+  { path: '/student/courses/:id', element: <CourseById /> },
+  { path: '/student/assignments/:id', element: <AssignmentById /> },
+  { path: '/student/quizzes/:id', element: <QuizById /> },
 ];
 
 export const adminRoutes = [
@@ -121,32 +107,32 @@ export const adminRoutes = [
     {path: "/admin/editInstructor/:id", element: <AcademicRou> <EditInstructor />  </AcademicRou>},
 ];
 
-
 export const router = createBrowserRouter([
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
-  // {
-  //   path: "/confirmEmail",
-  //   element: <ConfirmEmail />,
-  // },
   {
-    path: "/forgetPassword",
+    path: '/confirmEmail',
+    element: <ConfirmEmail />,
+  },
+  {
+    path: '/forgetPassword',
     element: <ForgetPassword />,
   },
   {
-    path: "/ForgetPasswordVerifyCode",
+    path: '/ForgetPasswordVerifyCode',
     element: <ForgetPasswordDetalis />,
   },
   {
-    path: "/ResetPassword",
+    path: '/ResetPassword',
     element: <ResetPassword />,
   },
   {
-    path: '/', element: <LayoutWithSideBar/>,
+    path: '/',
+    element: <LayoutWithSideBar />,
     children: [
-      ...studentRoutes, 
+      ...studentRoutes,
       ...adminRoutes,
 
       //instructor
@@ -159,14 +145,6 @@ export const router = createBrowserRouter([
       { path: '/UploadCourse', element: <UploadCourse /> },
       { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
       { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
-
-      // //Auth login & forget password
-      // { path: '/confirmEmail', element: <ConfirmEmail/> },
-      // { path: '/login' , element: <Login/>},
-      // // {path: '/forgetPassword/:token', element: <ForgetPassword/>},
-      // { path: '/forgetPassword' , element:<ForgetPassword/>},
-      // { path: '/ForgetPasswordVerifyCode' , element:<ForgetPasswordDetalis/>},
-      // { path: '/ResetPassword' , element:<ResetPassword/>},
     ],
   },
 
