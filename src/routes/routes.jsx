@@ -42,9 +42,31 @@ import Chat from '../pages/instructor/Chat/Chat';
 import MyCourses from '../pages/instructor/courses/mycourses';
 import ProfilePage from '../pages/instructor/Profile/Profile';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
+
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import MyCourses from '../pages/instructor/courses/mycourses';
 
+import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
+import StudentCourses from '../pages/admin/SearchStudent/StudentCourses.jsx';
+import Quizzes from '../pages/instructor/Quizzes/Quizzes';
+import HelpdeskPage from '../pages/instructor/Report/Report';
+import AssignmentById from '../pages/student/AssignmentById';
+import StudentAssignments from '../pages/student/Assignments';
+import StudentChat from '../pages/student/Chat';
+import CourseById from '../pages/student/courses/CourseById';
+import Send from '../pages/student/helpDesk/Send.jsx';
+import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
+import InstructorById from '../pages/student/InstructorById';
+import StudentInstructors from '../pages/student/Instructors';
+import Messages from '../pages/student/Messages';
+import StudentProfile from '../pages/student/Profile';
+import QuizById from '../pages/student/QuizById';
+import StudentQuizzes from '../pages/student/Quizzes';
+import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
+import Courses from '../pages/admin/Courses/Courses.jsx';
+import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
+import EditCourseMaterial from '../pages/instructor/courses/EditCourseMaterial.jsx';
+import CoursesForStudent from '../pages/student/courses/Courses.jsx';
 
 
 export const studentRoutes = [
