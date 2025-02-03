@@ -57,7 +57,6 @@ import Messages from '../pages/student/Messages';
 import StudentProfile from '../pages/student/Profile';
 import QuizById from '../pages/student/QuizById';
 import StudentQuizzes from '../pages/student/Quizzes';
-import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx';
 import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
 import Courses from '../pages/admin/Courses/Courses.jsx';
 import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
