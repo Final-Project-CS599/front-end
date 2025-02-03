@@ -19,7 +19,7 @@ export default function Login() {
   async function loginSubmit(values) {
     setIsLoading(true);
     try {
-      let { data } = await axios.post(`http://localhost:3000/auth/login?ln=en`, values);
+      let { data } = await axios.post(`http://localhost:3000/api/v1/auth/login?ln=en`, values);
 
       const token = data.token || data.data.token;
       if (!token) {
@@ -46,7 +46,6 @@ export default function Login() {
       }
     } catch (err) {
       setIsLoading(false);
-      console.log('Full Error: ', err);
       setError(err.response?.data?.message || 'An error occurred');
     }
   }
@@ -56,7 +55,7 @@ export default function Login() {
     password: yup
       .string()
       .matches(
-        /^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9!@#$%^&*-_+=]{8,}$/,
+        /^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9@#$%^&*-_]{8,}$/,
         'password (example: 12345678 , A.s12345 , a1234567)'
       )
       .required('Password is required'),
@@ -112,7 +111,7 @@ export default function Login() {
                     className=" form-control"
                     value={formik.values.password}
                     name="password"
-                    autoComplete="new-password" // تجنب تحذيرات console ومش بيظهر اى قيم متخزية فى chrome
+                    autoComplete="new-password"
                   />
                   {formik.errors.password && formik.touched.password ? (
                     <div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>
@@ -166,13 +165,3 @@ export default function Login() {
     </>
   );
 }
-
-// async function loginSubmit(values) {
-//     try {
-//         let { data } = await axios.post(`http://localhost:3000/auth/login?ln=en`, values);
-//         localStorage.setItem('userToken', data.token);
-//         setUserToken(data.token);
-//     }
-// }
-
-// (/^(?=.*\d)(?=.*[a-z])(?=.*[^a-zA-Z]).{8,}$/)),

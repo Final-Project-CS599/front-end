@@ -22,8 +22,6 @@ import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
 import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
 import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
-import Addnewcourseacadmic from '../pages/admin/CourseManagment/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
-import Addnewcourseextra from '../pages/admin/CourseManagment/Addnewcourseextra/Addnewcourseextra.jsx';
 import AllAcademic from '../pages/admin/CourseManagment/AllAcademic/AllAcademic.jsx';
 import AllCourses from '../pages/admin/CourseManagment/AllCourses/Allcourses.jsx';
 import AllExtra from '../pages/admin/CourseManagment/AllExtra/Extra.jsx';
@@ -44,6 +42,11 @@ import UploadCourse from '../pages/instructor/courses/UploadCourse.jsx';
 import ProfilePage from '../pages/instructor/Profile/Profile';
 import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
+
+import AddNewCourseAcademic from '../pages/admin/CourseManagment/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
+import AddNewCourseExtra from '../pages/admin/CourseManagment/Addnewcourseextra/Addnewcourseextra.jsx';
+import UpdateAcademicCourse from '../pages/admin/CourseManagment/Update/UpdateAcademicCourse.jsx';
+import UpdateExtraCourse from '../pages/admin/CourseManagment/Update/UpdateExtraCourse.jsx';
 import Quizzes from '../pages/instructor/Quizzes/Quizzes';
 import HelpdeskPage from '../pages/instructor/Report/Report';
 import AssignmentById from '../pages/student/AssignmentById';
@@ -60,11 +63,6 @@ import Messages from '../pages/student/Messages';
 import StudentProfile from '../pages/student/Profile';
 import QuizById from '../pages/student/QuizById';
 import StudentQuizzes from '../pages/student/Quizzes';
-import AddNewCourseAcademic from '../pages/admin/CourseManagment/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
-import AddNewCourseExtra from '../pages/admin/CourseManagment/Addnewcourseextra/Addnewcourseextra.jsx';
-import UpdateExtraCourse from '../pages/admin/CourseManagment/Update/UpdateExtraCourse.jsx';
-import UpdateAcademic from '../pages/admin/CourseManagment/Update/UpdateAcademicCourse.jsx';
-import UpdateAcademicCourse from '../pages/admin/CourseManagment/Update/UpdateAcademicCourse.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home

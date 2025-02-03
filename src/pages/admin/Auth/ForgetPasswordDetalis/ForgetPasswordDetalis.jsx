@@ -20,7 +20,7 @@ export default function ForgetPasswordDetalis() {
         setIsLoading(true);
         setError(null); 
         try {
-          let {data} = await axios.patch(`http://localhost:3000/auth/verifyCode`, values );
+          let {data} = await axios.patch(`http://localhost:3000/api/v1/auth/verifyCode`, values );
           navigate('/ResetPassword');
 
         }catch (err) {

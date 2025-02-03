@@ -18,7 +18,7 @@ export default function ForgetPassword() {
 
     async function getForgetPassword(values){
       setIsLoading(true);
-      let {data} = await axios.patch(`http://localhost:3000/auth/forgotPassword` , values)
+      let {data} = await axios.patch(`http://localhost:3000/api/v1/auth/forgotPassword` , values)
       .catch (
         (err)=> {
           setIsLoading(false);

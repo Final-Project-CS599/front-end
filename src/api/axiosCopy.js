@@ -9,7 +9,11 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('userToken');
+
+    const token = localStorage.getItem('userToken'); //role
+    //set and get token in local storage for messages
+
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

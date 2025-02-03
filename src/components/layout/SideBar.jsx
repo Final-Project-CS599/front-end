@@ -17,6 +17,7 @@ const SideBar = () => {
     }
   };
 
+  
   return (
     <div
       className="d-none d-lg-flex flex-column px-3 mt-2 border-3 border-end border-light"
