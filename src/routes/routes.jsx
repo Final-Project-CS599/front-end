@@ -13,7 +13,6 @@ import RegisterInstructors from '../pages/admin/AuthUser/RegisterInstructors/Reg
 import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterStudent.jsx';
 import Student from '../pages/admin/AuthUser/Student/Student.jsx';
 //home route
-import HelpDesk from '../pages/admin/Helpdesk/HelpDesk.jsx';
 import HomeDashboard from '../pages/admin/HomeAndFooter/Home/Home.jsx';
 import HelpDesk from '../pages/admin/Helpdesk/HelpDesk.jsx';
 //Academic Router & Notfound
@@ -43,8 +42,6 @@ import MyCourses from '../pages/instructor/courses/mycourses';
 import ProfilePage from '../pages/instructor/Profile/Profile';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 
-import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
-import MyCourses from '../pages/instructor/courses/mycourses';
 
 import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
 import StudentCourses from '../pages/admin/SearchStudent/StudentCourses.jsx';

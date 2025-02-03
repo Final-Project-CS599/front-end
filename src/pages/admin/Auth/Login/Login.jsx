@@ -40,12 +40,6 @@ export default function Login() {
 
             localStorage.setItem('userData', JSON.stringify(userData));
 
-  async function loginSubmit(values) {
-    setIsLoading(true);
-    try {
-      let { data } = await axios.post(`http://localhost:3000/auth/login?ln=en`, values);
-
-
             if (userData.role === "admin" || userData.role === "sAdmin") {
                 navigate("/admin/home");
             } 
@@ -58,7 +52,6 @@ export default function Login() {
     
         } catch (err) {
             setIsLoading(false);
-            console.log("Full Error: ", err);
             setError(err.response?.data?.message || 'An error occurred');
         }
     }
@@ -133,4 +126,3 @@ return <>
 </HelmetProvider>
 </>
 }
-
