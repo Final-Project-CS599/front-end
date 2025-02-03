@@ -11,8 +11,8 @@ const ViewCourse = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const token = localStorage.getItem("token"); // تأكد من وجود التوكن في التخزين المحلي
-        const response = await axios.get("http://localhost:5000/api/courses", {
+        const token = localStorage.getItem("token"); 
+        const response = await axios.get("http://localhost:3000/api/v1/courses", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCourses(response.data.Courses);

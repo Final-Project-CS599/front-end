@@ -4,7 +4,7 @@ import { Button, Form, Container } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditAssignment = () => {
-  const { assignmentId } = useParams(); // الحصول على المعرف من الـ URL
+  const { assignmentId } = useParams(); 
   const [type, setType] = useState('');
   const [description, setDescription] = useState('');
   const [publishDate, setPublishDate] = useState('');
@@ -15,15 +15,14 @@ const EditAssignment = () => {
   const [courseId, setCourseId] = useState('');
   const navigate = useNavigate();
 
-  // تحميل البيانات الحالية للتعيين عند تحميل الصفحة
   useEffect(() => {
     const fetchAssignmentData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/get-assignment/${assignmentId}`);
+        const response = await axios.get(`http://localhost:3000/api/v1/getAssignment/${assignmentId}`);
         const assignment = response.data.Assignment;
         setType(assignment.a_type);
         setDescription(assignment.a_description);
-        setPublishDate(assignment.a_publish_date.split('T')[0]); // تنسيق تاريخ النشر
+        setPublishDate(assignment.a_publish_date.split('T')[0]); 
         setTitle(assignment.a_title);
         setLink(assignment.a_link);
         setDegree(assignment.a_degree);
@@ -41,19 +40,16 @@ const EditAssignment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // التحقق من أن جميع الحقول تم إدخالها
     if (!type || !description || !publishDate || !title || !link || !degree || !instructorId || !courseId) {
       alert('All fields are required');
       return;
     }
 
-    // التحقق من أن نوع التعيين يجب أن يكون إما "extra" أو "academic"
     if (type !== 'extra' && type !== 'academic') {
       alert('Assignment type must be either "extra" or "academic"');
       return;
     }
 
-    // التحقق من صحة الرابط (URL)
     const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
     if (!urlPattern.test(link)) {
       alert('Please enter a valid link');
@@ -61,7 +57,7 @@ const EditAssignment = () => {
     }
 
     try {
-      const response = await axios.put(`http://localhost:5000/edit-assignment/${assignmentId}`, {
+      const response = await axios.put(`http://localhost:3000/api/v1/edit-assignment/${assignmentId}`, {
         type,
         description,
         publish_date: publishDate,
@@ -72,7 +68,7 @@ const EditAssignment = () => {
         courseId
       });
       alert('Assignment Updated');
-      navigate('/assignments'); // إعادة التوجيه إلى قائمة التعيينات
+      navigate('/assignments'); 
     } catch (error) {
       console.error('Error updating assignment:', error);
       alert('Failed to update assignment');
@@ -142,26 +138,8 @@ const EditAssignment = () => {
           />
         </Form.Group>
 
-        <Form.Group controlId="formInstructorId" className="mb-3">
-          <Form.Label>Instructor ID</Form.Label>
-          <Form.Control 
-            type="number" 
-            placeholder="Enter instructor ID" 
-            value={instructorId} 
-            onChange={(e) => setInstructorId(e.target.value)} 
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formCourseId" className="mb-3">
-          <Form.Label>Course ID</Form.Label>
-          <Form.Control 
-            type="number" 
-            placeholder="Enter course ID" 
-            value={courseId} 
-            onChange={(e) => setCourseId(e.target.value)} 
-          />
-        </Form.Group>
-
+       
+        
         <Button variant="primary" type="submit">
           Update Assignment
         </Button>

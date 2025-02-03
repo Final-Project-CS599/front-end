@@ -14,7 +14,7 @@ const QuizzesInstructor = () => {
 
   const fetchExams = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/exams");
+      const response = await axios.get("http://localhost:3000/api/v1/exams");
       setExams(response.data);
     } catch (error) {
       setError("Error fetching exams");
@@ -23,7 +23,7 @@ const QuizzesInstructor = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/exams/${id}`);
+      await axios.delete(`http://localhost:3000/api/v1/exams/${id}`);
       setExams(exams.filter((exam) => exam.e_id !== id));
     } catch (error) {
       setError("Error deleting exam");
@@ -34,7 +34,6 @@ const QuizzesInstructor = () => {
     <div className="container mt-4">
       <h2>Exams List</h2>
       
-      {/* إضافة زر Add Exam */}
       <Button variant="success" className="mb-3" onClick={() => navigate("/add-exam")}>
         Add Exam
       </Button>
