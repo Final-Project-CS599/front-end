@@ -15,9 +15,7 @@ const CourseById = () => {
   const courseId = Number(id);
 
   // Check if the current course is already enrolled
-  const isEnrolled = enrolledCourses?.some(
-    (enrolledCourse) => enrolledCourse.c_id === courseId // Use strict equality
-  );
+  const isEnrolled = false;
 
   // Debugging logs
   console.log('Course ID:', courseId, typeof courseId);

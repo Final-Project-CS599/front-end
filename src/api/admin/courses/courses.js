@@ -1,3 +1,6 @@
+import { axiosInstance } from '../../axiosCopy';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
 const getAllCourses = async () => {
   const response = await axiosInstance.get('/courses/getAllCourses');
   return response.data;

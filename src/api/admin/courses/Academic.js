@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../../axiosCopy';
 
 const getAllAcademicCourses = async (req, res) => {

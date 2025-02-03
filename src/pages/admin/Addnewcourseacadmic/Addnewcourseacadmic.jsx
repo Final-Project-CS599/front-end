@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useAddAcademicCourse } from '../../../api/admin/courses/Academic';
 
 function AddNewCourseacadmic() {
   const [courseData, setCourseData] = useState({
@@ -15,6 +16,9 @@ function AddNewCourseacadmic() {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
+
+  const { mutate } = useAddAcademicCourse();
+
   // new value
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,20 +36,28 @@ function AddNewCourseacadmic() {
       setValidationErrors({ instructorId: 'Instructor ID is required' });
       return;
     }
+    mutate(courseData, {
+      onSuccess: () => {
+        console.log('Course added successfully');
+        setCourseData({
+          courseName: '',
+          courseCode: '',
+          instructorName: '',
+          instructorId: '',
+          department: '',
+          description: '',
+          startDate: '',
+          endDate: '',
+          courseType: 'Academic',
+        });
+        setValidationErrors({});
+      },
+      onError: (error) => {
+        console.error('Error adding course:', error);
+      },
+    });
 
     console.log('Course Added:', courseData);
-    setCourseData({
-      courseName: '',
-      courseCode: '',
-      instructorName: '',
-      instructorId: '',
-      department: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-      courseType: 'Academic',
-    });
-    setValidationErrors({});
   };
 
   const handleReset = () => {
@@ -72,7 +84,7 @@ function AddNewCourseacadmic() {
         <title>Add New Course</title>
       </Helmet>
 
-      <div className="container mt-4">
+      <div className="container mt-2">
         <h2 className="mb-4">Add New Course</h2>
 
         <form onSubmit={handleSubmit}>

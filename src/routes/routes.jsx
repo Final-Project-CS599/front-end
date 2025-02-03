@@ -62,12 +62,13 @@ import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
 import Courses from '../pages/admin/Courses/Courses.jsx';
 import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
 import EditCourseMaterial from '../pages/instructor/courses/EditCourseMaterial.jsx';
+import CoursesForStudent from '../pages/student/courses/Courses.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
-  { index: true, element: <StudentHome /> },
+  { index: true, path: '/student/home', element: <StudentHome /> },
   // Main student features
-  { path: '/student/courses', element: <StudentCourses /> },
+  { path: '/student/courses', element: <CoursesForStudent /> },
   { path: '/student/instructors', element: <StudentInstructors /> },
   { path: '/student/assignments', element: <StudentAssignments /> },
   { path: '/student/quizzes', element: <StudentQuizzes /> },
