@@ -11,11 +11,11 @@ function AddNewCourseacadmic() {
     description: '',
     startDate: '',
     endDate: '',
-    courseType: 'Academic', 
+    courseType: 'Academic',
   });
 
   const [validationErrors, setValidationErrors] = useState({});
-// new value
+  // new value
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCourseData({
@@ -23,7 +23,7 @@ function AddNewCourseacadmic() {
       [name]: value,
     });
   };
-// data enter
+  // data enter
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -38,7 +38,7 @@ function AddNewCourseacadmic() {
       courseName: '',
       courseCode: '',
       instructorName: '',
-      instructorId: '', 
+      instructorId: '',
       department: '',
       description: '',
       startDate: '',
@@ -47,7 +47,7 @@ function AddNewCourseacadmic() {
     });
     setValidationErrors({});
   };
- 
+
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset the form?')) {
       setCourseData({
@@ -59,7 +59,7 @@ function AddNewCourseacadmic() {
         description: '',
         startDate: '',
         endDate: '',
-        courseType: 'Academic', 
+        courseType: 'Academic',
       });
       setValidationErrors({});
     }
@@ -73,9 +73,7 @@ function AddNewCourseacadmic() {
       </Helmet>
 
       <div className="container mt-4">
-        <h2 className="text-center text-white p-3 rounded shadow" style={{ backgroundColor: '#7F55E0', fontSize: '28px' }}>
-          Add New Course
-        </h2>
+        <h2 className="mb-4">Add New Course</h2>
 
         <form onSubmit={handleSubmit}>
           {/* Course Name */}
@@ -133,7 +131,9 @@ function AddNewCourseacadmic() {
               onChange={handleChange}
               required
             />
-            {validationErrors.instructorId && <div className="invalid-feedback">{validationErrors.instructorId}</div>}
+            {validationErrors.instructorId && (
+              <div className="invalid-feedback">{validationErrors.instructorId}</div>
+            )}
           </div>
 
           {/* Department */}
@@ -171,25 +171,25 @@ function AddNewCourseacadmic() {
             </select>
           </div>
 
-              {/* category */}
-              <div className="form-group mb-3">
-                <label htmlFor="category">Select category:</label>
-                <select
-                  className="form-control form-control-lg shadow-sm"
-                  id="category"
-                  name="category"
-                  value={courseData.category}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select category</option>
-                  <option value="introduction">introduction</option>
-                  <option value="number system">number system</option>
-                  <option value="operating">operating</option>
-                  <option value="c++"> c++</option>
-                  <option value="project"> project</option>
-                </select>
-              </div>
+          {/* category */}
+          <div className="form-group mb-3">
+            <label htmlFor="category">Select category:</label>
+            <select
+              className="form-control form-control-lg shadow-sm"
+              id="category"
+              name="category"
+              value={courseData.category}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select category</option>
+              <option value="introduction">introduction</option>
+              <option value="number system">number system</option>
+              <option value="operating">operating</option>
+              <option value="c++"> c++</option>
+              <option value="project"> project</option>
+            </select>
+          </div>
 
           {/* Description */}
           <div className="form-group mb-3">
@@ -232,26 +232,31 @@ function AddNewCourseacadmic() {
             />
           </div>
 
-
           <div className="row">
             <div className="col-md-12">
               <div className="d-flex justify-content-between">
                 <div>
-                    <button  type="submit"  className="btn btn-lg w-40 mt-3" style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white'}} >
-                        Add Course
-                    </button>
+                  <button
+                    type="submit"
+                    className="btn btn-lg w-40 mt-3"
+                    style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white' }}
+                  >
+                    Add Course
+                  </button>
                 </div>
                 <div>
                   {/* Reset Button */}
-                  <button  type="button"  className="btn btn-secondary btn-lg w-40 mt-3"  onClick={handleReset}>
-                      Reset
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-lg w-40 mt-3"
+                    onClick={handleReset}
+                  >
+                    Reset
                   </button>
                 </div>
               </div>
             </div>
           </div>
-
-
         </form>
       </div>
     </HelmetProvider>
