@@ -19,7 +19,7 @@ export default function Login() {
   async function loginSubmit(values) {
     setIsLoading(true);
     try {
-      let { data } = await axios.post(`http://localhost:3000/api/v1/auth/login?ln=en`, values);
+      let { data } = await axios.post(`http://localhost:3000/auth/login?ln=en`, values);
 
       const token = data.token || data.data.token;
       if (!token) {

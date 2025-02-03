@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useAddAcademicCourse } from '../../../../api/admin/courses/Academic';
 
-function AddNewCourseextra() {
+function AddNewCourseAcademic() {
   const [courseData, setCourseData] = useState({
     courseName: '',
-    courseId: '',
+    courseCode: '',
     instructorName: '',
-    instructorId: '',
     department: '',
     description: '',
     startDate: '',
     endDate: '',
-    courseType: 'Extra', 
+    courseType: 'Academic',
+    category: '',
   });
 
   const [validationErrors, setValidationErrors] = useState({});
 
+  const { mutate } = useAddAcademicCourse();
+
+  // new value
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCourseData({
@@ -23,43 +27,51 @@ function AddNewCourseextra() {
       [name]: value,
     });
   };
-
+  // data enter
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //  validation for Instructor ID
+    //  validation for Instructor ID cheeck
     if (!courseData.instructorId) {
       setValidationErrors({ instructorId: 'Instructor ID is required' });
       return;
     }
+    mutate(courseData, {
+      onSuccess: () => {
+        console.log('Course added successfully');
+        setCourseData({
+          courseName: '',
+          courseCode: '',
+          instructorName: '',
+          instructorId: '',
+          department: '',
+          description: '',
+          startDate: '',
+          endDate: '',
+          courseType: 'Academic',
+        });
+        setValidationErrors({});
+      },
+      onError: (error) => {
+        console.error('Error adding course:', error);
+      },
+    });
 
     console.log('Course Added:', courseData);
-    setCourseData({
-      courseName: '',
-      courseId: '',
-      instructorName: '',
-      instructorId: '', 
-      department: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-      courseType: 'Extra',
-    });
-    setValidationErrors({});
   };
 
   const handleReset = () => {
     if (window.confirm('Are you sure you want to reset the form?')) {
       setCourseData({
         courseName: '',
-        courseId: '',
+        courseCode: '',
         instructorName: '',
         instructorId: '',
         department: '',
         description: '',
         startDate: '',
         endDate: '',
-        courseType: 'Extra', 
+        courseType: 'Academic',
       });
       setValidationErrors({});
     }
@@ -72,10 +84,8 @@ function AddNewCourseextra() {
         <title>Add New Course</title>
       </Helmet>
 
-      <div className="container mt-4">
-        <h2 className="text-center text-white p-3 rounded shadow" style={{ backgroundColor: '#7F55E0', fontSize: '28px' }}>
-          Add New Course
-        </h2>
+      <div className="container mt-2">
+        <h2 className="mb-4">Add New Course</h2>
 
         <form onSubmit={handleSubmit}>
           {/* Course Name */}
@@ -92,15 +102,15 @@ function AddNewCourseextra() {
             />
           </div>
 
-          {/* Course ID */}
+          {/* Course Code */}
           <div className="form-group mb-3">
-            <label htmlFor="courseId">Course ID:</label>
+            <label htmlFor="courseCode">Course Code:</label>
             <input
               type="text"
               className="form-control form-control-lg shadow-sm"
-              id="courseId"
-              name="courseId"
-              value={courseData.courseId}
+              id="courseCode"
+              name="courseCode"
+              value={courseData.courseCode}
               onChange={handleChange}
               required
             />
@@ -120,55 +130,38 @@ function AddNewCourseextra() {
             />
           </div>
 
-          {/* Instructor ID */}
+          {/* Department */}
           <div className="form-group mb-3">
-            <label htmlFor="instructorId">Instructor ID:</label>
-            <input
-              type="text"
-              className={`form-control form-control-lg shadow-sm ${validationErrors.instructorId ? 'is-invalid' : ''}`}
-              id="instructorId"
-              name="instructorId"
-              placeholder="Enter the unique Instructor ID"
-              value={courseData.instructorId}
+            <label htmlFor="department">Select Department:</label>
+            <select
+              className="form-control form-control-lg shadow-sm"
+              id="department"
+              name="department"
+              value={courseData.department}
               onChange={handleChange}
               required
-            />
-            {validationErrors.instructorId && <div className="invalid-feedback">{validationErrors.instructorId}</div>}
+            >
+              <option value="">Select Department</option>
+              <option value="Statistical Methods">Statistical Methods (AS)</option>
+              <option value="Computer Science">Computer Science (CS)</option>
+              <option value="Information systems">Information Systems (IS)</option>
+              <option value="Mathematical Methods">Mathematical Methods (MS)</option>
+              <option value="Operation research">Operation Research (OR)</option>
+            </select>
           </div>
 
-          {/* Category */}
+          {/* category */}
           <div className="form-group mb-3">
-            <label htmlFor="category">Select Category:</label>
-            <select
+            <label htmlFor="category">Category:</label>
+            <input
+              type="text"
               className="form-control form-control-lg shadow-sm"
               id="category"
               name="category"
               value={courseData.category}
               onChange={handleChange}
               required
-            >
-              <option value="">Select Category</option>
-              <option value="Languages">Languages</option>
-              <option value="Programing"> Programing</option>
-              <option value="Front-end"> Front-end</option>
-              <option value="Back-end">Back-end</option>
-              <option value="Digital marketing"> Digital marketing</option>
-            </select>
-          </div>
-
-          {/* Course Type */}
-          <div className="form-group mb-3">
-            <label htmlFor="courseType">Course Type:</label>
-            <select
-              className="form-control form-control-lg shadow-sm"
-              id="courseType"
-              name="courseType"
-              value={courseData.courseType}
-              onChange={handleChange}
-              required
-            >
-              <option value="Extra">Extra</option>
-            </select>
+            />
           </div>
 
           {/* Description */}
@@ -212,28 +205,35 @@ function AddNewCourseextra() {
             />
           </div>
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="btn btn-lg w-40 mt-3"
-            style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white', margin: '50px' }}
-          >
-            Add Course
-          </button>
-
-          {/* Reset Button */}
-          <button
-            type="button"
-            className="btn btn-secondary btn-lg w-40 mt-3"
-            onClick={handleReset}
-            style={{ margin: '50px' }}
-          >
-            Reset
-          </button>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="d-flex justify-content-between">
+                <div>
+                  <button
+                    type="submit"
+                    className="btn btn-lg w-40 mt-3"
+                    style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white' }}
+                  >
+                    Add Course
+                  </button>
+                </div>
+                <div>
+                  {/* Reset Button */}
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-lg w-40 mt-3"
+                    onClick={handleReset}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </HelmetProvider>
   );
 }
 
-export default AddNewCourseextra;
+export default AddNewCourseAcademic;

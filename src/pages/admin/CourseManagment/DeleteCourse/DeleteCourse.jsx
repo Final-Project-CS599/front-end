@@ -1,39 +1,45 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Container, Form, Button, Alert, Modal } from "react-bootstrap";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Container, Form, Button, Alert, Modal } from 'react-bootstrap';
+import { useDeleteCourse } from '../../../../api/admin/courses/courses';
 
 function DeleteCourse() {
-  const [courseName, setCourseName] = useState("");
-  const [courseCode, setCourseCode] = useState("");
+  const [courseName, setCourseName] = useState('');
+  const [courseCode, setCourseCode] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState(null);
 
+  const { mutate } = useDeleteCourse();
+
   const handleDelete = async () => {
-    try {
-      const response = await axios.post("http://localhost:3000/courses/deletedCourse", {
+    mutate(
+      {
         courseName,
-        courseCode
-      });
-
-      setShowAlert(true);
-      setError(null);
-    } catch (err) {
-      setError("An error occurred while deleting the course, try again!");
-    }
-
-    setShowModal(false);
-    setCourseName("");
-    setCourseCode("");
+        courseCode,
+      },
+      {
+        onSuccess: () => {
+          setShowAlert(true);
+          setError(null);
+          setShowModal(false);
+          setCourseName('');
+          setCourseCode('');
+        },
+        onError: (error) => {
+          setError('An error occurred while deleting the course, try again!');
+        },
+      }
+    );
   };
 
   return (
-    <Container className="mt-5" style={{ maxWidth: "400px" }}>
+    <Container className="mt-5" style={{ maxWidth: '400px' }}>
       <h3 className="text-center mb-4">Delete course</h3>
 
       {showAlert && (
         <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
-         The course has been successfully deleted!
+          The course has been successfully deleted!
         </Alert>
       )}
 
@@ -60,7 +66,11 @@ function DeleteCourse() {
           />
         </Form.Group>
 
-        <Button variant="danger" onClick={() => setShowModal(true)} disabled={!courseName || !courseCode}>
+        <Button
+          variant="danger"
+          onClick={() => setShowModal(true)}
+          disabled={!courseName || !courseCode}
+        >
           Delete course
         </Button>
       </Form>
@@ -72,9 +82,10 @@ function DeleteCourse() {
         <Modal.Body>Are you sure you want to delete the course? "{courseName}"؟</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancel          </Button>
+            Cancel{' '}
+          </Button>
           <Button variant="danger" onClick={handleDelete}>
-            Yes, delete 
+            Yes, delete
           </Button>
         </Modal.Footer>
       </Modal>

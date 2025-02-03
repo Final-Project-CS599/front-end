@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { useGetAllAcademicCourses } from '../../../api/admin/courses/Academic';
+import { useGetAllAcademicCourses } from '../../../../api/admin/courses/Academic';
+import { Link } from 'react-router-dom';
+import { buttonStyle, handleMouseEnter, handleMouseLeave } from '../index';
 
 function AllAcademic() {
   const [courses, setCourses] = useState([]);
 
-  // Fetch data using the custom hook
   const { data, isLoading, error } = useGetAllAcademicCourses();
 
-  // Update the courses state when data changes
   useEffect(() => {
     if (data && data.data) {
-      setCourses(data.data); // Assuming data.data contains the array of courses
+      setCourses(data.data);
     }
   }, [data]);
 
-  // Handle loading and error states
   if (isLoading) {
     return <p className="text-center mt-4">Loading...</p>;
   }
@@ -32,73 +31,30 @@ function AllAcademic() {
       </Helmet>
 
       <div className="container mt-4">
-        <h2
-          className="text-center text-white p-3 rounded shadow"
-          style={{ backgroundColor: '#4a028a', fontSize: '28px' }}
-        >
-          All Academic Courses
-        </h2>
+        <div className="d-flex justify-content-between align-items-center">
+          <h2 className="">All Academic Courses</h2>
 
-        {/* Button to add a new course */}
-        <div className="d-flex justify-content-end mt-3">
-          <a
-            href="/admin/addnewcourseacadmic"
-            className="btn"
-            style={{
-              backgroundColor: '#ffffff',
-              color: '#7F55E0',
-              border: '2px solid #7F55E0',
-              borderRadius: '15px',
-              padding: '10px 20px',
-              fontSize: '20px',
-              fontWeight: 'bold',
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#7F55E0';
-              e.target.style.color = '#ffffff';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = '#ffffff';
-              e.target.style.color = '#7F55E0';
-            }}
-          >
-            Add New Academic Course
-          </a>
-        </div>
-
-        {/* Button to delete a course */}
-        <div className="d-flex justify-content-end mt-3">
-          <a
-            href="/admin/deletecourse"
-            className="btn"
-            style={{
-              backgroundColor: '#ffffff',
-              color: '#7F55E0',
-              border: '2px solid #7F55E0',
-              borderRadius: '15px',
-              padding: '10px 20px',
-              fontSize: '20px',
-              fontWeight: 'bold',
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#7F55E0';
-              e.target.style.color = '#ffffff';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = '#ffffff';
-              e.target.style.color = '#7F55E0';
-            }}
-          >
-            Delete Course
-          </a>
+          {/* Button to add a new course */}
+          <div className="d-flex justify-content-end gap-3">
+            <Link
+              to="/admin/addnewcourseacadmic"
+              className="btn"
+              style={buttonStyle}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Add New Academic Course
+            </Link>
+            <Link
+              to="/admin/deletecourse"
+              className="btn"
+              style={buttonStyle}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Delete Course
+            </Link>
+          </div>
         </div>
 
         {/* Display courses */}
@@ -127,14 +83,14 @@ function AllAcademic() {
 
                     {/* Course Details */}
                     <p>
-                      <strong>Course Code:</strong> {course.code}
+                      <strong>Course Code:</strong> {course.courseCode}
                     </p>
                     <p>
-                      <strong>Instructor:</strong> {course.instructor}
+                      <strong>Instructor:</strong> {course.instructorName}
                     </p>
-                    <p>
+                    {/* <p>
                       <strong>Department:</strong> {course.department}
-                    </p>
+                    </p> */}
                     <p>
                       <strong>Category:</strong> {course.category}
                     </p>
@@ -147,6 +103,9 @@ function AllAcademic() {
                     <p>
                       <strong>End Date:</strong> {new Date(course.endDate).toLocaleDateString()}
                     </p>
+                    <Link to="/admin/courses/academic/update" className="btn btn-primary">
+                      Update
+                    </Link>
                   </div>
                 </a>
               </div>

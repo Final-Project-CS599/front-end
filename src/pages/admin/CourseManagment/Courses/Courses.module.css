@@ -1,0 +1,88 @@
+/* .header {
+    background-color: #282c34;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.section {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 90%;
+    transition: all 0.3s ease;
+    border-color: #7F55E0 !important;
+    outline: #7f55e0c0  !important;
+    box-shadow: 0 0 0 0.2rem rgba(127, 85, 224, 0.25);
+}
+.section:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px); 
+    transition: all 0.3s ease; 
+}
+.academic {
+    border-left: 4px solid #4a028a;
+}
+.extra {
+    border-left: 4px solid #221130;
+}
+.link {
+    transition: color 0.3s ease;
+}
+.link:hover {
+    color: #4a028a;
+    text-decoration: unset;
+} */
+
+
+
+.cardContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    flex: 1 1 30%;
+    max-width: 30%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cardContent {
+    text-align: center;
+}
+
+.cardContent h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.cardContent p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* Specific card styles */
+.allCourses {
+    background-color: #e3f2fd;
+}
+
+.academic {
+    background-color: #f0f4c3;
+}
+
+.extra {
+    background-color: #ffccbc;
+}

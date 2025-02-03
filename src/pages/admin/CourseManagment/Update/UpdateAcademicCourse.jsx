@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { useAddAcademicCourse } from '../../../api/admin/courses/Academic';
+import { useUpdateAcademic } from '../../../../api/admin/courses/Academic';
 
-function AddNewCourseacadmic() {
+const UpdateAcademicCourse = () => {
   const [courseData, setCourseData] = useState({
     courseName: '',
     courseCode: '',
     instructorName: '',
-    instructorId: '',
     department: '',
     description: '',
     startDate: '',
     endDate: '',
     courseType: 'Academic',
+    category: '',
   });
 
   const [validationErrors, setValidationErrors] = useState({});
 
-  const { mutate } = useAddAcademicCourse();
+  const { mutate } = useUpdateAcademic();
 
   // new value
   const handleChange = (e) => {
@@ -81,11 +81,11 @@ function AddNewCourseacadmic() {
     <HelmetProvider>
       <Helmet>
         <meta name="description" content="Add a new course to your learning platform." />
-        <title>Add New Course</title>
+        <title>Update Course</title>
       </Helmet>
 
       <div className="container mt-2">
-        <h2 className="mb-4">Add New Course</h2>
+        <h2 className="mb-4">Update Course</h2>
 
         <form onSubmit={handleSubmit}>
           {/* Course Name */}
@@ -130,24 +130,6 @@ function AddNewCourseacadmic() {
             />
           </div>
 
-          {/* Instructor ID */}
-          <div className="form-group mb-3">
-            <label htmlFor="instructorId">Instructor ID:</label>
-            <input
-              type="text"
-              className={`form-control form-control-lg shadow-sm ${validationErrors.instructorId ? 'is-invalid' : ''}`}
-              id="instructorId"
-              name="instructorId"
-              placeholder="Enter the unique Instructor ID"
-              value={courseData.instructorId}
-              onChange={handleChange}
-              required
-            />
-            {validationErrors.instructorId && (
-              <div className="invalid-feedback">{validationErrors.instructorId}</div>
-            )}
-          </div>
-
           {/* Department */}
           <div className="form-group mb-3">
             <label htmlFor="department">Select Department:</label>
@@ -168,39 +150,18 @@ function AddNewCourseacadmic() {
             </select>
           </div>
 
-          {/* Course Type */}
-          <div className="form-group mb-3">
-            <label htmlFor="courseType">Course Type:</label>
-            <select
-              className="form-control form-control-lg shadow-sm"
-              id="courseType"
-              name="courseType"
-              value={courseData.courseType}
-              onChange={handleChange}
-              required
-            >
-              <option value="Academic">Academic</option>
-            </select>
-          </div>
-
           {/* category */}
           <div className="form-group mb-3">
-            <label htmlFor="category">Select category:</label>
-            <select
+            <label htmlFor="category">Category:</label>
+            <input
+              type="text"
               className="form-control form-control-lg shadow-sm"
               id="category"
               name="category"
               value={courseData.category}
               onChange={handleChange}
               required
-            >
-              <option value="">Select category</option>
-              <option value="introduction">introduction</option>
-              <option value="number system">number system</option>
-              <option value="operating">operating</option>
-              <option value="c++"> c++</option>
-              <option value="project"> project</option>
-            </select>
+            />
           </div>
 
           {/* Description */}
@@ -253,7 +214,7 @@ function AddNewCourseacadmic() {
                     className="btn btn-lg w-40 mt-3"
                     style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white' }}
                   >
-                    Add Course
+                    Update
                   </button>
                 </div>
                 <div>
@@ -273,6 +234,6 @@ function AddNewCourseacadmic() {
       </div>
     </HelmetProvider>
   );
-}
+};
 
-export default AddNewCourseacadmic;
+export default UpdateAcademicCourse;
