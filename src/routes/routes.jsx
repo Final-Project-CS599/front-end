@@ -20,7 +20,7 @@ import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRo
 import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
 //student
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
-import UploadCourse from '../components/shared/UploadCourse';
+import UploadCourse from '../pages/instructor/courses/UploadCourse.jsx';
 import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
 import Extra from '../pages/admin/Extra/Extra.jsx';
 import AllCourses from '../pages/admin/AllCourses/Allcourses.jsx';
@@ -61,6 +61,7 @@ import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx';
 import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
 import Courses from '../pages/admin/Courses/Courses.jsx';
 import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
+import EditCourseMaterial from '../pages/instructor/courses/EditCourseMaterial.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -331,6 +332,7 @@ export const router = createBrowserRouter([
       { path: '/UploadCourse', element: <UploadCourse /> },
       { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
       { path: '/instructor/Quizzes/edit/:id', element: <EditExam /> },
+      { path: '/instructor/courses/edit/:id', element: <EditCourseMaterial /> },
       { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
       { path: '/instructor/Assignment/edit/:id', element: <EditAssignment /> },
     ],

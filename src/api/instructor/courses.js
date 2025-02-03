@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 
 export const getCourses = async () => {
   const response = await axiosInstance.get('/courses/viewCoursesWithExtra');
-  return response;
+  return response.data;
 };
 
-// export const useGetCourses = () => {
-//   return useQuery({
-//     queryFn: getCourses,
-//   });
-// };
+export const useGetCourses = () => {
+  return useQuery({
+    queryFn: getCourses,
+  });
+};
