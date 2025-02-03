@@ -1,33 +1,33 @@
 import React from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 
-function Asacadmic() {
-  const courses = [
-    {
-      id: 1,
-      name: "Advanced Mathematics",
-      doctor: "Dr. John Smith",
-      code: "MATH-401",
-      description: "An advanced course in mathematical theories and applications.",
-      link: "/course-details/1",
-    },
-    {
-      id: 2,
-      name: "Physics for Engineers",
-      doctor: "Dr. Sarah Johnson",
-      code: "PHYS-201",
-      description: "Explores the principles of physics with real-world engineering examples.",
-      link: "/course-details/2",
-    },
-    {
-      id: 3,
-      name: "Introduction to Programming",
-      doctor: "Dr. Emily Davis",
-      code: "CS-101",
-      description: "Covers the basics of programming using Python.",
-      link: "/course-details/3",
-    },
-  ];
+  function Asacadmic() {
+    const courses = [
+      {
+        id: 1,
+        name: "Advanced Mathematics",
+        doctor: "Dr. John Smith",
+        code: "MATH-401",
+        description: "An advanced course in mathematical theories and applications.",
+        // link: '/admin/coursepage',
+      },
+      {
+        id: 2,
+        name: "Physics for Engineers",
+        doctor: "Dr. Sarah Johnson",
+        code: "PHYS-201",
+        description: "Explores the principles of physics with real-world engineering examples.",
+        link: '/admin/coursepage',
+      },
+      {
+        id: 3,
+        name: "Introduction to Programming",
+        doctor: "Dr. Emily Davis",
+        code: "CS-101",
+        description: "Covers the basics of programming using Python.",
+        link: "/admin/coursepage",
+      },
+    ]
 
   return (
     <HelmetProvider>

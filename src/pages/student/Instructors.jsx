@@ -3,32 +3,33 @@ import InstructorCard from '../../components/shared/InstructorCard';
 import Inst3 from '../../assets/images/Inst3.jpg';
 import Inst1 from '../../assets/images/Inst1.jpg';
 import Inst2 from '../../assets/images/Inst2.jpg';
+import { useGetInstructors } from '../../api/student/instructor';
 
 const Instructors = () => {
+  const { data } = useGetInstructors();
+
   return (
     <div>
       <h3>Instructors</h3>
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        <div className="col ">
-          <InstructorCard
-            title={'Dr Nora'}
-            description={'Department: Computer Science'}
-            Image={Inst3}
-            id={1}
-          />
+      {data?.data?.length === 0 ? (
+        <div className="d-flex flex-column align-items-center justify-content-center text-center ">
+          <h4 className="mt-3">No instructors found</h4>
+          <p>You don't have any instructors yet.</p>
         </div>
-        <div className="col ">
-          <InstructorCard title={'Dr Fathy'} description={'Department: IT'} Image={Inst1} id={2} />
-        </div>
-        <div className="col ">
-          <InstructorCard
-            title={'Dr Ramy'}
-            description={'Department: Mathematics'}
-            Image={Inst2}
-            id={3}
-          />
-        </div>
-      </div>
+      ) : (
+        data?.data?.map((instructor) => (
+          <div className="row row-cols-1 row-cols-md-3 g-4">
+            <div className="col ">
+              <InstructorCard
+                title={instructor.name}
+                description={instructor.department}
+                Image={Inst1}
+                id={instructor.id}
+              />
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };

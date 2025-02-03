@@ -1,39 +1,61 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import style from './Courses.module.css'
+import style from './Courses.module.css';
 
 function Courses() {
-    return <>
-    <HelmetProvider>
+  return (
+    <>
+      <HelmetProvider>
         <Helmet>
-            <meta name='description' content='' />
-            <title>Courses</title>
+          <meta name="description" content="this is courses page" />
+          <title> Courses</title>
         </Helmet>
+
         <div className="Body">
-            <header  className={style.header}>
-                <h1>Courses</h1>
-            </header>
+          <header className={style.header}>
+            <h1>
+              <Link
+                to="/admin/allcourses"
+                className="d-flex justify-content-around text-white text-center p-3 rounded shadow"
+              >
+                All Courses
+              </Link>
+            </h1>
+          </header>
+          <main className="d-flex justify-content-around p-5 fs-4">
+            <Link
+              to="/admin/acadmic"
+              className={`${style.link} text-decoration-none text-black d-block mt-5`}
+            >
+              <div className={`${style.section} ${style.academic} `}>
+                <h2>Academic</h2>
+                <p>
+                  Here are the academic courses for the student, as he is not allowed to join
+                  certain study subjects without passing the subjects related to them. <br />
+                  This is only allowed for postgraduate studies.
+                </p>
+              </div>
+            </Link>
 
-            <main className="d-flex justify-content-around p-5 fs-4">
-                <Link to="/admin/acadmic" className={`${style.link} text-decoration-none text-black d-block mt-5`}>
-                    <div className={`${style.section} ${style.academic} `}>
-                        <h2>Academic</h2>
-                        <p>Here are the academic courses for the student, as he is not allowed to join certain study subjects without passing the subjects related to them. <br/>This is only allowed for postgraduate studies.</p>
-                    </div>
-                </Link>
-
-                <div className=" p-5 fs-4">
-                    <Link to="/admin/Extra" className={`${style.link} text-decoration-none text-black d-block`}>
-                        <div className={`${style.section} ${style.extra}`}>
-                            <h2>Extra</h2>
-                            <p>These are extra courses that the student enrolls and buying through the platform, It is available to any student on the platform.</p>
-                        </div>
-                    </Link>              
+            <div className=" p-5 fs-4">
+              <Link
+                to="/admin/Extra"
+                className={`${style.link} text-decoration-none text-black d-block`}
+              >
+                <div className={`${style.section} ${style.extra}`}>
+                  <h2>Extra</h2>
+                  <p>
+                    These are extra courses that the student enrolls and buying through the
+                    platform, It is available to any student on the platform.
+                  </p>
                 </div>
-            </main>
+              </Link>
+            </div>
+          </main>
         </div>
-    </HelmetProvider>
+      </HelmetProvider>
     </>
+  );
 }
-export default Courses
+export default Courses;

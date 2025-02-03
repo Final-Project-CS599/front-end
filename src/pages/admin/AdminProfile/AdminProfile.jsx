@@ -5,7 +5,7 @@ import { showToast } from "../../../utils/toast";
 import { ToastContainer } from "react-toastify";
 
 
-export default function Profile() {
+export default function AdminProfile() {
   const [user, setUser] = useState(null);
   const { data: profileData, refetch } = useGetAdminData();
   const { mutate } = useEditAdminData()

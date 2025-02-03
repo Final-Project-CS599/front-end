@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { ToastContainer } from 'react-toastify';
-import { useUpdateProfile } from '../../api/student/EditProfile';
+import { useGetProfile, useUpdateProfile } from '../../api/student/EditProfile';
 import { showToast } from '../../utils/toast';
 
 const Profile = () => {
@@ -11,6 +11,23 @@ const Profile = () => {
   const [gender, setGender] = useState('Male');
 
   const { mutate, isLoading } = useUpdateProfile();
+  const { data } = useGetProfile();
+
+  // Effect to populate form fields with fetched student data
+  useEffect(() => {
+    if (data?.data?.studentData) {
+      const studentData = data.data.studentData;
+
+      // Set phone numbers
+      if (studentData.phoneNumbers && studentData.phoneNumbers.length > 0) {
+        setPhoneNumbers(studentData.phoneNumbers);
+      }
+
+      // Set other fields
+      setBirthDate(studentData.dateOfBirth || '');
+      setGender(studentData.gender || 'Male');
+    }
+  }, [data]);
 
   const handlePhoneNumberChange = (index, value) => {
     const newPhoneNumbers = [...phoneNumbers];
@@ -22,7 +39,6 @@ const Profile = () => {
     setPhoneNumbers([...phoneNumbers, '']);
   };
 
-  // Remove a phone number input
   const removePhoneNumber = (index) => {
     const newPhoneNumbers = phoneNumbers.filter((_, i) => i !== index);
     setPhoneNumbers(newPhoneNumbers);
@@ -31,11 +47,6 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!password || !birthDate || !gender || phoneNumbers.some((num) => !num)) {
-      showToast('Please fill out all fields.', 'error'); // Show error Toast
-      return;
-    }
-
     // Prepare data for submission
     const profileData = {
       phoneNumbers,
@@ -43,17 +54,16 @@ const Profile = () => {
       birthDate,
       gender,
     };
+
+    // Call the mutation to update the profile
     mutate(profileData, {
       onSuccess: () => {
-        showToast('Profile updated successfully!', 'success'); // Show success Toast
+        showToast('Profile updated successfully!', 'success');
       },
       onError: (error) => {
-        showToast(`Error: ${error.message}`, 'error'); // Show error Toast
+        showToast(`Error: ${error.message}`, 'error');
       },
     });
-
-    // Log the data (you can replace this with an API call)
-    console.log('Profile Data:', profileData);
   };
 
   return (
@@ -68,11 +78,10 @@ const Profile = () => {
               <div key={index} className="input-group w-50">
                 <input
                   type="text"
-                  className="form-control "
+                  className="form-control"
                   placeholder="Enter phone number"
                   value={phone}
                   onChange={(e) => handlePhoneNumberChange(index, e.target.value)}
-                  required
                 />
                 {phoneNumbers.length > 1 && (
                   <button
@@ -85,7 +94,6 @@ const Profile = () => {
                 )}
               </div>
             ))}
-
             <FaPlus onClick={addPhoneNumber} className="fs-3 text-purple" />
           </div>
         </div>
@@ -100,7 +108,6 @@ const Profile = () => {
               placeholder="Enter new password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           </div>
           <div className="col-md-6">
@@ -110,11 +117,11 @@ const Profile = () => {
               className="form-control"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
-              required
             />
           </div>
         </div>
 
+        {/* Gender */}
         <div className="row mb-3">
           <div className="col-md-6">
             <label className="form-label">Gender</label>
@@ -122,19 +129,16 @@ const Profile = () => {
               className="form-select"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
-              required
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
           </div>
         </div>
+
+        {/* Submit Button */}
         <div className="d-flex justify-content-end">
-          <button
-            type="submit"
-            className="btn buttoncolor w-25"
-            disabled={isLoading} // Disable the button while loading
-          >
+          <button type="submit" className="btn buttoncolor w-25" disabled={isLoading}>
             {isLoading ? 'Saving...' : 'Save Changes'}
           </button>
         </div>

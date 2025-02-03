@@ -1,38 +1,49 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Button, Table } from "react-bootstrap";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { Alert, Button, Table } from 'react-bootstrap';
+import { getCourses, useGetCourses } from '../../../api/instructor/courses';
 
 const MyCourses = ({ instructorId }) => {
   const [materials, setMaterials] = useState([]);
+  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchMaterials();
-  }, [instructorId]);
+  const { data } = useGetCourses();
 
-  const fetchMaterials = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3000/courseMaterial/view?instructorId=${instructorId}`);
-      setMaterials(response.data);
-    } catch (error) {
-      console.error("Error fetching materials", error);
-    }
-  };
+  if (!data || data?.data?.length === 0) {
+    return (
+      <div className="container mt-4">
+        <div className="d-flex justify-content-between">
+          <h2> Course Materials</h2>
+          <Button className="mb-3 btn-outline-purple" onClick={() => navigate('/UploadCourse')}>
+            Add Material
+          </Button>
+        </div>
+        <Alert variant="info" className="mt-3">
+          No Course Materials found. Click " Add Material" to create a new Course Materials.
+        </Alert>
+      </div>
+    );
+  }
 
   const handleDelete = async (m_id) => {
     try {
-      await axios.delete("http://localhost:5000/courseMaterial/delete", { data: { m_id } });
+      await axios.delete('http://localhost:5000/courseMaterial/delete', { data: { m_id } });
       setMaterials(materials.filter((material) => material.m_id !== m_id));
     } catch (error) {
-      console.error("Error deleting material", error);
+      console.error('Error deleting material', error);
     }
   };
 
   return (
     <div className="container mt-4">
-      <h2>Course Materials</h2>
-      <Button variant="primary" onClick={() => navigate("/add-material")}>Add Material</Button>
+      <div className="d-flex justify-content-between">
+        <h2>Course Materials</h2>
+        <Button className="btn-outline-purple" onClick={() => navigate('/UploadCourse')}>
+          Add Material
+        </Button>
+      </div>
       <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
@@ -49,8 +60,19 @@ const MyCourses = ({ instructorId }) => {
               <td>{material.m_description}</td>
               <td>{material.m_type}</td>
               <td>
-                <Button variant="warning" onClick={() => navigate(`/edit-material/${material.m_id}`)}>Edit</Button>
-                <Button variant="danger" onClick={() => handleDelete(material.m_id)} className="ms-2">Delete</Button>
+                <Button
+                  variant="warning"
+                  onClick={() => navigate(`/instructor/courses/edit/${material.m_id}`)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => handleDelete(material.m_id)}
+                  className="ms-2"
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}
