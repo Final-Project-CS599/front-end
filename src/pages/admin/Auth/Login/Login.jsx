@@ -21,7 +21,7 @@ export default function Login() {
     async function loginSubmit(values) {
         setIsLoading(true);
         try {
-            let { data } = await axios.post(`http://localhost:3000/auth/login?ln=en`, values);
+            let { data } = await axios.post(`http://localhost:3000/api/v1/auth/login?ln=en`, values);
     
             const token = data.token || data.data.token;
             if (!token) {
@@ -59,7 +59,7 @@ export default function Login() {
     
     let validateScheme =yup.object({
         email: yup.string().email('Email is invalid').required('Email is required'),
-        password: yup.string().matches(/^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9!@#$%^&*-_+=]{8,}$/, 'password (example: 12345678 , A.s12345 , a1234567)').required('Password is required'),
+        password: yup.string().matches(/^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9@#$%^&*-_]{8,}$/, 'password (example: 12345678 , A.s12345 , a1234567)').required('Password is required'),
     });
     let formik = useFormik({
         initialValues :{

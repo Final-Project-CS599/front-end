@@ -14,7 +14,7 @@ import RegisterInstructors from '../pages/admin/AuthUser/RegisterInstructors/Reg
 import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterStudent.jsx';
 //home route
 import HomeDashboard from '../pages/admin/HomeAndFooter/Home/Home.jsx';
-import HelpDesk from '../pages/admin/Helpdesk/HelpDesk.jsx';
+
 //Academic Router & Notfound
 import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRou.jsx';
 import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
@@ -63,6 +63,7 @@ import UploadCourse from '../components/shared/UploadCourse';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import MyCourses from '../pages/instructor/courses/mycourses';
+import HelpDesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
 
 
 
@@ -87,6 +88,7 @@ export const studentRoutes = [
   { path: '/student/assignments/:id', element: <AssignmentById />, },
   { path: '/student/quizzes/:id', element: <QuizById />, },
 ];
+
 
 export const adminRoutes = [
     //AcademicRou //pages
