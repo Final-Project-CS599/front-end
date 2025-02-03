@@ -84,8 +84,7 @@ export const adminRoutes = [
     path: '/admin/home',
     element: (
       <AcademicRou>
-        {' '}
-        <HomeDashboard />{' '}
+        <HomeDashboard />
       </AcademicRou>
     ),
   },
@@ -94,8 +93,7 @@ export const adminRoutes = [
     path: '/admin/addAdmin',
     element: (
       <AcademicRou>
-        {' '}
-        <AddAdmin />{' '}
+        <AddAdmin />
       </AcademicRou>
     ),
   },
@@ -103,8 +101,7 @@ export const adminRoutes = [
     path: '/admin/instructors',
     element: (
       <AcademicRou>
-        {' '}
-        <Instructors />{' '}
+        <Instructors />
       </AcademicRou>
     ),
   },
@@ -112,8 +109,7 @@ export const adminRoutes = [
     path: '/admin/student',
     element: (
       <AcademicRou>
-        {' '}
-        <Student />{' '}
+        <Student />
       </AcademicRou>
     ),
   },
@@ -121,8 +117,7 @@ export const adminRoutes = [
     path: '/admin/registerInstructor',
     element: (
       <AcademicRou>
-        {' '}
-        <RegisterInstructors />{' '}
+        <RegisterInstructors />
       </AcademicRou>
     ),
   },
@@ -130,8 +125,8 @@ export const adminRoutes = [
     path: '/admin/registerStudent',
     element: (
       <AcademicRou>
-        {' '}
-        <RegisterStudents />{' '}
+        
+        <RegisterStudents />
       </AcademicRou>
     ),
   },
@@ -140,8 +135,8 @@ export const adminRoutes = [
     path: '/admin/helpDesk',
     element: (
       <AcademicRou>
-        {' '}
-        <HelpDesk />{' '}
+        
+        <HelpDesk />
       </AcademicRou>
     ),
   },
@@ -150,8 +145,8 @@ export const adminRoutes = [
     path: '/admin/courses',
     element: (
       <AcademicRou>
-        {' '}
-        <Courses />{' '}
+        
+        <Courses />
       </AcademicRou>
     ),
   },
@@ -159,8 +154,8 @@ export const adminRoutes = [
     path: '/admin/acadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Acadmic />{' '}
+        
+        <Acadmic />
       </AcademicRou>
     ),
   },
@@ -168,8 +163,8 @@ export const adminRoutes = [
     path: '/admin/extra',
     element: (
       <AcademicRou>
-        {' '}
-        <Extra />{' '}
+        
+        <Extra />
       </AcademicRou>
     ),
   },
@@ -177,8 +172,8 @@ export const adminRoutes = [
     path: '/admin/addnewcourseextra',
     element: (
       <AcademicRou>
-        {' '}
-        <Addnewcourseextra />{' '}
+        
+        <Addnewcourseextra />
       </AcademicRou>
     ),
   },
@@ -186,8 +181,8 @@ export const adminRoutes = [
     path: '/admin/addnewcourseacadmic',
     element: (
       <AcademicRou>
-        {' '}
-        <Addnewcourseacadmic />{' '}
+        
+        <Addnewcourseacadmic />
       </AcademicRou>
     ),
   },
@@ -195,8 +190,8 @@ export const adminRoutes = [
     path: '/admin/deletecourse',
     element: (
       <AcademicRou>
-        {' '}
-        <DeleteCourse />{' '}
+        
+        <DeleteCourse />
       </AcademicRou>
     ),
   },
@@ -204,8 +199,8 @@ export const adminRoutes = [
     path: '/admin/departments',
     element: (
       <AcademicRou>
-        {' '}
-        <Departments />{' '}
+        
+        <Departments />
       </AcademicRou>
     ),
   },
@@ -213,8 +208,8 @@ export const adminRoutes = [
     path: '/admin/allcourses',
     element: (
       <AcademicRou>
-        {' '}
-        <AllCourses />{' '}
+        
+        <AllCourses />
       </AcademicRou>
     ),
   },
@@ -225,8 +220,8 @@ export const adminRoutes = [
     path: '/admin/payment',
     element: (
       <AcademicRou>
-        {' '}
-        <Payment />{' '}
+        
+        <Payment />
       </AcademicRou>
     ),
   },
@@ -234,8 +229,8 @@ export const adminRoutes = [
     path: '/admin/paymentcontent',
     element: (
       <AcademicRou>
-        {' '}
-        <PaymentContent />{' '}
+        
+        <PaymentContent />
       </AcademicRou>
     ),
   },
@@ -245,8 +240,8 @@ export const adminRoutes = [
     path: '/admin/profile',
     element: (
       <AcademicRou>
-        {' '}
-        <AdminProfile />{' '}
+        
+        <AdminProfile />
       </AcademicRou>
     ),
   },
@@ -254,8 +249,8 @@ export const adminRoutes = [
     path: '/admin/addDepartment',
     element: (
       <AcademicRou>
-        {' '}
-        <AddDepartment />{' '}
+        
+        <AddDepartment />
       </AcademicRou>
     ),
   },
@@ -263,8 +258,8 @@ export const adminRoutes = [
     path: '/admin/editStudent/:id',
     element: (
       <AcademicRou>
-        {' '}
-        <EditStudent />{' '}
+        
+        <EditStudent />
       </AcademicRou>
     ),
   },
@@ -272,8 +267,8 @@ export const adminRoutes = [
     path: '/admin/editInstructor/:id',
     element: (
       <AcademicRou>
-        {' '}
-        <EditInstructor />{' '}
+        
+        <EditInstructor />
       </AcademicRou>
     ),
   },
