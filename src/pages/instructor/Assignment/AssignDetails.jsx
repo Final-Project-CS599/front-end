@@ -8,19 +8,22 @@ const AssignmentDetails = () => {
   const navigate = useNavigate();
   const { mutate } = useAddAssignment();
 
-  // Define validation schema using Yup
   const validationSchema = Yup.object({
-    courseId: Yup.string().required('Course ID is required'),
+    courseId: Yup.number()
+      .typeError('Course ID must be a number')
+      .required('Course ID is required'),
     type: Yup.string()
       .required('Type is required')
       .oneOf(['extra', 'academic'], 'Type must be either "extra" or "academic"'),
-    description: Yup.string().required('Description is required'),
+    description: Yup.string().required('Description is required')
+      .min(10, 'Description must be at least 10 characters long'), 
     publishDate: Yup.date().required('Publish Date is required'),
-    title: Yup.string().required('Title is required'),
+    title: Yup.string().required('Title is required').min(5, 'Title must be at least 5 characters long'),
     link: Yup.string()
       .required('Link is required')
       .matches(/^(ftp|http|https):\/\/[^ "]+$/, 'Invalid link. Please enter a valid URL.'),
     degree: Yup.number()
+      .typeError('Degree must be a number') 
       .required('Degree is required')
       .positive('Degree must be a positive number'),
   });
@@ -65,8 +68,9 @@ const AssignmentDetails = () => {
     <Container>
       <h2 className="mt-4">Add Assignment</h2>
       <Form onSubmit={formik.handleSubmit}>
+        {/* Course ID */}
         <Form.Group controlId="formCourseId" className="mb-3">
-          <Form.Label>Course ID</Form.Label>
+          <Form.Label>Course ID <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Course ID"
@@ -76,11 +80,14 @@ const AssignmentDetails = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.courseId && !!formik.errors.courseId}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.courseId}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.courseId}
+          </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formExamType" className="mt-3">
-          <Form.Label>Exam Type</Form.Label>
+        {/* Exam Type */}
+        <Form.Group controlId="formExamType" className="mb-3">
+          <Form.Label>Exam Type <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter assignment type (extra or academic)"
@@ -90,11 +97,14 @@ const AssignmentDetails = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.type && !!formik.errors.type}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.type}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.type}
+          </Form.Control.Feedback>
         </Form.Group>
 
+        {/* Description */}
         <Form.Group controlId="formDescription" className="mb-3">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Description <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             as="textarea"
             placeholder="Enter assignment description"
@@ -104,11 +114,14 @@ const AssignmentDetails = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.description && !!formik.errors.description}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.description}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.description}
+          </Form.Control.Feedback>
         </Form.Group>
 
+        {/* Publish Date */}
         <Form.Group controlId="formPublishDate" className="mb-3">
-          <Form.Label>Publish Date</Form.Label>
+          <Form.Label>Publish Date <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="date"
             name="publishDate"
@@ -117,11 +130,14 @@ const AssignmentDetails = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.publishDate && !!formik.errors.publishDate}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.publishDate}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.publishDate}
+          </Form.Control.Feedback>
         </Form.Group>
 
+        {/* Title */}
         <Form.Group controlId="formTitle" className="mb-3">
-          <Form.Label>Title</Form.Label>
+          <Form.Label>Title <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter assignment title"
@@ -131,11 +147,14 @@ const AssignmentDetails = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.title && !!formik.errors.title}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.title}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.title}
+          </Form.Control.Feedback>
         </Form.Group>
 
+        {/* Link */}
         <Form.Group controlId="formLink" className="mb-3">
-          <Form.Label>Link</Form.Label>
+          <Form.Label>Link <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter assignment link"
@@ -145,11 +164,14 @@ const AssignmentDetails = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.link && !!formik.errors.link}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.link}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.link}
+          </Form.Control.Feedback>
         </Form.Group>
 
+        {/* Degree */}
         <Form.Group controlId="formDegree" className="mb-3">
-          <Form.Label>Degree</Form.Label>
+          <Form.Label>Degree <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter assignment degree"
@@ -159,7 +181,9 @@ const AssignmentDetails = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.degree && !!formik.errors.degree}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.degree}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.degree}
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Button className="mt-3 btn-outline-purple" type="submit">

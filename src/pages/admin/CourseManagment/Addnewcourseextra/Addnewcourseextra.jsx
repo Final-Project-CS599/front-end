@@ -4,6 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useAddExtraCourse } from '../../../../api/admin/courses/Extra';
 import { useNavigate } from 'react-router-dom';
+import { showToast } from '../../../../utils/toast';
+import { ToastContainer } from 'react-toastify';
 
 // Validation Schema (remains the same)
 const validationSchema = Yup.object().shape({
@@ -65,7 +67,7 @@ function AddNewCourseExtra() {
         navigate('/admin/courses/extra');
       },
       onError: (error) => {
-        console.error('Error adding course:', error);
+        showToast(error.response.data.message, 'error');
         setSubmitting(false);
       },
     });
@@ -251,6 +253,7 @@ function AddNewCourseExtra() {
           )}
         </Formik>
       </div>
+      <ToastContainer />
     </HelmetProvider>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useSearchByName, useSendMessage } from '../../../api/message';
@@ -9,7 +9,7 @@ const SendMessage = ({ onClose, role, onMessageSent }) => {
   const [isSearching, setIsSearching] = useState(false);
 
   const { mutate: sendMessage, isLoading: isSending, isError, error } = useSendMessage();
-  const { mutate: searchByName, isLoading: isSearchLoading } = useSearchByName();
+  const { mutate: searchByName } = useSearchByName();
 
   const validationSchema = Yup.object({
     receiver: Yup.string()

@@ -1,41 +1,26 @@
-import { useState } from 'react';
-import { Button, Table, Alert, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useDeleteAssignment, useGetAssignment, searchAssignment } from '../../../api/instructor/assignments.js';
+import { useState } from "react";
+import { Table, Alert, Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "react-bootstrap-icons"; 
+import {
+  useDeleteAssignment,
+  useGetAssignment,
+  useSearchAssignment,
+} from "../../../api/instructor/assignments.js";
 
 const Assignments = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
-  const [error, setError] = useState(null);
-  const [assignments, setAssignments] = useState([]);
+  const [search, setSearch] = useState(""); 
+  const [query, setQuery] = useState(""); 
 
   const { data, isLoading, isError, refetch } = useGetAssignment();
+  const { data: searchData, isFetching } = useSearchAssignment(query); 
   const { mutate } = useDeleteAssignment();
 
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    setIsSearching(true);
-    setError(null);
-  
-    try {
-      const response = await searchAssignment(search);  
-      const searchResults = response.assignments || [];
-  
-      const formattedSearchResults = searchResults.map((assignments) => ({
-        ...assignments,
-        assignments: Array.isArray(assignments) ? assignments.length : 0
-      }));
-  
-      setAssignments(formattedSearchResults);
-    } catch (err) {
-      setError(err.response?.data?.message || 'No assignment found');
-      setAssignments([]);
-    } finally {
-      setIsSearching(false);
-    }
+    setQuery(search);
   };
-  
 
   const handleDelete = async (id) => {
     mutate(id, {
@@ -43,7 +28,7 @@ const Assignments = () => {
         refetch();
       },
       onError: (error) => {
-        console.error('Error deleting assignment:', error);
+        console.error("Error deleting assignment:", error);
       },
     });
   };
@@ -60,57 +45,39 @@ const Assignments = () => {
     );
   }
 
-  if (!data || data?.data?.length === 0) {
-    return (
-      <div className="container mt-4">
-        <div className="d-flex justify-content-between">
+  const assignments = query ? searchData?.assignments || [] : data?.data || [];
+
+  return (
+    <div className="container mt-4">
+      <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex align-items-center">
+          <ArrowLeft
+            size={28}
+            style={{ cursor: "pointer" }}
+            className="me-3"
+            onClick={() => navigate("/instructor/Assignment/Assignment")}
+          />
           <h2>Assignments List</h2>
-          <Form onSubmit={handleSearch} className="mb-3 d-flex">
+        </div>
+
+        <div className="d-flex">
+          <Form onSubmit={handleSearch} className="d-flex me-3">
             <Form.Control
               type="text"
               placeholder="Search assignments..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <Button type="submit" className="ms-2 btn-outline-purple">
-              Search
-            </Button>
+            <button type="submit" className="ms-2 btn btn-outline-purple">
+              {isFetching ? "Searching..." : "Search"}
+            </button>
           </Form>
-          <Button
-            className="mb-3 btn-outline-purple"
-            onClick={() => navigate('/instructor/Assignment/Assign-details')}
-          >
-            Add Assignment
+
+          {/* زر الإضافة */}
+          <Button variant="primary" onClick={() => navigate("/instructor/Assignment/Assign-details")}>
+            Add
           </Button>
         </div>
-        <Alert variant="info" className="mt-3">
-          No Assignments found. Click Add Assignment to create a new assignment.
-        </Alert>
-      </div>
-    );
-  }
-
-  return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between">
-        <h2>Assignments List</h2>
-        <Form onSubmit={handleSearch} className="mb-3 d-flex">
-          <Form.Control
-            type="text"
-            placeholder="Search assignments..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <Button type="submit" className="ms-2 btn-outline-purple">
-            Search
-          </Button>
-        </Form>
-        <Button
-          className="mb-3 btn-outline-purple"
-          onClick={() => navigate('/instructor/Assignment/Assign-details')}
-        >
-          Add Assignment
-        </Button>
       </div>
 
       <Table striped bordered hover className="mt-3">
@@ -124,33 +91,35 @@ const Assignments = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data?.map((assignment) => (
-            <tr key={assignment.a_id}>
-              <td>{assignment.a_title}</td>
-              <td>{assignment.a_description}</td>
-              <td>{assignment.a_degree}</td>
-              <td>{assignment.a_type === 'extra' ? 'Extra' : 'Final Exam'}</td>
-              <td>
-                <Button
-                  variant="warning"
-                  onClick={() => navigate(`/instructor/Assignment/edit/${assignment.a_id}`)}
-                >
-                  Edit
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => handleDelete(assignment.a_id)}
-                  className="ms-2"
-                >
-                  Delete
-                </Button>
-              </td>
-            </tr>
-          ))}
-          {isSearching && assignments.length === 0 && (
+          {assignments.length > 0 ? (
+            assignments.map((assignment) => (
+              <tr key={assignment.a_id}>
+                <td>{assignment.a_title}</td>
+                <td>{assignment.a_description}</td>
+                <td>{assignment.a_degree}</td>
+                <td>{assignment.a_type === "extra" ? "Extra" : "Final Exam"}</td>
+                <td>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() =>
+                      navigate(`/instructor/Assignment/edit/${assignment.a_id}`)
+                    }
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn btn-danger ms-2"
+                    onClick={() => handleDelete(assignment.a_id)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
             <tr>
               <td colSpan="5" className="text-center">
-                No assignments found for your search.
+                {query ? "No assignments found" : "No assignments available."}
               </td>
             </tr>
           )}

@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useAddAcademicCourse } from '../../../../api/admin/courses/Academic';
 import { useGetDepartmentsData } from '../../../../api/admin/GetDepartments';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 function AddNewCourseAcademic() {
   const { data: departmentData } = useGetDepartmentsData();
@@ -63,7 +64,7 @@ function AddNewCourseAcademic() {
         navigate('/admin/courses/academic');
       },
       onError: (error) => {
-        console.error('Error adding course:', error);
+        showToast(error.response.data.message, 'error');
         setSubmitting(false);
       },
     });
@@ -245,6 +246,7 @@ function AddNewCourseAcademic() {
           )}
         </Formik>
       </div>
+      <ToastContainer />
     </HelmetProvider>
   );
 }

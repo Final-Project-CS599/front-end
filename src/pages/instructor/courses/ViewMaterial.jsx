@@ -108,7 +108,7 @@ const ViewMaterialList = () => {
                   <Button
                     variant="warning"
                     onClick={() =>
-                      navigate(`/instructor/editMaterial/${media.m_id}`)
+                      navigate(`/instructor/courses/edit/:id${media.m_id}`)
                     }
                   >
                     Edit

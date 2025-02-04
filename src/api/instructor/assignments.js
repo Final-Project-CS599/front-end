@@ -61,8 +61,8 @@ export const useGetAssignmentById = (assinId) => {
   });
 };
 
-export const searchAssignment = async (query) => {
-  const response = await axiosInstance.get(`/assignment/search?s=${query}`);
+export const searchAssignment = async (s) => {
+  const response = await axiosInstance.get(`/assignment/search?s=${s}`);
   return response.data;
 };
 

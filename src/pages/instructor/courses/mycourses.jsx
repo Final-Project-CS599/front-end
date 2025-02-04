@@ -10,7 +10,6 @@ const MyCourses = () => {
   const [isSearching, setIsSearching] = useState(false); // Tracks if a search is in progress
   const navigate = useNavigate();
 
-  // Fetch all courses on component mount
   useEffect(() => {
     fetchCourses();
   }, []);

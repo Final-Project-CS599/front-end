@@ -16,7 +16,11 @@ const AddMaterial = () => {
     mLink: Yup.string()
       .required('Link is required')
       .matches(/^(ftp|http|https):\/\/[^ "]+$/, 'Invalid link. Please enter a valid URL.'),
-    mCourseId: Yup.number().required('Course ID is required'),
+    mCourseId: Yup.number()
+      .typeError('Course ID must be a number')
+      .required('Course ID is required')
+      .positive('Course ID must be a positive number')
+      .integer('Course ID must be an integer'),
     file: Yup.mixed()
       .nullable()
       .test('fileSize', 'File size exceeds 1GB', (value) => {
@@ -75,7 +79,7 @@ const AddMaterial = () => {
 
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group controlId="formTitle">
-          <Form.Label>Title</Form.Label>
+          <Form.Label>Title <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             name="mTitle"
@@ -88,7 +92,7 @@ const AddMaterial = () => {
         </Form.Group>
 
         <Form.Group controlId="formDescription" className="mt-3">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Description <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
@@ -102,7 +106,7 @@ const AddMaterial = () => {
         </Form.Group>
 
         <Form.Group controlId="formLink" className="mt-3">
-          <Form.Label>Link</Form.Label>
+          <Form.Label>Link <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             name="mLink"
@@ -115,7 +119,7 @@ const AddMaterial = () => {
         </Form.Group>
 
         <Form.Group controlId="formCourseId" className="mt-3">
-          <Form.Label>Course ID</Form.Label>
+          <Form.Label>Course ID <span style={{ color: 'red' }}>*</span></Form.Label>
           <Form.Control
             type="text"
             name="mCourseId"

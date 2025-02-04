@@ -28,7 +28,7 @@ export default function RegisterStudents() {
 
     let phoneRegExp = /^(002|\+2)?01[0125][0-9]{8}$/
     let validateScheme =yup.object({
-        admin_nationalID:  yup.string().matches(/^[0-9]{14,}$/ , 'National ID is invalid (example: 01234567890123)').required('National ID is required'),
+        admin_nationalID:  yup.string().matches(/^[0-9]{14}$/ , 'National ID is invalid (example: 01234567890123)').required('National ID is required'),
         firstName: yup.string().min(2 , 'Name minlength is 2').max(100 , 'Name maxlength is 100').required('Name is required'),
         lastName: yup.string().min(2 , 'lastName minlength is 2').max(100 , 'lastName maxlength is 100').required('lastName is required'),
         middleName: yup.string().min(2 , 'middleName minlength is 2').max(100 , 'middleName maxlength is 100').required('middleName is required'),
