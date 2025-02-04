@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useGetDepartmentsData } from '../../../api/admin/GetDepartments';
 
-function Acadmic() {
+function ChooseDepartment() {
   const { data, isLoading, error } = useGetDepartmentsData();
 
   return (
@@ -16,7 +16,7 @@ function Acadmic() {
         <div className="d-flex justify-content-between align-items-center">
           <h2 className="mb-4">Departments</h2>
           <button className="btn btn-outline-purple text-white" onClick={() => {}}>
-            <Link to="/admin/allacademic" className="text-decoration-none text-white">
+            <Link to="/admin/courses/academic" className="text-decoration-none text-white">
               All Academic Courses
             </Link>
           </button>
@@ -33,7 +33,7 @@ function Acadmic() {
                 data.departments.map((dept) => (
                   <Link
                     key={dept.id}
-                    to={`/admin/${encodeURIComponent(dept.department_name.toLowerCase())}-acadmic`}
+                    to={`/admin/courses/academic?departmentId=${dept.id}`} // Pass department ID as a query parameter
                     className="list-group-item list-group-item-action text-center mb-2"
                   >
                     {dept.department_name}
@@ -50,4 +50,4 @@ function Acadmic() {
   );
 }
 
-export default Acadmic;
+export default ChooseDepartment;

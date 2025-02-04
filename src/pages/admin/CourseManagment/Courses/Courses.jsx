@@ -28,7 +28,10 @@ function Courses() {
             </Link>
 
             {/* Card for Academic Courses */}
-            <Link to="/admin/courses/academic" className={`${style.card} ${style.academic}`}>
+            <Link
+              to="/admin/courses/chooseDepartment"
+              className={`${style.card} ${style.academic}`}
+            >
               <div className={style.cardContent}>
                 <h2>Academic</h2>
                 <p>
@@ -40,7 +43,7 @@ function Courses() {
             </Link>
 
             {/* Card for Extra Courses */}
-            <Link to="/admin/courses/extra" className={`${style.card} ${style.extra}`}>
+            <Link to="/admin/courses/chooseSection" className={`${style.card} ${style.extra}`}>
               <div className={style.cardContent}>
                 <h2>Extra</h2>
                 <p>

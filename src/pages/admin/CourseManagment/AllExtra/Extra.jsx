@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useGetAllExtraCourses } from '../../../../api/admin/courses/Extra';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { buttonStyle, handleMouseEnter, handleMouseLeave } from '../index';
 
 function AllExtra() {
   const [courses, setCourses] = useState([]);
-
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const section = queryParams.get('section'); // Get the section parameter from the URL
   const { data, isLoading, error } = useGetAllExtraCourses();
 
   useEffect(() => {
     if (data) {
-      setCourses(data?.data);
+      // Filter courses based on the section parameter if it exists
+      const filteredCourses = section
+        ? data.data.filter((course) => course.sections === section)
+        : data.data;
+      setCourses(filteredCourses);
     }
-  }, [data]);
+  }, [data, section]); // Re-run the effect when `data` or `section` changes
 
   if (isLoading) {
     return <div className="container mt-4 text-center">Loading courses...</div>;
@@ -62,52 +68,47 @@ function AllExtra() {
           {courses.length > 0 ? (
             courses.map((course) => (
               <div key={course.id} className="col-md-4 mb-4">
-                <a href={course.link || '#'} style={{ textDecoration: 'none', color: '#000000' }}>
-                  <div
-                    className="p-4 rounded shadow"
-                    style={{
-                      backgroundColor: '#f9f9f9',
-                      border: '1px solid #ddd',
-                      borderRadius: '10px',
-                      cursor: 'pointer',
-                      transition: 'transform 0.2s ease',
-                    }}
-                  >
-                    {/* Course Name */}
-                    <h4
-                      className="text-center mb-3"
-                      style={{ color: '#4a028a', fontWeight: 'bold' }}
-                    >
-                      {course.name}
-                    </h4>
+                <div
+                  className="p-4 rounded shadow"
+                  style={{
+                    backgroundColor: '#f9f9f9',
+                    border: '1px solid #ddd',
+                    borderRadius: '10px',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease',
+                  }}
+                >
+                  {/* Course Name */}
+                  <h4 className="text-center mb-3" style={{ color: '#4a028a', fontWeight: 'bold' }}>
+                    {course.name}
+                  </h4>
 
-                    {/* Course Details */}
-                    <p>
-                      <strong>Course Code:</strong> {course.CourseCode}
-                    </p>
-                    <p>
-                      <strong>Instructor:</strong> {course.instructorName}
-                    </p>
-                    <p>
-                      <strong>Section:</strong> {course.sections}
-                    </p>
-                    <p>
-                      <strong>Category:</strong> {course.category}
-                    </p>
-                    <p>
-                      <strong>Description:</strong> {course.description}
-                    </p>
-                    <p>
-                      <strong>Start Date:</strong> {new Date(course.startDate).toLocaleDateString()}
-                    </p>
-                    <p>
-                      <strong>End Date:</strong> {new Date(course.endDate).toLocaleDateString()}
-                    </p>
-                    <Link to="/admin/courses/extra/update" className="btn btn-primary">
-                      Update
-                    </Link>
-                  </div>
-                </a>
+                  {/* Course Details */}
+                  <p>
+                    <strong>Course Code:</strong> {course.CourseCode}
+                  </p>
+                  <p>
+                    <strong>Instructor:</strong> {course.instructorName}
+                  </p>
+                  <p>
+                    <strong>Section:</strong> {course.sections}
+                  </p>
+                  <p>
+                    <strong>Category:</strong> {course.category}
+                  </p>
+                  <p>
+                    <strong>Description:</strong> {course.description}
+                  </p>
+                  <p>
+                    <strong>Start Date:</strong> {new Date(course.startDate).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>End Date:</strong> {new Date(course.endDate).toLocaleDateString()}
+                  </p>
+                  <Link to={`/admin/courses/extra/update/${course.id}`} className="btn btn-primary">
+                    Update
+                  </Link>
+                </div>
               </div>
             ))
           ) : (

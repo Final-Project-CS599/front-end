@@ -24,13 +24,25 @@ export const useAddAcademicCourse = () => {
   });
 };
 
-const updateAcademic = async (courseData) => {
-  const response = await axiosInstance.patch('/courses/updateAcademic', courseData);
+const updateAcademic = async (id, courseData) => {
+  const response = await axiosInstance.patch(`/courses/updateAcademic/${id}`, courseData);
   return response.data;
 };
 
 export const useUpdateAcademic = () => {
   return useMutation({
     mutationFn: updateAcademic,
+  });
+};
+
+const getAcademicCourseById = async (id) => {
+  const response = await axiosInstance.get(`/courses/getAcademicCourse/${id}`);
+  return response.data;
+};
+
+export const useGetAcademicCourseById = (id) => {
+  return useQuery({
+    queryKey: 'courseById',
+    queryFn: () => getAcademicCourseById(id),
   });
 };

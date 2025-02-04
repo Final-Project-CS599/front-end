@@ -64,6 +64,8 @@ import QuizById from '../pages/student/QuizById';
 import StudentQuizzes from '../pages/student/Quizzes';
 import ViewHelpDeskMessages from '../pages/instructor/Report/ViewHelpDeskMessages.jsx';
 import ViewMessages from '../pages/student/helpDesk/ViewMessages.jsx';
+import ChooseDepartment from '../pages/admin/Acadmic/ChooseDepartment.jsx';
+import Sections from '../pages/admin/Sections/Sections.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -165,6 +167,22 @@ export const adminRoutes = [
     ),
   },
   {
+    path: '/admin/courses/chooseDepartment',
+    element: (
+      <AcademicRou>
+        <ChooseDepartment />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/courses/chooseSection',
+    element: (
+      <AcademicRou>
+        <Sections />
+      </AcademicRou>
+    ),
+  },
+  {
     path: '/admin/courses/academic',
     element: (
       <AcademicRou>
@@ -223,11 +241,11 @@ export const adminRoutes = [
   },
   // { path: '/admin/courses/allacademic', element: <AllAcademic /> },
   {
-    path: '/admin/courses/academic/update',
+    path: '/admin/courses/academic/update/:id',
     element: <UpdateAcademicCourse />,
   },
   {
-    path: '/admin/courses/extra/update',
+    path: '/admin/courses/extra/update/:id',
     element: <UpdateExtraCourse />,
   },
   //Payment

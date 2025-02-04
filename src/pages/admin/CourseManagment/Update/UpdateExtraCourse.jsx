@@ -1,70 +1,66 @@
-import React, { useState } from 'react';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { useNavigate, useParams } from 'react-router-dom';
+import * as Yup from 'yup';
+import { useGetExtraCourseById, useUpdateExtraCourse } from '../../../../api/admin/courses/Extra';
+import { useGetDepartmentsData } from '../../../../api/admin/GetDepartments';
+
+const validationSchema = Yup.object().shape({
+  instructorName: Yup.string()
+    .min(2, 'Instructor Name must be at least 2 characters')
+    .max(100, 'Instructor Name must be at most 100 characters')
+    .required('Instructor Name is required'),
+  courseName: Yup.string()
+    .min(2, 'Course Name must be at least 2 characters')
+    .max(100, 'Course Name must be at most 100 characters')
+    .required('Course Name is required'),
+  description: Yup.string()
+    .min(20, 'Description must be at least 20 characters')
+    .max(500, 'Description must be at most 500 characters')
+    .required('Description is required'),
+  courseStartDate: Yup.date().required('Start Date is required'),
+  courseEndDate: Yup.date()
+    .min(Yup.ref('courseStartDate'), 'End Date must be after Start Date')
+    .required('End Date is required'),
+  courseCode: Yup.string()
+    .matches(
+      /^[a-zA-Z0-9]{5,10}$/,
+      'Course Code must be alphanumeric and between 5 to 10 characters'
+    )
+    .required('Course Code is required'),
+  sections: Yup.string().required('sections is required'),
+  category: Yup.string()
+    .min(5, 'Category must be at least 5 characters')
+    .max(50, 'Category must be at most 50 characters')
+    .required('Category is required'),
+  price: Yup.number()
+    .min(3, 'Price must be at least 3')
+    .max(99999, 'Price must be at most 99999')
+    .required('Price is required'),
+});
+
 const UpdateExtraCourse = () => {
-  const [courseData, setCourseData] = useState({
-    courseName: '',
-    courseId: '',
-    instructorName: '',
-    instructorId: '',
-    department: '',
-    description: '',
-    startDate: '',
-    endDate: '',
-    courseType: 'Extra',
-    price: 0,
-  });
+  const { id } = useParams();
+  const { data: departmentData } = useGetDepartmentsData();
+  const { mutate } = useUpdateExtraCourse();
+  const { data } = useGetExtraCourseById(id);
 
-  const [validationErrors, setValidationErrors] = useState({});
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCourseData({
-      ...courseData,
-      [name]: value,
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    mutate(values, id, {
+      onSuccess: () => {
+        setSubmitting(false);
+        resetForm();
+        alert('Course updated successfully!');
+        navigate('/admin/courses/academic');
+      },
+      onError: (error) => {
+        console.error('Error adding course:', error);
+        setSubmitting(false);
+      },
     });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    //  validation for Instructor ID
-    if (!courseData.instructorId) {
-      setValidationErrors({ instructorId: 'Instructor ID is required' });
-      return;
-    }
-
-    console.log('Course Added:', courseData);
-    setCourseData({
-      courseName: '',
-      courseId: '',
-      instructorName: '',
-      instructorId: '',
-      department: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-      courseType: 'Extra',
-      price: 0,
-    });
-    setValidationErrors({});
-  };
-
-  const handleReset = () => {
-    if (window.confirm('Are you sure you want to reset the form?')) {
-      setCourseData({
-        courseName: '',
-        courseId: '',
-        instructorName: '',
-        instructorId: '',
-        department: '',
-        description: '',
-        startDate: '',
-        endDate: '',
-        courseType: 'Extra',
-        price: 0,
-      });
-      setValidationErrors({});
-    }
   };
 
   return (
@@ -77,163 +73,175 @@ const UpdateExtraCourse = () => {
       <div className="container mt-2">
         <h2 className="mb-4">Update Extra course</h2>
 
-        <form onSubmit={handleSubmit}>
-          {/* Course Name */}
-          <div className="form-group mb-3">
-            <label htmlFor="courseName">Course Name:</label>
-            <input
-              type="text"
-              className="form-control form-control-lg shadow-sm"
-              id="courseName"
-              name="courseName"
-              value={courseData.courseName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form>
+              {/* Course Name */}
+              <div className="form-group mb-3">
+                <label htmlFor="courseName">Course Name:</label>
+                <Field
+                  type="text"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.courseName && errors.courseName ? 'is-invalid' : ''
+                  }`}
+                  id="courseName"
+                  name="courseName"
+                />
+                <ErrorMessage name="courseName" component="div" className="invalid-feedback" />
+              </div>
 
-          {/* Course Code */}
-          <div className="form-group mb-3">
-            <label htmlFor="courseCode">Course Code:</label>
-            <input
-              type="text"
-              className="form-control form-control-lg shadow-sm"
-              id="courseCode"
-              name="courseCode"
-              value={courseData.courseCode}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              {/* Course Code */}
+              <div className="form-group mb-3">
+                <label htmlFor="courseCode">Course Code:</label>
+                <Field
+                  type="text"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.courseCode && errors.courseCode ? 'is-invalid' : ''
+                  }`}
+                  id="courseCode"
+                  name="courseCode"
+                />
+                <ErrorMessage name="courseCode" component="div" className="invalid-feedback" />
+              </div>
 
-          {/* Instructor Name */}
-          <div className="form-group mb-3">
-            <label htmlFor="instructorName">Instructor Name:</label>
-            <input
-              type="text"
-              className="form-control form-control-lg shadow-sm"
-              id="instructorName"
-              name="instructorName"
-              value={courseData.instructorName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              {/* Instructor Name */}
+              <div className="form-group mb-3">
+                <label htmlFor="instructorName">Instructor Name:</label>
+                <Field
+                  type="text"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.instructorName && errors.instructorName ? 'is-invalid' : ''
+                  }`}
+                  id="instructorName"
+                  name="instructorName"
+                />
+                <ErrorMessage name="instructorName" component="div" className="invalid-feedback" />
+              </div>
 
-          {/* Department */}
-          <div className="form-group mb-3">
-            <label htmlFor="department">Select Sections:</label>
-            <select
-              className="form-control form-control-lg shadow-sm"
-              id="department"
-              name="department"
-              value={courseData.department}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select Section</option>
-              <option value="Statistical Methods">Back-end</option>
-              <option value="Computer Science">Front End</option>
-              <option value="Information systems">Languages</option>
-              <option value="Mathematical Methods">Programming</option>
-              <option value="Operation research">Digital Marketing</option>
-            </select>
-          </div>
+              {/* sections */}
+              <div className="form-group mb-3">
+                <label htmlFor="sections">Select sections:</label>
+                <Field
+                  as="select"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.sections && errors.sections ? 'is-invalid' : ''
+                  }`}
+                  id="sections"
+                  name="sections"
+                >
+                  <option value="">Select sections</option>
+                  <option value="Back end">Back-end</option>
+                  <option value="Front end">Front End</option>
+                  <option value="languages">Languages</option>
+                  <option value="programming">Programming</option>
+                  <option value="Digital marketing">Digital Marketing</option>
+                </Field>
+                <ErrorMessage name="sections" component="div" className="invalid-feedback" />
+              </div>
 
-          {/* category */}
-          <div className="form-group mb-3">
-            <label htmlFor="category">Category:</label>
-            <input
-              type="text"
-              className="form-control form-control-lg shadow-sm"
-              id="category"
-              name="category"
-              value={courseData.category}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          {/* price */}
-          <div className="form-group mb-3">
-            <label htmlFor="price">Price:</label>
-            <input
-              type="number"
-              className="form-control form-control-lg shadow-sm"
-              id="price"
-              name="price"
-              value={courseData.price}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              {/* Category */}
+              <div className="form-group mb-3">
+                <label htmlFor="category">Category:</label>
+                <Field
+                  type="text"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.category && errors.category ? 'is-invalid' : ''
+                  }`}
+                  id="category"
+                  name="category"
+                />
+                <ErrorMessage name="category" component="div" className="invalid-feedback" />
+              </div>
 
-          {/* Description */}
-          <div className="form-group mb-3">
-            <label htmlFor="description">Description:</label>
-            <textarea
-              className="form-control form-control-lg shadow-sm"
-              id="description"
-              name="description"
-              value={courseData.description}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              {/* Price */}
+              <div className="form-group mb-3">
+                <label htmlFor="price">Price:</label>
+                <Field
+                  type="number"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.price && errors.price ? 'is-invalid' : ''
+                  }`}
+                  id="price"
+                  name="price"
+                />
+                <ErrorMessage name="price" component="div" className="invalid-feedback" />
+              </div>
 
-          {/* Start Date */}
-          <div className="form-group mb-3">
-            <label htmlFor="startDate">Start Date:</label>
-            <input
-              type="datetime-local"
-              className="form-control form-control-lg shadow-sm"
-              id="startDate"
-              name="startDate"
-              value={courseData.startDate}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              {/* Description */}
+              <div className="form-group mb-3">
+                <label htmlFor="description">Description:</label>
+                <Field
+                  as="textarea"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.description && errors.description ? 'is-invalid' : ''
+                  }`}
+                  id="description"
+                  name="description"
+                />
+                <ErrorMessage name="description" component="div" className="invalid-feedback" />
+              </div>
 
-          {/* End Date */}
-          <div className="form-group mb-3">
-            <label htmlFor="endDate">End Date:</label>
-            <input
-              type="datetime-local"
-              className="form-control form-control-lg shadow-sm"
-              id="endDate"
-              name="endDate"
-              value={courseData.endDate}
-              onChange={handleChange}
-              required
-            />
-          </div>
+              {/* Start Date */}
+              <div className="form-group mb-3">
+                <label htmlFor="courseStartDate">Start Date:</label>
+                <Field
+                  type="datetime-local"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.courseStartDate && errors.courseStartDate ? 'is-invalid' : ''
+                  }`}
+                  id="courseStartDate"
+                  name="courseStartDate"
+                />
+                <ErrorMessage name="courseStartDate" component="div" className="invalid-feedback" />
+              </div>
 
-          <div className="row">
-            <div className="col-md-12">
-              <div className="d-flex justify-content-between">
-                <div>
-                  <button
-                    type="submit"
-                    className="btn btn-lg w-40 mt-3"
-                    style={{ backgroundColor: '#7F55E0', borderColor: '#7F55E0', color: 'white' }}
-                  >
-                    Update
-                  </button>
-                </div>
-                <div>
-                  {/* Reset Button */}
-                  <button
-                    type="button"
-                    className="btn btn-secondary btn-lg w-40 mt-3"
-                    onClick={handleReset}
-                  >
-                    Reset
-                  </button>
+              {/* End Date */}
+              <div className="form-group mb-3">
+                <label htmlFor="courseEndDate">End Date:</label>
+                <Field
+                  type="datetime-local"
+                  className={`form-control form-control-md shadow-sm ${
+                    touched.courseEndDate && errors.courseEndDate ? 'is-invalid' : ''
+                  }`}
+                  id="courseEndDate"
+                  name="courseEndDate"
+                />
+                <ErrorMessage name="courseEndDate" component="div" className="invalid-feedback" />
+              </div>
+
+              <div className="row">
+                <div className="col-md-12">
+                  <div className="d-flex justify-content-between">
+                    <div>
+                      <button
+                        type="submit"
+                        className="btn btn-md w-40 mt-3"
+                        style={{
+                          backgroundColor: '#7F55E0',
+                          borderColor: '#7F55E0',
+                          color: 'white',
+                        }}
+                        disabled={isSubmitting}
+                      >
+                        Add Course
+                      </button>
+                    </div>
+                    <div>
+                      {/* Reset Button */}
+                      <button type="reset" className="btn btn-secondary btn-md w-40 mt-3">
+                        Reset
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </form>
+            </Form>
+          )}
+        </Formik>
       </div>
     </HelmetProvider>
   );
