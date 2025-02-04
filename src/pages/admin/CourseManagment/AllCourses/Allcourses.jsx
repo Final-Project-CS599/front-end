@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { useGetAllCourses } from '../../../api/admin/courses/courses';
+import { useGetAllCourses } from '../../../../api/admin/courses/courses';
+import { Link } from 'react-router-dom';
+import { buttonStyle, handleMouseEnter, handleMouseLeave } from '../index.js';
 
 function AllCourses() {
   const [courses, setCourses] = useState([]);
@@ -11,7 +13,7 @@ function AllCourses() {
     if (data) {
       setCourses(data?.data);
     }
-  }, []);
+  }, [data]);
 
   if (isLoading) {
     return <div className="container mt-4 text-center">Loading courses...</div>;
@@ -29,12 +31,20 @@ function AllCourses() {
       </Helmet>
 
       <div className="container mt-4">
-        <h2
-          className="text-center text-white p-3 rounded shadow"
-          style={{ backgroundColor: '#4a028a', fontSize: '28px' }}
-        >
-          All Courses
-        </h2>
+        <div className="d-flex justify-content-between align-items-center">
+          <h2 className="">All Courses</h2>
+          <div className="d-flex justify-content-end gap-3">
+            <Link
+              to="/admin/deletecourse"
+              className="btn"
+              style={buttonStyle}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              Delete Course
+            </Link>
+          </div>
+        </div>
 
         {courses.length === 0 ? (
           <p className="text-center mt-4">No courses available.</p>
@@ -87,37 +97,6 @@ function AllCourses() {
             ))}
           </div>
         )}
-
-        {/* btn delete course */}
-        <div className="d-flex justify-content-end mt-3">
-          <a
-            href="/admin/deletecourse"
-            className="btn"
-            style={{
-              backgroundColor: '#ffffff',
-              color: '#7F55E0',
-              border: '2px solid #7F55E0',
-              borderRadius: '15px',
-              padding: '10px 20px',
-              fontSize: '20px',
-              fontWeight: 'bold',
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = '#7F55E0';
-              e.target.style.color = '#ffffff';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = '#ffffff';
-              e.target.style.color = '#7F55E0';
-            }}
-          >
-            delete Course
-          </a>
-        </div>
       </div>
     </HelmetProvider>
   );

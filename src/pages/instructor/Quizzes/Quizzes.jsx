@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Button, Table, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteExam, useGetExam } from '../../../api/instructor/exam';
@@ -41,7 +40,7 @@ const QuizzesInstructor = () => {
           </Button>
         </div>
         <Alert variant="info" className="mt-3">
-          No exams found. Click "Add Exam" to create a new exam.
+          No exams found. Click Add Exam to create a new exam.
         </Alert>
       </div>
     );
@@ -79,6 +78,7 @@ const QuizzesInstructor = () => {
             <th>Description</th>
             <th>Degree</th>
             <th>Type</th>
+            <th>link</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -89,6 +89,7 @@ const QuizzesInstructor = () => {
               <td>{exam.e_description}</td>
               <td>{exam.e_degree}</td>
               <td>{exam.e_type === 'mid-term' ? 'Mid-Term' : 'Final Exam'}</td>
+              <td>{exam.e_link}</td>
               <td>
                 <Button
                   variant="warning"

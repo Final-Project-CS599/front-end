@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useGetHelpDeskMessages } from '../../../api/student/HelpDesk';
+import { useGetHelpDeskMessagesForInstructor } from '../../../api/instructor/helpdesk';
 
-const ViewMessages = () => {
-  const { data, isLoading } = useGetHelpDeskMessages();
+const ViewHelpDeskMessages = () => {
+  const { data, isLoading } = useGetHelpDeskMessagesForInstructor();
 
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>HelpDesk Messages</h3>
-        <Link to="/student/helpDesk/send" className="btn btn-outline-purple">
+        <Link to="/instructor/report/send" className="btn btn-outline-purple">
           Send Message
         </Link>
       </div>
@@ -36,4 +36,4 @@ const ViewMessages = () => {
   );
 };
 
-export default ViewMessages;
+export default ViewHelpDeskMessages;

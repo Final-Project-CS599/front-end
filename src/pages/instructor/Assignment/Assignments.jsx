@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Button, Table, Dropdown, DropdownButton, Alert } from 'react-bootstrap';
+import { Button, Table, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteAssignment, useGetAssignment } from '../../../api/instructor/assignments.js';
 
 const Assignments = () => {
-  const [assignments, setAssignments] = useState([]);
-  const [selectedType, setSelectedType] = useState('');
   const navigate = useNavigate();
 
   const { data, isLoading, isError, refetch } = useGetAssignment();
@@ -39,7 +35,7 @@ const Assignments = () => {
           </Button>
         </div>
         <Alert variant="info" className="mt-3">
-          No Assignments found. Click "Add Assignment" to create a new assignment.
+          No Assignments found. Click Add Assignment to create a new assignment.
         </Alert>
       </div>
     );
@@ -74,6 +70,7 @@ const Assignments = () => {
             <th>Title</th>
             <th>Description</th>
             <th>Degree</th>
+            <th>type</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -103,16 +100,7 @@ const Assignments = () => {
           ))}
         </tbody>
       </Table>
-      {/* Dropdown لاختيار النوع
-      <DropdownButton
-        variant="secondary"
-        title="Select Assignment Type"
-        onSelect={(type) => setSelectedType(type)}
-        className="mb-3"
-      >
-        <Dropdown.Item eventKey="extra">Extra-Assignment</Dropdown.Item>
-        <Dropdown.Item eventKey="academic">Academic-Assignment</Dropdown.Item>
-      </DropdownButton> */}
+      
     </div>
   );
 };

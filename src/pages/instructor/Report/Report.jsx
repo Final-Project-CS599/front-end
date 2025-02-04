@@ -1,83 +1,110 @@
-import  { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
-
+import { useFormik } from 'formik';
+import { IoChevronBackSharp } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import * as Yup from 'yup';
+import { useSendHelpDeskMessageForInstructor } from '../../../api/instructor/helpdesk';
+import { showToast } from '../../../utils/toast';
 const HelpdeskPage = () => {
-  const [issueDescription, setIssueDescription] = useState('');
-  const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { mutate: sendMessage, isPending } = useSendHelpDeskMessageForInstructor();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const validationSchema = Yup.object({
+    title: Yup.string()
+      .min(3, 'Title must be at least 3 characters long.')
+      .required('Title is required.'),
+    email: Yup.string().email('Please enter a valid email address.').required('Email is required.'),
+    description: Yup.string()
+      .min(10, 'Message must be at least 10 characters long.')
+      .required('Message is required.'),
+  });
 
-    if (!issueDescription || !email) {
-      setErrorMessage('Please provide both an email and issue description.');
-      return;
-    }
-
-    setLoading(true);  
-
-    try {
-      const response = await axios.post('http://localhost:5000/api/support', {
-        description: issueDescription,
-        email: email,
+  // Formik setup
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+      email: '',
+      description: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      sendMessage(values, {
+        onSuccess: () => {
+          showToast('Message sent successfully!');
+          navigate('/instructor/report');
+        },
       });
-
-      if (response.status === 200) {
-        setIsSubmitted(true);
-        setIssueDescription('');
-        setEmail('');
-        setErrorMessage('');
-      }
-    } catch (error) {
-      setErrorMessage('There was an error submitting your issue. Please try again later.');
-    }
-
-    setLoading(false);  
-  };
+    },
+  });
 
   return (
-    <div className="container mt-4">
-      <h2 className="mb-4 p-2 text-white rounded-pill" style={{backgroundColor:'#bd5de2'}}>Instructor HelpDesk</h2>
+    <>
+      <div>
+        <div className="d-flex gap-5 align-items-center mb-4">
+          <IoChevronBackSharp cursor={'pointer'} onClick={() => navigate(-1)} />
+          <h3>Send Help Desk Message</h3>
+        </div>
 
-      {isSubmitted && (
-        <Alert variant="success">
-          <h4>Issue Submitted Successfully!</h4>
-          <p>Your issue has been sent to the admin and an email confirmation has been sent.</p>
-        </Alert>
-      )}
+        <form onSubmit={formik.handleSubmit}>
+          <input
+            type="text"
+            placeholder="Title"
+            className={`form-control w-50 mt-4 ${
+              formik.touched.title && formik.errors.title ? 'is-invalid' : ''
+            }`}
+            name="title"
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.title && formik.errors.title && (
+            <div className="invalid-feedback">{formik.errors.title}</div>
+          )}
 
-      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Your Email</Form.Label>
-          <Form.Control
+          <input
             type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className={`form-control w-50 mt-4 ${
+              formik.touched.email && formik.errors.email ? 'is-invalid' : ''
+            }`}
+            name="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
-        </Form.Group>
+          {formik.touched.email && formik.errors.email && (
+            <div className="invalid-feedback">{formik.errors.email}</div>
+          )}
 
-        <Form.Group className="mb-3" controlId="formBasicDescription">
-          <Form.Label>Your Issue</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={5}
-            placeholder="Describe the issue you are facing"
-            value={issueDescription}
-            onChange={(e) => setIssueDescription(e.target.value)}
-          />
-        </Form.Group>
+          <div className="form-floating">
+            <textarea
+              className={`form-control w-50 mt-4 ${
+                formik.touched.description && formik.errors.description ? 'is-invalid' : ''
+              }`}
+              placeholder="Description"
+              name="description"
+              value={formik.values.description}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              style={{ height: '200px' }}
+            />
+            <label htmlFor="floatingTextarea">Your Message</label>
+            {formik.touched.description && formik.errors.description && (
+              <div className="invalid-feedback">{formik.errors.description}</div>
+            )}
+          </div>
 
-        <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? 'Submitting...' : 'Submit'}
-        </Button>
-      </Form>
-    </div>
+          <button
+            type="submit"
+            className="btn btn-outline-purple mt-4 w-25"
+            disabled={isPending || !formik.isValid}
+          >
+            {isPending ? 'Sending...' : 'Send'}
+          </button>
+        </form>
+      </div>
+      <ToastContainer />
+    </>
   );
 };
 
