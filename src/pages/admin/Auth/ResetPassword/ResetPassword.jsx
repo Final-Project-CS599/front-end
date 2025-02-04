@@ -15,7 +15,7 @@ export default function ResetPassword() {
 
     async function getResetPassword(values){
         setIsLoading(true);
-        let {data} = await axios.patch(`http://localhost:3000/auth/resetPassword` , values)
+        let {data} = await axios.patch(`http://localhost:3000/api/v1/auth/resetPassword` , values)
         .catch (
           (err)=> {
             setIsLoading(false);
@@ -27,7 +27,7 @@ export default function ResetPassword() {
 
     let validateScheme =yup.object({
       email: yup.string().email('Email is invalid').required('Email is required'),
-      newPassword: yup.string().matches(/^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9!@#$%^&*-_+=]{8,}$/, 'password (example: 12345678 , A.s12345 , a1234567)').required('Password is required'),
+      newPassword: yup.string().matches(/^(?=.*\d)(?=.*[a-zA-Z]?)[a-zA-Z0-9@#$%^&*-_]{8,}$/ , 'password (example: 12345678 , A.s12345 , a1234567)').required('Password is required'),
       confirmPassword: yup.string().oneOf([yup.ref('newPassword')] , 'newPassword not match confirmPassword').required('confirmPassword is required')
     })
 

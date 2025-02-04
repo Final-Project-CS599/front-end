@@ -1,73 +1,9 @@
-// import { useState, useEffect } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import { Button, Table } from "react-bootstrap";
-
-// const MyCourses = ({ instructorId }) => {
-//   const [materials, setMaterials] = useState([]);
-//   const navigate = useNavigate();
-
-//   useEffect(() => {
-//     fetchMaterials();
-//   }, [instructorId]);
-
-//   const fetchMaterials = async () => {
-//     try {
-//       const response = await axios.get(`http://localhost:3000/api/v1/courseMaterial/view?instructorId=${instructorId}`);
-//       setMaterials(response.data);
-//     } catch (error) {
-//       console.error("Error fetching materials", error);
-//     }
-//   };
-
-//   const handleDelete = async (m_id) => {
-//     try {
-//       await axios.delete("http://localhost:3000/api/v1/courseMaterial/delete", { data: { m_id } });
-//       setMaterials(materials.filter((material) => material.m_id !== m_id));
-//     } catch (error) {
-//       console.error("Error deleting material", error);
-//     }
-//   };
-
-//   return (
-//     <div className="container mt-4">
-//       <h2>Course Materials</h2>
-//       <Button variant="primary" onClick={() => navigate("/add-material")}>Add Material</Button>
-//       <Table striped bordered hover className="mt-3">
-//         <thead>
-//           <tr>
-//             <th>Title</th>
-//             <th>Description</th>
-//             <th>Type</th>
-//             <th>Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {materials.map((material) => (
-//             <tr key={material.m_id}>
-//               <td>{material.m_title}</td>
-//               <td>{material.m_description}</td>
-//               <td>{material.m_type}</td>
-//               <td>
-//                 <Button variant="warning" onClick={() => navigate(`/edit-material/${material.m_id}`)}>Edit</Button>
-//                 <Button variant="danger" onClick={() => handleDelete(material.m_id)} className="ms-2">Delete</Button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </Table>
-//     </div>
-//   );
-// };
-
-// export default MyCourses;
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Table, Container, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const MyCourses = ({ instructorId }) => {
+const MyCourses = () => {
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
@@ -75,41 +11,66 @@ const MyCourses = ({ instructorId }) => {
 
   useEffect(() => {
     fetchCourses();
-  }, [instructorId]);
+  }, []);
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/courseMaterial/view?instructorId=${instructorId}`);
-      setCourses(response.data.Courses);
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "http://localhost:3000/api/v1/courses/viewCoursesWithExtra",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      const coursesData = response.data?.Courses || [];
+      
+      const formattedCourses = coursesData.map((course) => ({
+        ...course,
+        media: Array.isArray(course.media) ? course.media.length : 0,
+        assignments: Array.isArray(course.assignments) ? course.assignments.length : 0,
+        exams: Array.isArray(course.exams) ? course.exams.length : 0,
+      }));
+
+      setCourses(formattedCourses);
     } catch (err) {
-      setError("Failed to fetch courses");
+      setError(err.response?.data?.message || "Failed to fetch courses");
     }
   };
 
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!search) return;
+
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/courseMaterial/search?s=${search}`);
-      setCourses(response.data.courses);
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/courses/search?s=${search}`
+      );
+      setCourses(response.data.courses || []);
     } catch (err) {
-      setError("No courses found");
+      setError(err.response?.data?.message || "No courses found");
     }
   };
 
   const handleDelete = async (c_id) => {
     try {
-      await axios.delete("http://localhost:3000/api/v1/courseMaterial/delete", { data: { c_id } });
+      const token = localStorage.getItem("token");
+
+      await axios.delete("http://localhost:3000/api/v1/courseMaterial/delete", {
+        headers: { Authorization: `Bearer ${token}` },
+        data: { c_id },
+      });
+
       setCourses(courses.filter((course) => course.c_id !== c_id));
     } catch (error) {
-      console.error("Error deleting course", error);
+      setError(error.response?.data?.message || "Error deleting course");
     }
   };
 
   return (
     <Container className="mt-4">
       <h2>My Courses</h2>
-      <Button variant="primary" onClick={() => navigate("/add-course")}>Add Course</Button>
+      <Button variant="primary" onClick={() => navigate("/UploadCourse")}>
+        Add Material
+      </Button>
       <Form onSubmit={handleSearch} className="mb-3 d-flex">
         <Form.Control
           type="text"
@@ -117,7 +78,9 @@ const MyCourses = ({ instructorId }) => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <Button type="submit" variant="primary" className="ms-2">Search</Button>
+        <Button type="submit" variant="primary" className="ms-2">
+          Search
+        </Button>
       </Form>
       {error && <Alert variant="danger">{error}</Alert>}
       <Table striped bordered hover>
@@ -133,20 +96,39 @@ const MyCourses = ({ instructorId }) => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course, index) => (
-            <tr key={course.c_id}>
-              <td>{index + 1}</td>
-              <td>{course.c_name}</td>
-              <td>{course.c_type}</td>
-              <td>{Array.isArray(course.media) ? course.media.length : course.media}</td>
-              <td>{Array.isArray(course.assignments) ? course.assignments.length : course.assignments}</td>
-              <td>{Array.isArray(course.exams) ? course.exams.length : course.exams}</td>
-              <td>
-                <Button variant="warning" onClick={() => navigate(`/edit-course/${course.c_id}`)}>Edit</Button>
-                <Button variant="danger" onClick={() => handleDelete(course.c_id)} className="ms-2">Delete</Button>
+          {courses.length > 0 ? (
+            courses.map((course, index) => (
+              <tr key={course.c_id}>
+                <td>{index + 1}</td>
+                <td>{course.c_name}</td>
+                <td>{course.c_type}</td>
+                <td>{course.media}</td> 
+                <td>{course.assignments}</td>  
+                <td>{course.exams}</td>  
+                <td>
+                  <Button
+                    variant="warning"
+                    onClick={() => navigate(`/edit-course/${course.c_id}`)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={() => handleDelete(course.c_id)}
+                    className="ms-2"
+                  >
+                    Delete
+                  </Button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7" className="text-center">
+                No courses available
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </Table>
     </Container>

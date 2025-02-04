@@ -15,8 +15,8 @@ export default function RegisterStudents() {
     async function RegisterSubmit(values){
         setIsLoading(true);
         try {
-            let { data } = await axios.post(`http://localhost:3000/auth/addUser/addStudent?ln=en`, values);
-            navigate('/');  // path to redirect
+            let { data } = await axios.post(`http://localhost:3000/api/v1/auth/addUser/addStudent?ln=en`, values);
+            navigate('/admin/home');  // path to redirect
 
         } catch (err) {
             setIsLoading(false);
@@ -79,8 +79,7 @@ return <>
             <input type='text' id='admin_nationalID' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.admin_nationalID} name='admin_nationalID'/>
             {formik.errors.admin_nationalID && formik.touched.admin_nationalID? <div className="alert alert-danger mt-2 p-2">{formik.errors.admin_nationalID}</div>:''}
 
-
-            <label htmlFor="firstName" >First Name <span className='text-danger'>*</span> :</label>
+            <label htmlFor="firstName" className=' pt-3' >First Name <span className='text-danger'>*</span> :</label>
             <input type='text' id='firstName' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.firstName} name='firstName'/>
             {formik.errors.firstName && formik.touched.firstName?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.firstName}</div>:''}
             

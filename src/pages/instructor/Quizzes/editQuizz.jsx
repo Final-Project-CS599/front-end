@@ -1,54 +1,72 @@
-import{ useState, useEffect } from "react";
-import axios from "axios";
-import { Button, Form, Alert } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Button, Form, Alert } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEditExam, useGetExamById } from '../../../api/instructor/exam';
 
 const EditExam = () => {
   const [examData, setExamData] = useState({
-    e_title: "",
-    e_description: "",
-    e_degree: "",
-    e_type: "mid-term", 
-    e_link: ""
+    e_title: '',
+    e_description: '',
+    e_degree: '',
+    e_type: '',
+    e_link: '',
   });
-  const [error, setError] = useState("");
-  const { examId } = useParams(); // الحصول على المعرف من الـ URL
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchExamDetails();
-  }, []);
+  const { data } = useGetExamById(Number(id));
+  const { mutate, isLoading } = useEditExam();
 
-  const fetchExamDetails = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/exams/${examId}`);
-      setExamData(response.data);
-    } catch (error) {
-      setError("Error fetching exam details");
+  useEffect(() => {
+    if (data) {
+      setExamData(data?.exam);
     }
-  };
+  }, [data]);
 
   const handleChange = (e) => {
     setExamData({
       ...examData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.put(`http://localhost:5000/exams/${examId}`, examData);
-      navigate("/exams");
-    } catch (error) {
-      setError("Error updating exam");
-    }
+
+    // Call the mutation
+    mutate(
+      {
+        examId: Number(id),
+        title: examData.e_title,
+        description: examData.e_description,
+        degree: examData.e_degree,
+        type: examData.e_type,
+        link: examData.e_link,
+      },
+      {
+        onSuccess: () => {
+          setSuccess('Exam updated successfully!');
+          setError('');
+          // Navigate after a short delay
+          setTimeout(() => {
+            navigate('/instructor/Quizzes/quizzes');
+          }, 2000); // Navigate after 2 seconds
+        },
+        onError: (error) => {
+          setError(error.response?.data?.message || 'Failed to update exam');
+          setSuccess('');
+        },
+      }
+    );
   };
 
   return (
     <div className="container mt-4">
       <h2>Edit Exam</h2>
       {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="e_title">
           <Form.Label>Title</Form.Label>
@@ -69,7 +87,6 @@ const EditExam = () => {
             value={examData.e_description}
             onChange={handleChange}
             required
-            minLength={20}
           />
         </Form.Group>
 
@@ -86,12 +103,7 @@ const EditExam = () => {
 
         <Form.Group controlId="e_type">
           <Form.Label>Type</Form.Label>
-          <Form.Control
-            as="select"
-            name="e_type"
-            value={examData.e_type}
-            onChange={handleChange}
-          >
+          <Form.Control as="select" name="e_type" value={examData.e_type} onChange={handleChange}>
             <option value="mid-term">Mid-Term</option>
             <option value="final-exam">Final Exam</option>
           </Form.Control>
@@ -108,8 +120,13 @@ const EditExam = () => {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit" className="mt-3">
-          Update Exam
+        <Button
+          variant="primary"
+          type="submit"
+          className="mt-3"
+          disabled={isLoading} // Disable button while loading
+        >
+          {isLoading ? 'Updating Exam...' : 'Update Exam'}
         </Button>
       </Form>
     </div>

@@ -84,7 +84,7 @@ export const studentNavButtons = [
   {
     text: 'Chat with',
     icon: <BiSolidChat />,
-    to: '/student/chat',
+    to: '/student/messages',
   },
   {
     text: 'Help Desk',
@@ -97,13 +97,13 @@ export const instructorNavButtons = [
   {
     text: 'My Courses',
     icon: <FaBookOpen />,
-    to: '/instructor/viewcourse',
+    to: '/instructor/courses/mycourses',
   },
-  {
-    text: 'Students',
-    icon: <FaUsers />,
-    to: '/instructor/students',
-  },
+  // {
+  //   text: 'Students',
+  //   icon: <FaUsers />,
+  //   to: '/instructor/students',
+  // },
   {
     text: 'Assignments',
     icon: <MdAssignment />,
@@ -112,13 +112,13 @@ export const instructorNavButtons = [
   {
     text: 'Quizzes',
     icon: <MdQuiz />,
-    to: '/instructor/quizzes',
+    to: '/instructor/Quizzes/quizzes',
   },
-  {
-    text: 'Grading',
-    icon: <MdGrade />,
-    to: '/instructor/grading',
-  },
+  // {
+  //   text: 'Grading',
+  //   icon: <MdGrade />,
+  //   to: '/instructor/grading',
+  // },
   {
     text: 'Chat',
     icon: <BiSolidChat />,
@@ -154,7 +154,7 @@ export const getHomePath = (role) => {
     case 'instructor':
       return '/instructor/courses/mycourses';
     case 'student':
-      return '/student/courses';
+      return '/student/home';
     case 'user':
       return '/';
     default:

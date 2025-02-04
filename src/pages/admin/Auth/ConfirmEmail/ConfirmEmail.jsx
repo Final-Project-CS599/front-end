@@ -37,7 +37,7 @@ export default function ConfirmEmail() {
                 // إزالة الـ token من الـ URL
                 window.history.replaceState({}, document.title, "/confirmEmail");
                 
-                const { data } = await axios.post( `http://localhost:3000/auth/confirmEmail`, {},
+                const { data } = await axios.post( `http://localhost:3000/api/v1/auth/confirmEmail`, {},
                     {
                         headers: {
                             'Content-Type': 'application/json; charset=utf-8',

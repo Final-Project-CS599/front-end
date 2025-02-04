@@ -5,7 +5,7 @@ const Card = ({ title, description, id, img }) => {
   const handleClick = () => {
     navigate(`/student/courses/${id}`);
   };
-
+  console.log(title, description, id, img);
   return (
     <div className="card shadow-sm" style={{ width: '17rem' }}>
       <img

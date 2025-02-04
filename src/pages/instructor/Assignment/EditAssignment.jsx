@@ -1,147 +1,156 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Button, Form, Container } from 'react-bootstrap';
+import { Button, Form, Container, Alert } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useEditAssignment, useGetAssignmentById } from '../../../api/instructor/assignments';
 
 const EditAssignment = () => {
-  const { assignmentId } = useParams(); 
-  const [type, setType] = useState('');
-  const [description, setDescription] = useState('');
-  const [publishDate, setPublishDate] = useState('');
-  const [title, setTitle] = useState('');
-  const [link, setLink] = useState('');
-  const [degree, setDegree] = useState('');
-  const [instructorId, setInstructorId] = useState('');
-  const [courseId, setCourseId] = useState('');
+  const [assignmentData, setAssignmentData] = useState({
+    a_type: '',
+    a_description: '',
+    a_publishDate: '',
+    a_title: '',
+    a_link: '',
+    a_degree: '',
+    a_instructorId: '',
+    a_courseId: '',
+  });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const { id } = useParams();
   const navigate = useNavigate();
 
+  const { data } = useGetAssignmentById(Number(id));
+
+  const { mutate, isLoading } = useEditAssignment();
+
   useEffect(() => {
-    const fetchAssignmentData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/api/v1/getAssignment/${assignmentId}`);
-        const assignment = response.data.Assignment;
-        setType(assignment.a_type);
-        setDescription(assignment.a_description);
-        setPublishDate(assignment.a_publish_date.split('T')[0]); 
-        setTitle(assignment.a_title);
-        setLink(assignment.a_link);
-        setDegree(assignment.a_degree);
-        setInstructorId(assignment.a_instructor_id);
-        setCourseId(assignment.a_courseId);
-      } catch (error) {
-        console.error('Error fetching assignment data:', error);
-        alert('Failed to load assignment data');
-      }
-    };
+    if (data) {
+      setAssignmentData(data?.assignment);
+    }
+  }, [data]);
 
-    fetchAssignmentData();
-  }, [assignmentId]);
+  const handleChange = (e) => {
+    setAssignmentData({
+      ...assignmentData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!type || !description || !publishDate || !title || !link || !degree || !instructorId || !courseId) {
-      alert('All fields are required');
-      return;
-    }
-
-    if (type !== 'extra' && type !== 'academic') {
-      alert('Assignment type must be either "extra" or "academic"');
-      return;
-    }
-
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!urlPattern.test(link)) {
-      alert('Please enter a valid link');
-      return;
-    }
-
-    try {
-      const response = await axios.put(`http://localhost:3000/api/v1/edit-assignment/${assignmentId}`, {
-        type,
-        description,
-        publish_date: publishDate,
-        title,
-        link,
-        degree,
-        instructor_id: instructorId,
-        courseId
-      });
-      alert('Assignment Updated');
-      navigate('/assignments'); 
-    } catch (error) {
-      console.error('Error updating assignment:', error);
-      alert('Failed to update assignment');
-    }
+    mutate(
+      {
+        assignmentId: Number(id),
+        type: assignmentData.a_type,
+        description: assignmentData.a_description,
+        publishDate: assignmentData.a_publishDate,
+        title: assignmentData.a_title,
+        link: assignmentData.a_link,
+        degree: assignmentData.a_degree,
+        courseId: assignmentData.a_courseId,
+      },
+      {
+        onSuccess: () => {
+          setSuccess('Assignment updated successfully!');
+          setError('');
+          // Navigate after a short delay
+          setTimeout(() => {
+            navigate('/instructor/Assignment/Assignment');
+          }, 2000); // Navigate after 2 seconds
+        },
+        onError: (error) => {
+          setError(error.response?.data?.message || 'Failed to update Assignment');
+          setSuccess('');
+        },
+      }
+    );
   };
 
   return (
     <Container>
       <h2 className="mt-4">Edit Assignment</h2>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formType" className="mb-3">
           <Form.Label>Type</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Enter assignment type (extra or academic)" 
-            value={type} 
-            onChange={(e) => setType(e.target.value)} 
+          <Form.Control
+            type="text"
+            placeholder="Enter assignment type (extra or academic)"
+            name="a_type"
+            value={assignmentData.a_type}
+            onChange={handleChange}
           />
         </Form.Group>
 
         <Form.Group controlId="formDescription" className="mb-3">
           <Form.Label>Description</Form.Label>
-          <Form.Control 
-            as="textarea" 
-            placeholder="Enter assignment description" 
-            value={description} 
-            onChange={(e) => setDescription(e.target.value)} 
+          <Form.Control
+            as="textarea"
+            placeholder="Enter assignment description"
+            name="a_description"
+            value={assignmentData.a_description}
+            onChange={handleChange}
           />
         </Form.Group>
 
         <Form.Group controlId="formPublishDate" className="mb-3">
           <Form.Label>Publish Date</Form.Label>
-          <Form.Control 
-            type="date" 
-            value={publishDate} 
-            onChange={(e) => setPublishDate(e.target.value)} 
+          <Form.Control
+            type="date"
+            name="a_publishDate"
+            value={assignmentData.a_publishDate}
+            onChange={handleChange}
           />
         </Form.Group>
 
         <Form.Group controlId="formTitle" className="mb-3">
           <Form.Label>Title</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Enter assignment title" 
-            value={title} 
-            onChange={(e) => setTitle(e.target.value)} 
+          <Form.Control
+            type="text"
+            placeholder="Enter assignment title"
+            name="a_title"
+            value={assignmentData.a_title}
+            onChange={handleChange}
           />
         </Form.Group>
 
         <Form.Group controlId="formLink" className="mb-3">
           <Form.Label>Link</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Enter assignment link" 
-            value={link} 
-            onChange={(e) => setLink(e.target.value)} 
+          <Form.Control
+            type="text"
+            placeholder="Enter assignment link"
+            name="a_link"
+            value={assignmentData.a_link}
+            onChange={handleChange}
           />
         </Form.Group>
 
         <Form.Group controlId="formDegree" className="mb-3">
           <Form.Label>Degree</Form.Label>
-          <Form.Control 
-            type="number" 
-            placeholder="Enter assignment degree" 
-            value={degree} 
-            onChange={(e) => setDegree(e.target.value)} 
+          <Form.Control
+            type="number"
+            placeholder="Enter assignment degree"
+            name="a_degree"
+            value={assignmentData.a_degree}
+            onChange={handleChange}
           />
         </Form.Group>
 
-       
-        
-        <Button variant="primary" type="submit">
-          Update Assignment
+        <Form.Group controlId="formCourseId" className="mb-3">
+          <Form.Label>Course ID</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Enter course ID"
+            name="a_courseId"
+            value={assignmentData.a_courseId}
+            onChange={handleChange}
+          />
+        </Form.Group>
+
+        <Button className="btn-outline-purple" type="submit" disabled={isLoading}>
+          {isLoading ? 'Updating Assignment...' : 'Update Assignment'}
         </Button>
       </Form>
     </Container>

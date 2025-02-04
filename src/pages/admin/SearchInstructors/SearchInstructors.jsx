@@ -50,7 +50,7 @@ export default function SearchInstructor() {
 
   const navigate = useNavigate();
   const handleEditClick = (user) => {
-    navigate(`/admin/editInstructors/${user.id}`, { state: { user } });
+    navigate(`/admin/editInstructor/${user.id}`, { state: { user } });
   };
 
   console.log(searchParams, 'searchParams')

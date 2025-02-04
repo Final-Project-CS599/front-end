@@ -20,55 +20,55 @@ import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRo
 import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
 //student
 import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
-import UploadCourse from '../components/shared/UploadCourse';
-import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
 import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
-import Addnewcourseacadmic from '../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
-import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
-import Asacadmic from '../pages/admin/Asacadmic/Asacadmic.jsx';
-import Backendextra from '../pages/admin/Backendextra/Backendextra.jsx';
-import Courses from '../pages/admin/Courses/Courses.jsx';
-import Csacadmic from '../pages/admin/Csacadmic/Csacadmic.jsx';
-import Digitalextra from '../pages/admin/Digitalextra/Digitalextra.jsx';
-import Extra from '../pages/admin/Extra/Extra.jsx';
-import Frontendextra from '../pages/admin/Frontendextra/Frontendextra.jsx';
-import Isacadmic from '../pages/admin/Isacadmic/Isacadmic.jsx';
-import Languagesextra from '../pages/admin/Languagesextra/Languagesextra.jsx';
-import Msacadmic from '../pages/admin/Msacadmic/Msacadmic.jsx';
-import Oracadmic from '../pages/admin/Oracadmic/Oracadmic.jsx';
+import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
+import AllAcademic from '../pages/admin/CourseManagment/AllAcademic/AllAcademic.jsx';
+import AllCourses from '../pages/admin/CourseManagment/AllCourses/Allcourses.jsx';
+import AllExtra from '../pages/admin/CourseManagment/AllExtra/Extra.jsx';
+import Courses from '../pages/admin/CourseManagment/Courses/Courses.jsx';
+import DeleteCourse from '../pages/admin/CourseManagment/DeleteCourse/DeleteCourse.jsx';
+import Departments from '../pages/admin/Departments/Departments.jsx';
 import Payment from '../pages/admin/Payment/Payment.jsx';
-import Programingextra from '../pages/admin/Programingextra/Programingextra.jsx';
+import PaymentContent from '../pages/admin/PaymentContent/PaymentContent.jsx';
 import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
 import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
-import StudentHome from '../pages/student/Home.jsx';
 import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
 import Assignments from '../pages/instructor/Assignment/Assignments.jsx';
+import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
 import Chat from '../pages/instructor/Chat/Chat';
+import EditCourseMaterial from '../pages/instructor/courses/EditCourseMaterial.jsx';
 import MyCourses from '../pages/instructor/courses/mycourses';
+import UploadCourse from '../pages/instructor/courses/UploadCourse.jsx';
 import ProfilePage from '../pages/instructor/Profile/Profile';
+import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
 import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
+
+import AddNewCourseAcademic from '../pages/admin/CourseManagment/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
+import AddNewCourseExtra from '../pages/admin/CourseManagment/Addnewcourseextra/Addnewcourseextra.jsx';
+import UpdateAcademicCourse from '../pages/admin/CourseManagment/Update/UpdateAcademicCourse.jsx';
+import UpdateExtraCourse from '../pages/admin/CourseManagment/Update/UpdateExtraCourse.jsx';
 import Quizzes from '../pages/instructor/Quizzes/Quizzes';
 import HelpdeskPage from '../pages/instructor/Report/Report';
 import AssignmentById from '../pages/student/AssignmentById';
 import StudentAssignments from '../pages/student/Assignments';
 import StudentChat from '../pages/student/Chat';
 import CourseById from '../pages/student/courses/CourseById';
-import StudentCourses from '../pages/student/courses/Courses.jsx';
+import CoursesForStudent from '../pages/student/courses/Courses.jsx';
 import Send from '../pages/student/helpDesk/Send.jsx';
 import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
+import StudentHome from '../pages/student/Home.jsx';
 import InstructorById from '../pages/student/InstructorById';
 import StudentInstructors from '../pages/student/Instructors';
 import Messages from '../pages/student/Messages';
 import StudentProfile from '../pages/student/Profile';
 import QuizById from '../pages/student/QuizById';
 import StudentQuizzes from '../pages/student/Quizzes';
-import Profile from './../pages/admin/AdminProfile/AdminProfile.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
   { index: true, path: '/student/home', element: <StudentHome /> },
   // Main student features
-  { path: '/student/courses', element: <StudentCourses /> },
+  { path: '/student/courses', element: <CoursesForStudent /> },
   { path: '/student/instructors', element: <StudentInstructors /> },
   { path: '/student/assignments', element: <StudentAssignments /> },
   { path: '/student/quizzes', element: <StudentQuizzes /> },
@@ -87,7 +87,7 @@ export const studentRoutes = [
 ];
 
 export const adminRoutes = [
-  //AcademicRou //pages
+  //AcadmicRou //pages
   {
     index: true,
     element: (
@@ -154,14 +154,6 @@ export const adminRoutes = [
       </AcademicRou>
     ),
   },
-  {
-    path: '/admin/profile',
-    element: (
-      <AcademicRou>
-        <Profile />
-      </AcademicRou>
-    ),
-  },
   // Courses
   {
     path: '/admin/courses',
@@ -172,98 +164,18 @@ export const adminRoutes = [
     ),
   },
   {
-    path: '/admin/acadmic',
+    path: '/admin/courses/academic',
     element: (
       <AcademicRou>
-        <Acadmic />
+        <AllAcademic />
       </AcademicRou>
     ),
   },
   {
-    path: '/admin/asacadmic',
+    path: '/admin/courses/extra',
     element: (
       <AcademicRou>
-        <Asacadmic />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: 'admin/isacadmic',
-    element: (
-      <AcademicRou>
-        <Isacadmic />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: 'admin/msacadmic',
-    element: (
-      <AcademicRou>
-        <Msacadmic />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: 'admin/oracadmic',
-    element: (
-      <AcademicRou>
-        <Oracadmic />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: 'admin/csacadmic',
-    element: (
-      <AcademicRou>
-        <Csacadmic />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/extra',
-    element: (
-      <AcademicRou>
-        <Extra />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/programingextra',
-    element: (
-      <AcademicRou>
-        <Programingextra />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/languagesextra',
-    element: (
-      <AcademicRou>
-        <Languagesextra />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/backendextra',
-    element: (
-      <AcademicRou>
-        <Backendextra />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/frontendextra',
-    element: (
-      <AcademicRou>
-        <Frontendextra />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/digitalextra',
-    element: (
-      <AcademicRou>
-        <Digitalextra />
+        <AllExtra />
       </AcademicRou>
     ),
   },
@@ -271,7 +183,7 @@ export const adminRoutes = [
     path: '/admin/addnewcourseextra',
     element: (
       <AcademicRou>
-        <Addnewcourseextra />
+        <AddNewCourseExtra />
       </AcademicRou>
     ),
   },
@@ -279,20 +191,71 @@ export const adminRoutes = [
     path: '/admin/addnewcourseacadmic',
     element: (
       <AcademicRou>
-        <Addnewcourseacadmic />
+        <AddNewCourseAcademic />
       </AcademicRou>
     ),
   },
+
+  {
+    path: '/admin/deletecourse',
+    element: (
+      <AcademicRou>
+        <DeleteCourse />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/departments',
+    element: (
+      <AcademicRou>
+        <Departments />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/courses/allcourses',
+    element: (
+      <AcademicRou>
+        <AllCourses />
+      </AcademicRou>
+    ),
+  },
+  // { path: '/admin/courses/allacademic', element: <AllAcademic /> },
+  {
+    path: '/admin/courses/academic/update',
+    element: <UpdateAcademicCourse />,
+  },
+  {
+    path: '/admin/courses/extra/update',
+    element: <UpdateExtraCourse />,
+  },
   //Payment
   {
-    path: '/admin/Payment',
+    path: '/admin/payment',
     element: (
       <AcademicRou>
         <Payment />
       </AcademicRou>
     ),
   },
+  {
+    path: '/admin/paymentcontent',
+    element: (
+      <AcademicRou>
+        <PaymentContent />
+      </AcademicRou>
+    ),
+  },
+
   //Department
+  {
+    path: '/admin/profile',
+    element: (
+      <AcademicRou>
+        <AdminProfile />
+      </AcademicRou>
+    ),
+  },
   {
     path: '/admin/addDepartment',
     element: (
@@ -310,7 +273,7 @@ export const adminRoutes = [
     ),
   },
   {
-    path: '/admin/editInstructors/:id',
+    path: '/admin/editInstructor/:id',
     element: (
       <AcademicRou>
         <EditInstructor />
@@ -349,14 +312,17 @@ export const router = createBrowserRouter([
 
       //instructor
       { path: '/instructor/courses/mycourses', element: <MyCourses /> },
-      { path: '/instructor/instructors', element: <ProfilePage /> },
+      { path: '/instructor/profile', element: <ProfilePage /> },
       { path: '/instructor/Assignment/Assignment', element: <Assignments /> },
       { path: '/instructor/Quizzes/quizzes', element: <Quizzes /> },
       { path: '/instructor/chat', element: <Chat /> },
       { path: '/instructor/report', element: <HelpdeskPage /> },
       { path: '/UploadCourse', element: <UploadCourse /> },
       { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
+      { path: '/instructor/Quizzes/edit/:id', element: <EditExam /> },
+      { path: '/instructor/courses/edit/:id', element: <EditCourseMaterial /> },
       { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
+      { path: '/instructor/Assignment/edit/:id', element: <EditAssignment /> },
     ],
   },
 
