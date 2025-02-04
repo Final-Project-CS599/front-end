@@ -60,3 +60,17 @@ export const useGetAssignmentById = (assinId) => {
     queryFn: () => getAssignmentById(assinId), //alais queryFunction
   });
 };
+
+export const searchAssignment = async (query) => {
+  const response = await axiosInstance.get(`/assignment/search?s=${query}`);
+  return response.data;
+};
+
+export const useSearchAssignment = (query) => {
+  return useQuery({
+    queryKey: ['searchAssignment', query],
+    queryFn: () => searchAssignment(query),
+    enabled: !!query, 
+    retry: 2,
+  });
+};

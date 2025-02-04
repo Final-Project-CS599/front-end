@@ -66,6 +66,7 @@ import ViewHelpDeskMessages from '../pages/instructor/Report/ViewHelpDeskMessage
 import ViewMessages from '../pages/student/helpDesk/ViewMessages.jsx';
 import ChooseDepartment from '../pages/admin/Acadmic/ChooseDepartment.jsx';
 import Sections from '../pages/admin/Sections/Sections.jsx';
+import ViewMaterialList from '../pages/instructor/courses/ViewMaterial.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -343,6 +344,7 @@ export const router = createBrowserRouter([
       { path: '/instructor/courses/edit/:id', element: <EditCourseMaterial /> },
       { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
       { path: '/instructor/Assignment/edit/:id', element: <EditAssignment /> },
+      {path:'/view-material',element:<ViewMaterialList/>}
     ],
   },
 
