@@ -65,8 +65,8 @@ function AllExtra() {
 
         {/* Display courses */}
         <div className="row mt-4">
-          {courses.length > 0 ? (
-            courses.map((course) => (
+          {courses?.length > 0 ? (
+            courses?.map((course) => (
               <div key={course.id} className="col-md-4 mb-4">
                 <div
                   className="p-4 rounded shadow"
