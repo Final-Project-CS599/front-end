@@ -9,7 +9,7 @@ const SendMessage = ({ onClose, role, onMessageSent }) => {
   const [isSearching, setIsSearching] = useState(false);
 
   const { mutate: sendMessage, isLoading: isSending, isError, error } = useSendMessage();
-  const { mutate: searchByName, isLoading: isSearchLoading } = useSearchByName();
+  const { mutate: searchByName } = useSearchByName();
 
   const validationSchema = Yup.object({
     receiver: Yup.string()
