@@ -46,10 +46,15 @@ export default function AdminProfile() {
         setIsSubmitting(false);
       },
       onError: (error) => {
-        showToast(error.message || "Update failed", { type: "error" });
-      console.error(error);
-      setIsSubmitting(false);
-      }
+        if (error.response && error.response.data.errors) {
+          error.response.data.errors.forEach((err) => {
+            showToast(err.msg, { type: "error" });
+          });
+        } else {
+          showToast("Update failed. Please try again.", { type: "error" });
+        }
+        setIsSubmitting(false);
+      },
     });
   };
 

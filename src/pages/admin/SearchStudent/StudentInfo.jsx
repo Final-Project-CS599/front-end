@@ -11,6 +11,8 @@ export default function StudentInfo() {
   const [user, setUser] = useState(null);
   const { data: departmentData } = useGetDepartmentsData();
   const { mutate } = useEditStudent();
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (studentData?.student) {
@@ -19,7 +21,31 @@ export default function StudentInfo() {
     }
   }, [studentData]);
 
- 
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!user.firstName || !user.lastName) {
+      newErrors.fullName = "Full Name is required";
+    }
+
+    if (!user.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(user.email)) {
+      newErrors.email = "Email address is invalid";
+    }
+
+    if (!user.nationalId) {
+      newErrors.nationalId = "National ID is required";
+    }
+
+    if (!user.department) {
+      newErrors.department = "Department is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const inputChange = (e) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -28,30 +54,42 @@ export default function StudentInfo() {
     }));
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const submit = () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     const fullName = user.firstName + " " + (user.middleName ? user.middleName + " " : "") + user.lastName;
-  const [firstName, middleName, lastName] = fullName.split(" ");
-    
-  const updateBody = {
+    const [firstName, middleName, lastName] = fullName.split(" ");
+
+    const updateBody = {
       email: user.email,
       nationalId: user.nationalId,
       department: user.department,
       firstName,
-    middleName: middleName || "",
-    lastName: lastName || middleName || "",
+      middleName: middleName || "",
+      lastName: lastName || middleName || "",
     };
+
     mutate({ id, updateBody }, {
-          onSuccess: () => {
-            showToast("Data updated successfully!", { type: "success" });
-            refetch();
-            setIsSubmitting(false);
-          },
-          onError: (error) => {
-            showToast(error.message || "Update failed", { type: "error" });
-          console.error(error);
-          setIsSubmitting(false);
-          }});
+      onSuccess: () => {
+        showToast("Data updated successfully!", { type: "success" });
+        refetch();
+        setIsSubmitting(false);
+      },
+      onError: (error) => {
+        if (error.response && error.response.data.errors) {
+          error.response.data.errors.forEach((err) => {
+            showToast(err.msg, { type: "error" });
+          });
+        } else {
+          showToast("Update failed. Please try again.", { type: "error" });
+        }
+        setIsSubmitting(false);
+      },
+    });
   };
 
   if (!user) return <div>Loading...</div>;
@@ -79,8 +117,10 @@ export default function StudentInfo() {
                   firstName: nameParts[0] || "",
                   middleName: nameParts.length > 2 ? nameParts[1] : "",
                   lastName: nameParts.length > 2 ? nameParts[2] : nameParts[1] || ""
-                });}}
+                });
+              }}
             />
+            {errors.fullName && <div className="text-danger">{errors.fullName}</div>}
           </div>
           <div className="col-md-6">
             <label htmlFor="email">Email:</label>
@@ -92,6 +132,7 @@ export default function StudentInfo() {
               value={user.email}
               onChange={inputChange}
             />
+            {errors.email && <div className="text-danger">{errors.email}</div>}
           </div>
           <div className="col-md-6">
             <label htmlFor="national" className="pt-3">
@@ -105,6 +146,7 @@ export default function StudentInfo() {
               value={user.nationalId}
               onChange={inputChange}
             />
+            {errors.nationalId && <div className="text-danger">{errors.nationalId}</div>}
           </div>
           <div className="col-md-3">
             <label htmlFor="birthDate" className="pt-3">
@@ -175,15 +217,19 @@ export default function StudentInfo() {
                 </option>
               ))}
             </select>
+            {errors.department && <div className="text-danger">{errors.department}</div>}
           </div>
         </form>
         <hr />
       </div>
       <br />
       <div className="mt-3 d-flex justify-content-end">
-        <button className="btn btn-purple buttoncolor {`${isSubmitting ? 'opacity-50' : ''}`} "
-                type="submit"
-                disabled={isSubmitting} onClick={submit}>
+        <button
+          className="btn btn-purple buttoncolor"
+          type="submit"
+          disabled={isSubmitting}
+          onClick={submit}
+        >
           {isSubmitting ? 'Updating...' : 'Update'}
         </button>
       </div>
