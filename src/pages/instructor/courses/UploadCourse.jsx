@@ -58,7 +58,7 @@ const AddMaterial = () => {
           setSuccess('Material added successfully!');
           setError('');
           formik.resetForm();
-          setTimeout(() => navigate('/course-materials'), 2000);
+          setTimeout(() => navigate('/instructor/courses/mycourses'), 2000);
         }
       } catch (error) {
         setError('Failed to add material. Please try again.');
@@ -70,7 +70,7 @@ const AddMaterial = () => {
   return (
     <div className="container mt-4">
       <h2>Add Course Material</h2>
-      {errors.apiError && <Alert variant="danger">{errors.apiError}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
 
       <Form onSubmit={formik.handleSubmit}>

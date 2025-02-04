@@ -22,8 +22,8 @@ export const useGetCourseById = (id) => {
     queryFn: () => getCourseById(id),
   });
 };
-const searchCourses = async (query) => {
-  const response = await axiosInstance.get(`/courses/searchCourse?q=${query}`);
+export const searchCourses = async (query) => {
+  const response = await axiosInstance.get(`/courses/searchCourse?s=${query}`);
   return response.data;
 };
 
@@ -34,4 +34,9 @@ export const useSearchCourses = (query) => {
     enabled: !!query, // Only fetch data if query is provided
     retry: 2,
   });
+};
+
+export const deleteCourseMaterial = async (c_id) => {
+  const response = await axiosInstance.delete(`/courseMaterial/delete/${c_id}`);
+  return response.data;
 };
