@@ -55,7 +55,6 @@ import StudentChat from '../pages/student/Chat';
 import CourseById from '../pages/student/courses/CourseById';
 import CoursesForStudent from '../pages/student/courses/Courses.jsx';
 import Send from '../pages/student/helpDesk/Send.jsx';
-import ViewMessages from '../pages/student/helpdesk/ViewMessages.jsx';
 import StudentHome from '../pages/student/Home.jsx';
 import InstructorById from '../pages/student/InstructorById';
 import StudentInstructors from '../pages/student/Instructors';
@@ -63,6 +62,8 @@ import Messages from '../pages/student/Messages';
 import StudentProfile from '../pages/student/Profile';
 import QuizById from '../pages/student/QuizById';
 import StudentQuizzes from '../pages/student/Quizzes';
+import ViewHelpDeskMessages from '../pages/instructor/Report/ViewHelpDeskMessages.jsx';
+import ViewMessages from '../pages/student/helpDesk/ViewMessages.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -316,7 +317,8 @@ export const router = createBrowserRouter([
       { path: '/instructor/Assignment/Assignment', element: <Assignments /> },
       { path: '/instructor/Quizzes/quizzes', element: <Quizzes /> },
       { path: '/instructor/chat', element: <Chat /> },
-      { path: '/instructor/report', element: <HelpdeskPage /> },
+      { path: '/instructor/report', element: <ViewHelpDeskMessages /> },
+      { path: '/instructor/report/send', element: <HelpdeskPage /> },
       { path: '/UploadCourse', element: <UploadCourse /> },
       { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
       { path: '/instructor/Quizzes/edit/:id', element: <EditExam /> },

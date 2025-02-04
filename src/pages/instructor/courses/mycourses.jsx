@@ -1,12 +1,11 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Alert, Button, Table } from 'react-bootstrap';
-import { getCourses, useGetCourses } from '../../../api/instructor/courses';
+import { useNavigate } from 'react-router-dom';
+import { useGetCourses } from '../../../api/instructor/courses';
 
 const MyCourses = ({ instructorId }) => {
   const [materials, setMaterials] = useState([]);
-  const [courses, setCourses] = useState([]);
   const navigate = useNavigate();
 
   const { data } = useGetCourses();

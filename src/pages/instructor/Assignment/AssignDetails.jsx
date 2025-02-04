@@ -1,69 +1,82 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Container } from 'react-bootstrap';
+import { Button, Form, Container, Alert } from 'react-bootstrap';
 import { useAddAssignment } from '../../../api/instructor/assignments';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const AssignmentDetails = () => {
-  const [type, setType] = useState('');
-  const [description, setDescription] = useState('');
-  const [publishDate, setPublishDate] = useState('');
-  const [title, setTitle] = useState('');
-  const [link, setLink] = useState('');
-  const [degree, setDegree] = useState('');
-  const [courseId, setCourseId] = useState('');
-
   const navigate = useNavigate();
-
   const { mutate } = useAddAssignment();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // Define validation schema using Yup
+  const validationSchema = Yup.object({
+    courseId: Yup.string().required('Course ID is required'),
+    type: Yup.string()
+      .required('Type is required')
+      .oneOf(['extra', 'academic'], 'Type must be either "extra" or "academic"'),
+    description: Yup.string().required('Description is required'),
+    publishDate: Yup.date().required('Publish Date is required'),
+    title: Yup.string().required('Title is required'),
+    link: Yup.string()
+      .required('Link is required')
+      .matches(/^(ftp|http|https):\/\/[^ "]+$/, 'Invalid link. Please enter a valid URL.'),
+    degree: Yup.number()
+      .required('Degree is required')
+      .positive('Degree must be a positive number'),
+  });
 
-    if (!type || !description || !publishDate || !title || !link || !degree || !courseId) {
-      alert('All fields are required');
-      return;
-    }
+  const formik = useFormik({
+    initialValues: {
+      courseId: '',
+      type: '',
+      description: '',
+      publishDate: '',
+      title: '',
+      link: '',
+      degree: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      const assignmentData = {
+        type: values.type,
+        description: values.description,
+        publish_date: values.publishDate,
+        title: values.title,
+        link: values.link,
+        degree: values.degree,
+        courseId: values.courseId,
+      };
 
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
-    if (!urlPattern.test(link)) {
-      alert('Please enter a valid link');
-      return;
-    }
-
-    const assignmentData = {
-      type,
-      description,
-      publish_date: publishDate,
-      title,
-      link,
-      degree,
-      courseId,
-    };
-
-    mutate(assignmentData, {
-      onSuccess: () => {
-        alert('Assignment Added Successfully');
-        navigate(`/instructor/Assignment/Assignment`);
-      },
-      onError: (error) => {
-        console.error('Error adding assignment:', error);
-        alert('Failed to add assignment');
-      },
-    });
-  };
+      mutate(assignmentData, {
+        onSuccess: () => {
+          alert('Assignment Added Successfully');
+          formik.resetForm();
+          navigate(`/instructor/Assignment/Assignment`);
+        },
+        onError: (error) => {
+          console.error('Error adding assignment:', error);
+          alert('Failed to add assignment');
+        },
+      });
+    },
+  });
 
   return (
     <Container>
       <h2 className="mt-4">Add Assignment</h2>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={formik.handleSubmit}>
         <Form.Group controlId="formCourseId" className="mb-3">
           <Form.Label>Course ID</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Course ID"
-            value={courseId}
-            onChange={(e) => setCourseId(e.target.value)}
+            name="courseId"
+            value={formik.values.courseId}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.courseId && !!formik.errors.courseId}
           />
+          <Form.Control.Feedback type="invalid">{formik.errors.courseId}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formType" className="mb-3">
@@ -71,9 +84,13 @@ const AssignmentDetails = () => {
           <Form.Control
             type="text"
             placeholder="Enter assignment type (extra or academic)"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
+            name="type"
+            value={formik.values.type}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.type && !!formik.errors.type}
           />
+          <Form.Control.Feedback type="invalid">{formik.errors.type}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formDescription" className="mb-3">
@@ -81,18 +98,26 @@ const AssignmentDetails = () => {
           <Form.Control
             as="textarea"
             placeholder="Enter assignment description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.description && !!formik.errors.description}
           />
+          <Form.Control.Feedback type="invalid">{formik.errors.description}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formPublishDate" className="mb-3">
           <Form.Label>Publish Date</Form.Label>
           <Form.Control
             type="date"
-            value={publishDate}
-            onChange={(e) => setPublishDate(e.target.value)}
+            name="publishDate"
+            value={formik.values.publishDate}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.publishDate && !!formik.errors.publishDate}
           />
+          <Form.Control.Feedback type="invalid">{formik.errors.publishDate}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formTitle" className="mb-3">
@@ -100,9 +125,13 @@ const AssignmentDetails = () => {
           <Form.Control
             type="text"
             placeholder="Enter assignment title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.title && !!formik.errors.title}
           />
+          <Form.Control.Feedback type="invalid">{formik.errors.title}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formLink" className="mb-3">
@@ -110,9 +139,13 @@ const AssignmentDetails = () => {
           <Form.Control
             type="text"
             placeholder="Enter assignment link"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
+            name="link"
+            value={formik.values.link}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.link && !!formik.errors.link}
           />
+          <Form.Control.Feedback type="invalid">{formik.errors.link}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formDegree" className="mb-3">
@@ -120,9 +153,13 @@ const AssignmentDetails = () => {
           <Form.Control
             type="number"
             placeholder="Enter assignment degree"
-            value={degree}
-            onChange={(e) => setDegree(e.target.value)}
+            name="degree"
+            value={formik.values.degree}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            isInvalid={formik.touched.degree && !!formik.errors.degree}
           />
+          <Form.Control.Feedback type="invalid">{formik.errors.degree}</Form.Control.Feedback>
         </Form.Group>
 
         <Button className="mt-3 btn-outline-purple" type="submit">

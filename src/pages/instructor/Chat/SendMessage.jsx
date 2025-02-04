@@ -1,29 +1,61 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchByName, useSendMessage } from '../../../api/message'; // Assuming you have a hook for sending messages
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useSearchByName, useSendMessage } from '../../../api/message';
 
 const SendMessage = ({ onClose, role, onMessageSent }) => {
-  const [receiver, setReceiver] = useState(''); // Stores the receiver's name
-  const [receiverId, setReceiverId] = useState(''); // Stores the receiver's ID
-  const [content, setContent] = useState('');
+  const [receiverId, setReceiverId] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
   const { mutate: sendMessage, isLoading: isSending, isError, error } = useSendMessage();
   const { mutate: searchByName, isLoading: isSearchLoading } = useSearchByName();
 
-  // Handle search by name and role
+  const validationSchema = Yup.object({
+    receiver: Yup.string()
+      .required('Receiver is required')
+      .min(2, 'Receiver name must be at least 2 characters'),
+    content: Yup.string()
+      .required('Message content is required')
+      .min(10, 'Message must be at least 10 characters'),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      receiver: '',
+      content: '',
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      const newMessage = {
+        m_message: values.content,
+        role,
+        reciever: receiverId,
+      };
+
+      sendMessage(newMessage, {
+        onSuccess: () => {
+          formik.resetForm();
+          setReceiverId('');
+          onMessageSent();
+          onClose();
+        },
+      });
+    },
+  });
+
   const handleSearch = () => {
-    if (!receiver.trim()) {
-      setSearchResults([]); // Clear results if the search term is empty
+    if (!formik.values.receiver.trim()) {
+      setSearchResults([]);
       return;
     }
 
     setIsSearching(true);
     searchByName(
-      { role, name: receiver },
+      { role, name: formik.values.receiver },
       {
         onSuccess: (data) => {
-          setSearchResults(data.data); // Assuming `data` is an array of results
+          setSearchResults(data.data);
           setIsSearching(false);
         },
         onError: () => {
@@ -33,33 +65,13 @@ const SendMessage = ({ onClose, role, onMessageSent }) => {
     );
   };
 
-  // Debounce search to avoid excessive API calls
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       handleSearch();
-    }, 500); // Adjust the delay as needed
+    }, 500);
 
     return () => clearTimeout(debounceTimer);
-  }, [receiver]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newMessage = {
-      m_message: content,
-      role,
-      reciever: receiverId, // Send the receiver's ID instead of the name
-    };
-
-    sendMessage(newMessage, {
-      onSuccess: () => {
-        setReceiver('');
-        setReceiverId('');
-        setContent('');
-        onMessageSent();
-        onClose(); // Close the compose modal or form
-      },
-    });
-  };
+  }, [formik.values.receiver]);
 
   return (
     <div className="card shadow">
@@ -67,66 +79,69 @@ const SendMessage = ({ onClose, role, onMessageSent }) => {
         <h5 className="card-title mb-0">Compose New Message</h5>
       </div>
       <div className="card-body">
-        <form onSubmit={handleSubmit}>
-          {/* Receiver Field */}
+        <form onSubmit={formik.handleSubmit}>
           <div className="mb-3">
             <label htmlFor="receiver" className="form-label">
               Receiver
             </label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${
+                formik.touched.receiver && formik.errors.receiver ? 'is-invalid' : ''
+              }`}
               id="receiver"
               placeholder="Enter receiver's name"
-              value={receiver}
-              onChange={(e) => setReceiver(e.target.value)}
-              required
+              {...formik.getFieldProps('receiver')}
             />
-            {/* Display search results */}
+            {formik.touched.receiver && formik.errors.receiver ? (
+              <div className="invalid-feedback">{formik.errors.receiver}</div>
+            ) : null}
+
             {isSearching && <p>Searching...</p>}
             {!isSearching && searchResults.length > 0 && (
               <ul className="list-group mt-2">
                 {searchResults.map((result) => (
                   <li
-                    key={result.s_id || result.i_id} // Use appropriate ID based on role
-                    className="list-group-item list-group-item-action"
+                    key={result.s_id || result.i_id}
+                    className="list-group-item list-group-item-action p-2"
                     onClick={() => {
-                      setReceiver(result.s_first_name || result.i_first_name); // Set the receiver's name
-                      setReceiverId(result.s_id || result.i_id); // Set the receiver's ID
+                      formik.setFieldValue('receiver', result.s_first_name || result.i_firstName);
+                      setReceiverId(result.s_id || result.i_id);
+                      setSearchResults([]);
                     }}
                     style={{ cursor: 'pointer' }}
                   >
-                    {result.s_first_name || result.i_first_name} {/* Display the receiver's name */}
+                    {result.s_first_name || result.i_firstName}
                   </li>
                 ))}
               </ul>
             )}
           </div>
 
-          {/* Message Content Field */}
           <div className="mb-3">
             <label htmlFor="content" className="form-label">
               Message
             </label>
             <textarea
-              className="form-control"
+              className={`form-control ${
+                formik.touched.content && formik.errors.content ? 'is-invalid' : ''
+              }`}
               id="content"
               rows="5"
               placeholder="Type your message here..."
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
+              {...formik.getFieldProps('content')}
             />
+            {formik.touched.content && formik.errors.content ? (
+              <div className="invalid-feedback">{formik.errors.content}</div>
+            ) : null}
           </div>
 
-          {/* Error Message */}
           {isError && (
             <div className="alert alert-danger" role="alert">
               {error?.message || 'Failed to send message. Please try again.'}
             </div>
           )}
 
-          {/* Buttons */}
           <div className="d-flex justify-content-end gap-2">
             <button type="button" className="btn btn-secondary" onClick={onClose}>
               Cancel
