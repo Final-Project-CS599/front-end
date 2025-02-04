@@ -8,7 +8,7 @@ import { Bars } from  'react-loader-spinner';
 // import { Helmet } from 'react-helmet';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { UserContext } from '../../../../Context/UserContext.jsx';
-
+import { FaRegEyeSlash , FaRegEye } from "react-icons/fa";
 
 
 export default function Login() {
@@ -17,6 +17,7 @@ export default function Login() {
     let navigate = useNavigate();
     const [error , setError]= useState(null);
     const [isLoading , setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
 
     async function loginSubmit(values) {
         setIsLoading(true);
@@ -89,14 +90,19 @@ return <>
                         {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-2 p-2">{formik.errors.email}</div>:''}
                         
                         <label htmlFor="password" className='pt-3'>Password :</label>
-                        <input type='password' id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
+                        <div className="input-group">
+                            <input type={showPassword? 'text' : 'password'} id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
                                 value={formik.values.password} name='password' autoComplete="new-password"
-                        />
+                            />
+                            <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
+                                {showPassword? <FaRegEyeSlash /> : <FaRegEye />}
+                            </span>
+                        </div>
                         {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
                         
                         <div className=' d-flex justify-content-between align-items-center pt-5'>
                         <div >
-                            <Link to={'/forgetPassword'} className='texth3 fw-bold fs-5 h5 ' style={{ color:"#7F55E0"}}>Forget Your Password ?</Link>
+                            <Link to={'/forgetPassword'} className='fw-bold fs-5 h5 ' style={{ color:"#7F55E0"}}>Forget Your Password ?</Link>
                         </div>
                         {isLoading? <button  type='button' className='btn bg-main text-white mt-2 '>
                                 <Bars

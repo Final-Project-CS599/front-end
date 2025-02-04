@@ -23,7 +23,7 @@ export default function ForgetPassword() {
         (err)=> {
           setIsLoading(false);
           console.log("Error ", err);
-          setError(err.response?.data?.message || 'An error occurred');
+          setError(err.response?.data?.message || 'An error occurred ');
           // setError(err)
         }
       )
