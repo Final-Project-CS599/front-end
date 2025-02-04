@@ -1,56 +1,50 @@
 import React, { useState } from 'react';
 import { Button, Container, Row, Col, Form, Alert } from 'react-bootstrap';
 
-const PaymentContent = () => {
-  const [showForm, setShowForm] = useState(false); // حالة لإظهار الفورم
+const Payment = () => {
+  const [showForm, setShowForm] = useState(false); 
   const [studentName, setStudentName] = useState('');
   const [courseName, setCourseName] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // حالة لرسالة الخطأ
-  const [messageDeleted, setMessageDeleted] = useState(false); // حالة لعملية الحذف
+  const [errorMessage, setErrorMessage] = useState('');
+  const [messageDeleted, setMessageDeleted] = useState(false); 
 
-  // دالة لمعالجة النقر على زر "تأكيد"
   const handleApprove = () => {
-    setShowForm(true); // عرض الفورم عند الضغط على "تأكيد"
+    setShowForm(true);
   };
 
-  // دالة لمعالجة تقديم الفورم
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // التحقق من الحقول
     if (!studentName || !courseName) {
-      setErrorMessage('يرجى إدخال اسم الطالب واسم الكورس'); // عرض رسالة خطأ إذا كانت الحقول فارغة
+      setErrorMessage('Please enter student name and course name'); 
     } else if (!/^[A-Za-z]+$/.test(studentName) || !/^[A-Za-z]+$/.test(courseName)) {
-      setErrorMessage('الرجاء إدخال حروف فقط في اسم الطالب واسم الكورس'); // التحقق من الحروف فقط
+      setErrorMessage('Please enter only letters in the student name and course name'); 
     } else {
-      setErrorMessage(''); // clear error message if valid
+      setErrorMessage(''); 
       alert(`Student name: ${studentName}\nCourse name: ${courseName}`);
-      // هنا يمكنك إرسال البيانات إلى الخادم أو معالجتها حسب الحاجة
     }
   };
 
-  // دالة لحذف الرسالة من قاعدة البيانات
   const handleCancel = () => {
-    // قم بإرسال طلب لحذف البيانات من قاعدة البيانات
     fetch('/api/deleteMessage', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ studentName, courseName }), // أرسل بيانات الرسالة
+      body: JSON.stringify({ studentName, courseName }),
     })
       .then((response) => {
         if (response.ok) {
-          setMessageDeleted(true); // قم بتعيين الحالة إذا تم الحذف بنجاح
-          setShowForm(false); // إخفاء الفورم بعد الحذف
-          setStudentName(''); // مسح البيانات بعد الحذف
+          setMessageDeleted(true); 
+          setShowForm(false);
+          setStudentName(''); 
           setCourseName('');
         } else {
-          alert('فشل الحذف');
+          alert('Deletion failed');
         }
       })
-      .catch((error) => {
-        alert('حدث خطأ أثناء الحذف');
+      .catch(() => {
+        alert('An error occurred while deleting');
       });
   };
 
@@ -67,23 +61,23 @@ const PaymentContent = () => {
             />
           </div>
           <div className="buttons">
-            <Button variant="success" className="mx-2" style={{ fontSize: '18px', padding: '12px 30px' }} onClick={handleCancel}>
-              إلغاء
+            <Button variant="danger" className="mx-2" style={{ fontSize: '18px', padding: '12px 30px' }} onClick={handleCancel}>
+              Cancel
             </Button>
-            <Button variant="danger" className="mx-2" style={{ fontSize: '18px', padding: '12px 30px' }} onClick={handleApprove}>
-              تأكيد
+            <Button variant="success" className="mx-2" style={{ fontSize: '18px', padding: '12px 30px' }} onClick={handleApprove}>
+              Approve
             </Button>  
           </div>
 
           {showForm && (
             <Form onSubmit={handleSubmit} className="mt-4">
-              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>} {/* عرض رسالة الخطأ إذا كانت الحقول فارغة */}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
               
               <Form.Group controlId="formStudentName">
-                <Form.Label>اسم الطالب</Form.Label>
+                <Form.Label>Student Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="أدخل اسم الطالب"
+                  placeholder="Enter the student name"
                   value={studentName}
                   onChange={(e) => setStudentName(e.target.value)}
                   required
@@ -91,10 +85,10 @@ const PaymentContent = () => {
               </Form.Group>
 
               <Form.Group controlId="formCourseName">
-                <Form.Label>اسم الكورس</Form.Label>
+                <Form.Label>Course Name</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="أدخل اسم الكورس"
+                  placeholder="Enter the course name"
                   value={courseName}
                   onChange={(e) => setCourseName(e.target.value)}
                   required 
@@ -102,14 +96,14 @@ const PaymentContent = () => {
               </Form.Group>
 
               <Button variant="primary" type="submit" className="mt-3">
-                إرسال
+                Submit
               </Button>
             </Form>
           )}
 
           {messageDeleted && (
             <Alert variant="success" className="mt-4">
-              تم مسح الرسالة بنجاح من قاعدة البيانات.
+              The message was successfully removed from the database.
             </Alert>
           )}
         </Col>
@@ -118,4 +112,4 @@ const PaymentContent = () => {
   );
 };
 
-export default PaymentContent;
+export default Payment;

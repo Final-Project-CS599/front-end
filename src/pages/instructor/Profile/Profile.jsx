@@ -31,8 +31,9 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!password || !phoneNumbers.every((num) => num.trim() !== '')) {
-      showToast('Please fill out all fields.', 'error');
+    const phonePattern = /^[0-9]{11}$/; 
+    if (!password || !phoneNumbers.every((num) => num.trim() !== '') || !phoneNumbers.every(num => phonePattern.test(num))) {
+      showToast('Please fill out all fields with valid data.', 'error');
       return;
     }
 

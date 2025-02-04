@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const AddMaterial = ({ instructorId }) => {
+const AddMaterial = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ const AddMaterial = ({ instructorId }) => {
   return (
     <div className="container mt-4">
       <h2>Add Course Material</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {errors.apiError && <Alert variant="danger">{errors.apiError}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
 
       <Form onSubmit={formik.handleSubmit}>
@@ -78,7 +78,6 @@ const AddMaterial = ({ instructorId }) => {
           <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter material title"
             name="mTitle"
             value={formik.values.mTitle}
             onChange={formik.handleChange}
@@ -93,7 +92,6 @@ const AddMaterial = ({ instructorId }) => {
           <Form.Control
             as="textarea"
             rows={3}
-            placeholder="Enter material description"
             name="mDescription"
             value={formik.values.mDescription}
             onChange={formik.handleChange}
@@ -107,7 +105,6 @@ const AddMaterial = ({ instructorId }) => {
           <Form.Label>Link</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter material link (e.g. video URL)"
             name="mLink"
             value={formik.values.mLink}
             onChange={formik.handleChange}
@@ -120,8 +117,7 @@ const AddMaterial = ({ instructorId }) => {
         <Form.Group controlId="formCourseId" className="mt-3">
           <Form.Label>Course ID</Form.Label>
           <Form.Control
-            type="number"
-            placeholder="Enter course ID"
+            type="text"
             name="mCourseId"
             value={formik.values.mCourseId}
             onChange={formik.handleChange}

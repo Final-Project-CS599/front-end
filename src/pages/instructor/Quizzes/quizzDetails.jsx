@@ -158,11 +158,7 @@ const QuizDetailsPage = () => {
           <Form.Control.Feedback type="invalid">{formik.errors.e_type}</Form.Control.Feedback>
         </Form.Group>
 
-        <Button
-          type="submit"
-          className="mt-3 btn-outline-purple"
-          disabled={isLoading} // Disable button while loading
-        >
+        <Button type="submit" className="mt-3 btn-outline-purple" disabled={isLoading}>
           {isLoading ? 'Adding Exam...' : 'Add Exam'}
         </Button>
       </Form>

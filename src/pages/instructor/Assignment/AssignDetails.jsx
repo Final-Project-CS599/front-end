@@ -79,8 +79,8 @@ const AssignmentDetails = () => {
           <Form.Control.Feedback type="invalid">{formik.errors.courseId}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formType" className="mb-3">
-          <Form.Label>Type</Form.Label>
+        <Form.Group controlId="formExamType" className="mt-3">
+          <Form.Label>Exam Type</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter assignment type (extra or academic)"
