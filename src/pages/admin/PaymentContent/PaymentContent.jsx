@@ -1,105 +1,89 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container, Row, Col, Form, Alert } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  useApprovePayment,
+  useGetPayments,
+  useRejectPayment,
+} from '../../../api/admin/courses/courses';
 
 const Payment = () => {
-  const [showForm, setShowForm] = useState(false); 
-  const [studentName, setStudentName] = useState('');
-  const [courseName, setCourseName] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [messageDeleted, setMessageDeleted] = useState(false); 
+  const [payment, setPayment] = useState();
+  const [messageDeleted, setMessageDeleted] = useState(false);
+  const { id } = useParams();
+  const { data } = useGetPayments();
+  const { mutate } = useApprovePayment();
+  const { mutate: deletePayment } = useRejectPayment();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data && data?.data) {
+      if (id) {
+        const filteredPayment = data.data.filter((payment) => payment.id === parseInt(id));
+        setPayment(filteredPayment[0]);
+      } else {
+        setPayment(data.data);
+      }
+    }
+  }, [data, id]);
 
   const handleApprove = () => {
-    setShowForm(true);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (!studentName || !courseName) {
-      setErrorMessage('Please enter student name and course name'); 
-    } else if (!/^[A-Za-z]+$/.test(studentName) || !/^[A-Za-z]+$/.test(courseName)) {
-      setErrorMessage('Please enter only letters in the student name and course name'); 
-    } else {
-      setErrorMessage(''); 
-      alert(`Student name: ${studentName}\nCourse name: ${courseName}`);
-    }
+    mutate(payment?.student_id, {
+      onSuccess: () => {
+        alert('Payment approved successfully!');
+        navigate('/admin/payment');
+      },
+      onError: () => {
+        alert('Failed to approve payment');
+      },
+    });
   };
 
   const handleCancel = () => {
-    fetch('/api/deleteMessage', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
+    deletePayment(payment?.id, {
+      onSuccess: () => {
+        setMessageDeleted(true);
+        navigate('/admin/payment');
       },
-      body: JSON.stringify({ studentName, courseName }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setMessageDeleted(true); 
-          setShowForm(false);
-          setStudentName(''); 
-          setCourseName('');
-        } else {
-          alert('Deletion failed');
-        }
-      })
-      .catch(() => {
-        alert('An error occurred while deleting');
-      });
+      onError: () => {
+        alert('Failed to delete payment');
+      },
+    });
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: '20vh' }}>
+    <Container
+      className="d-flex justify-content-center align-items-center"
+      style={{ minHeight: '20vh' }}
+    >
       <Row className="chat-box p-4 bg-white shadow rounded" style={{ maxWidth: '800px' }}>
         <Col className="text-center">
           <div className="message mb-4">
             <img
-              src="https://zaetoon.hsoubcdn.com/helpdesk/3/images/72e2b3f3-8daf-466f-859c-aa87d8116237.png"
+              src={`http://localhost:3000/${payment?.img}`}
               alt="Message Image"
               className="img-fluid rounded mb-4"
-              style={{ maxWidth: '100%' }}
+              style={{ maxWidth: '50%' }}
             />
           </div>
           <div className="buttons">
-            <Button variant="danger" className="mx-2" style={{ fontSize: '18px', padding: '12px 30px' }} onClick={handleCancel}>
+            <Button
+              variant="danger"
+              className="mx-2"
+              style={{ fontSize: '18px', padding: '12px 30px' }}
+              onClick={handleCancel}
+            >
               Cancel
             </Button>
-            <Button variant="success" className="mx-2" style={{ fontSize: '18px', padding: '12px 30px' }} onClick={handleApprove}>
+            <Button
+              variant="success"
+              className="mx-2"
+              style={{ fontSize: '18px', padding: '12px 30px' }}
+              onClick={handleApprove}
+            >
               Approve
-            </Button>  
+            </Button>
           </div>
-
-          {showForm && (
-            <Form onSubmit={handleSubmit} className="mt-4">
-              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-              
-              <Form.Group controlId="formStudentName">
-                <Form.Label>Student Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter the student name"
-                  value={studentName}
-                  onChange={(e) => setStudentName(e.target.value)}
-                  required
-                />
-              </Form.Group>
-
-              <Form.Group controlId="formCourseName">
-                <Form.Label>Course Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter the course name"
-                  value={courseName}
-                  onChange={(e) => setCourseName(e.target.value)}
-                  required 
-                />
-              </Form.Group>
-
-              <Button variant="primary" type="submit" className="mt-3">
-                Submit
-              </Button>
-            </Form>
-          )}
 
           {messageDeleted && (
             <Alert variant="success" className="mt-4">

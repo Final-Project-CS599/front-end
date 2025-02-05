@@ -53,6 +53,7 @@ const CourseById = () => {
     const formData = new FormData();
     formData.append('file', receiptFile);
     formData.append('student_id', id);
+    formData.append('course_id', course.c_id);
 
     try {
       const response = await axios.post(

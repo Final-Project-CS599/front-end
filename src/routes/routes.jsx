@@ -259,7 +259,7 @@ export const adminRoutes = [
     ),
   },
   {
-    path: '/admin/paymentcontent',
+    path: '/admin/payment/:id',
     element: (
       <AcademicRou>
         <PaymentContent />
