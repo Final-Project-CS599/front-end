@@ -11,8 +11,6 @@ export default function StudentInfo() {
   const [user, setUser] = useState(null);
   const { data: departmentData } = useGetDepartmentsData();
   const { mutate } = useEditStudent();
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (studentData?.student) {
@@ -20,31 +18,6 @@ export default function StudentInfo() {
       setUser(selectedUser);
     }
   }, [studentData]);
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!user.firstName || !user.lastName) {
-      newErrors.fullName = "Full Name is required";
-    }
-
-    if (!user.email) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(user.email)) {
-      newErrors.email = "Email address is invalid";
-    }
-
-    if (!user.nationalId) {
-      newErrors.nationalId = "National ID is required";
-    }
-
-    if (!user.department) {
-      newErrors.department = "Department is required";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const inputChange = (e) => {
     const { name, value } = e.target;
@@ -55,29 +28,18 @@ export default function StudentInfo() {
   };
 
   const submit = () => {
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    const fullName = user.firstName + " " + (user.middleName ? user.middleName + " " : "") + user.lastName;
-    const [firstName, middleName, lastName] = fullName.split(" ");
-
     const updateBody = {
       email: user.email,
       nationalId: user.nationalId,
       department: user.department,
-      firstName,
-      middleName: middleName || "",
-      lastName: lastName || middleName || "",
+      firstName: user.firstName,
+      middleName: user.middleName,
+      lastName: user.lastName,
     };
-
     mutate({ id, updateBody }, {
       onSuccess: () => {
         showToast("Data updated successfully!", { type: "success" });
         refetch();
-        setIsSubmitting(false);
       },
       onError: (error) => {
         if (error.response && error.response.data.errors) {
@@ -87,7 +49,6 @@ export default function StudentInfo() {
         } else {
           showToast("Update failed. Please try again.", { type: "error" });
         }
-        setIsSubmitting(false);
       },
     });
   };
@@ -98,30 +59,43 @@ export default function StudentInfo() {
     <>
       <div>
         <form className="row g-3">
-          <div className="col-md-6">
-            <label htmlFor="fName">Full Name:</label>
+
+          <div className="col-md-4">
+            <label htmlFor="firstName">First Name:</label>
             <input
               type="text"
-              id="fName"
+              id="firstName"
               className="form-control"
-              value={
-                user.firstName +
-                " " +
-                (user.middleName ? user.middleName + " " : "") +
-                user.lastName
-              }
-              onChange={(e) => {
-                const nameParts = e.target.value.split(" ");
-                setUser({
-                  ...user,
-                  firstName: nameParts[0] || "",
-                  middleName: nameParts.length > 2 ? nameParts[1] : "",
-                  lastName: nameParts.length > 2 ? nameParts[2] : nameParts[1] || ""
-                });
-              }}
+              name="firstName"
+              value={user.firstName || ""}
+              onChange={inputChange}
             />
-            {errors.fullName && <div className="text-danger">{errors.fullName}</div>}
           </div>
+
+          <div className="col-md-4">
+            <label htmlFor="middleName">Middle Name:</label>
+            <input
+              type="text"
+              id="middleName"
+              className="form-control"
+              name="middleName"
+              value={user.middleName || ""}
+              onChange={inputChange}
+            />
+          </div>
+
+          <div className="col-md-4">
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+              type="text"
+              id="lastName"
+              className="form-control"
+              name="lastName"
+              value={user.lastName || ""}
+              onChange={inputChange}
+            />
+          </div>
+
           <div className="col-md-6">
             <label htmlFor="email">Email:</label>
             <input
@@ -129,13 +103,13 @@ export default function StudentInfo() {
               id="email"
               className="form-control"
               name="email"
-              value={user.email}
+              value={user.email || ""}
               onChange={inputChange}
             />
-            {errors.email && <div className="text-danger">{errors.email}</div>}
           </div>
+
           <div className="col-md-6">
-            <label htmlFor="national" className="pt-3">
+            <label htmlFor="national" >
               National ID:
             </label>
             <input
@@ -143,13 +117,35 @@ export default function StudentInfo() {
               id="national"
               className="form-control"
               name="nationalId"
-              value={user.nationalId}
+              value={user.nationalId || ""}
               onChange={inputChange}
             />
-            {errors.nationalId && <div className="text-danger">{errors.nationalId}</div>}
           </div>
+
+
+          <div className="col-md-6 mx-auto">
+            <label htmlFor="department" >
+              Department <span className="text-danger">*</span> :
+            </label>
+            <select
+              id="department"
+              className="form-select mt-2"
+              aria-label="Default select example"
+              name="department"
+              value={user.department || ""}
+              onChange={inputChange}
+            >
+              <option value="">Select Department</option>
+              {departmentData?.departments?.map((department) => (
+                <option key={department.id} value={department.department_name}>
+                  {department.department_name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="col-md-3">
-            <label htmlFor="birthDate" className="pt-3">
+            <label htmlFor="birthDate" className="pt-2">
               Birth Date:
             </label>
             <input
@@ -160,8 +156,9 @@ export default function StudentInfo() {
               disabled
             />
           </div>
+
           <div className="col-md-3">
-            <label htmlFor="gender" className="pt-3">
+            <label htmlFor="gender" className="pt-2">
               Gender :
             </label>
             <input
@@ -172,6 +169,7 @@ export default function StudentInfo() {
               disabled
             />
           </div>
+
           <div className="col-md-6">
             <label htmlFor="phone" className="pt-3">
               Phone 1:
@@ -185,6 +183,7 @@ export default function StudentInfo() {
               disabled
             />
           </div>
+
           <div className="col-md-6">
             <label htmlFor="phone2" className="pt-3">
               Phone 2:
@@ -198,27 +197,8 @@ export default function StudentInfo() {
               disabled
             />
           </div>
-          <div className="col-md-6 mx-auto">
-            <label htmlFor="department" className="pt-3">
-              Department <span className="text-danger">*</span> :
-            </label>
-            <select
-              id="department"
-              className="form-select mt-2"
-              aria-label="Default select example"
-              name="department"
-              value={user.department}
-              onChange={inputChange}
-            >
-              <option value="">Select Department</option>
-              {departmentData?.departments?.map((department) => (
-                <option key={department.id} value={department.department_name}>
-                  {department.department_name}
-                </option>
-              ))}
-            </select>
-            {errors.department && <div className="text-danger">{errors.department}</div>}
-          </div>
+
+
         </form>
         <hr />
       </div>
@@ -227,10 +207,9 @@ export default function StudentInfo() {
         <button
           className="btn btn-purple buttoncolor"
           type="submit"
-          disabled={isSubmitting}
           onClick={submit}
         >
-          {isSubmitting ? 'Updating...' : 'Update'}
+          Update
         </button>
       </div>
       <ToastContainer />
