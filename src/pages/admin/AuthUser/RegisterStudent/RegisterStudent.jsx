@@ -41,8 +41,8 @@ export default function RegisterStudents() {
         department: yup.string().min(1, 'department minlength is 1').max(100 , 'department maxlength is 100').required('department is required'),
         gander: yup.string().oneOf(['Male', 'Female'], 'Gender must be either Male or Female').default('Female').required('Gander is required'),
         DOB: yup.string().max(new Date(), 'Date of Birth must be less than today').required('Date of Birth is required'),
-        password: yup.string().matches(/^[0-9]{14}$/, ' Password National ID 14 digits (example: 12345678910145) ').required('Password is required'),
-        confirmPassword: yup.string().oneOf([yup.ref("password")] , 'Password and confirmPassword').required('RePassword is required')
+        password: yup.string().oneOf([yup.ref("numberNational")], 'numberNational and Password must match').required('Password is required'),
+        
     });
 
     let formik = useFormik({
@@ -59,7 +59,6 @@ export default function RegisterStudents() {
             gander:'',
             DOB:'',
             password:'',
-            confirmPassword:'',
         }, validationSchema:validateScheme,  
         onSubmit:RegisterSubmit
     });
@@ -151,19 +150,6 @@ return <>
                 </span>
             </div>
             {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
-                    
-            
-            <label htmlFor="confirmPassword" className=' pt-3'> confirm-Password (Number National NID User) <span className='text-danger'>*</span> :</label>
-            <div className="input-group">
-                <input type={showPassword? 'text' : 'password' }id='confirmPassword'  placeholder="confirmPassword" 
-                    onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
-                    value={formik.values.confirmPassword} name='confirmPassword'  autoComplete="new-password"
-                />
-                <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
-                    {showPassword? <FaRegEye /> : <FaRegEyeSlash />}
-                </span>
-            </div>
-            {formik.errors.confirmPassword && formik.touched.confirmPassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.confirmPassword}</div>:''}
             
             
             {isLoading? <button  type=' buttom' className='btn bg-main text-white mt-2'>
