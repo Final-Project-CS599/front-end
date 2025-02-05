@@ -58,12 +58,13 @@ const Home = () => {
           <h3>Search Results</h3>
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {searchResults?.map((course) => (
-              <div className="col" key={course.c_id}>
+              <div className="col" key={course?.c_id}>
                 <Card
-                  title={course.c_name}
-                  description={course.c_description}
-                  img={course.image || img} // Fallback image if course.image is not provided
-                  id={course.c_id}
+                  title={course?.c_name}
+                  description={course?.c_description}
+                  img={course?.image || img} // Fallback image if course.image is not provided
+                  id={course?.c_id}
+                  type={course?.c_type}
                 />
               </div>
             ))}
@@ -80,12 +81,13 @@ const Home = () => {
         ) : recommendedCourses?.length > 0 ? (
           <div className="row row-cols-1 row-cols-md-3 g-4">
             {recommendedCourses?.map((course) => (
-              <div className="col" key={course.c_id}>
+              <div className="col" key={course?.c_id}>
                 <Card
-                  title={course.c_name}
-                  description={course.c_description}
-                  img={course.image || img} // Fallback image if course.image is not provided
-                  id={course.c_id}
+                  title={course?.c_name}
+                  description={course?.c_description}
+                  img={course?.image || img} // Fallback image if course.image is not provided
+                  id={course?.c_id}
+                  type={course?.c_type}
                 />
               </div>
             ))}

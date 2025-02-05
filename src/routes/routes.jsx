@@ -96,8 +96,7 @@ export const adminRoutes = [
     index: true,
     element: (
       <AcademicRou>
-        {' '}
-        <HomeDashboard />{' '}
+        <HomeDashboard />
       </AcademicRou>
     ),
   },
@@ -105,8 +104,7 @@ export const adminRoutes = [
     path: '/admin/home',
     element: (
       <AcademicRou>
-        {' '}
-        <HomeDashboard />{' '}
+        <HomeDashboard />
       </AcademicRou>
     ),
   },
@@ -115,8 +113,7 @@ export const adminRoutes = [
     path: '/admin/addAdmin',
     element: (
       <AcademicRou>
-        {' '}
-        <AddAdmin />{' '}
+        <AddAdmin />
       </AcademicRou>
     ),
   },
@@ -124,8 +121,7 @@ export const adminRoutes = [
     path: '/admin/instructors',
     element: (
       <AcademicRou>
-        {' '}
-        <Instructors />{' '}
+        <Instructors />
       </AcademicRou>
     ),
   },
@@ -133,8 +129,7 @@ export const adminRoutes = [
     path: '/admin/student',
     element: (
       <AcademicRou>
-        {' '}
-        <Student />{' '}
+        <Student />
       </AcademicRou>
     ),
   },
@@ -142,8 +137,7 @@ export const adminRoutes = [
     path: '/admin/registerInstructor',
     element: (
       <AcademicRou>
-        {' '}
-        <RegisterInstructors />{' '}
+        <RegisterInstructors />
       </AcademicRou>
     ),
   },
@@ -151,8 +145,7 @@ export const adminRoutes = [
     path: '/admin/registerStudent',
     element: (
       <AcademicRou>
-        {' '}
-        <RegisterStudents />{' '}
+        <RegisterStudents />
       </AcademicRou>
     ),
   },
@@ -161,8 +154,7 @@ export const adminRoutes = [
     path: '/admin/helpDesk',
     element: (
       <AcademicRou>
-        {' '}
-        <HelpDesk />{' '}
+        <HelpDesk />
       </AcademicRou>
     ),
   },

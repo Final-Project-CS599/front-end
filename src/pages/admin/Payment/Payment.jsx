@@ -1,27 +1,31 @@
 import React from 'react';
 import Style from './Payment.module.css';
 import { Link } from 'react-router-dom'; // إذا كنت تستخدم React Router
+import { useGetPayments } from '../../../api/admin/courses/courses';
 
 function PaymentMessages() {
+  const { data } = useGetPayments();
+  console.log(data);
+
   const messages = [
     {
       id: 1,
-      email: "john.doe@example.com",
-      imageUrl: "https://via.placeholder.com/150",
-      link: "/admin/paymentcontent" // إضافة الرابط لكل رسالة
+      email: 'john.doe@example.com',
+      imageUrl: 'https://via.placeholder.com/150',
+      link: '/admin/paymentcontent', // إضافة الرابط لكل رسالة
     },
     {
       id: 2,
-      email: "jane.smith@example.com",
-      imageUrl: "https://via.placeholder.com/150",
-      link: "/admin/paymentcontent"
+      email: 'jane.smith@example.com',
+      imageUrl: 'https://via.placeholder.com/150',
+      link: '/admin/paymentcontent',
     },
     {
       id: 3,
-      email: "mike.johnson@example.com",
-      imageUrl: "https://via.placeholder.com/150",
-      link: "/payment/3"
-    }
+      email: 'mike.johnson@example.com',
+      imageUrl: 'https://via.placeholder.com/150',
+      link: '/payment/3',
+    },
   ];
 
   return (
@@ -32,7 +36,12 @@ function PaymentMessages() {
           <Link key={msg.id} to={msg.link} className="text-decoration-none">
             <div className="list-group-item mb-3 shadow-sm">
               <div className="d-flex align-items-center">
-                <img src={msg.imageUrl} alt="Payment Proof" className="img-fluid rounded mr-3" style={{ maxWidth: "100px" }} />
+                <img
+                  src={msg.imageUrl}
+                  alt="Payment Proof"
+                  className="img-fluid rounded mr-3"
+                  style={{ maxWidth: '100px' }}
+                />
                 <div>
                   <h6 className="mb-1">{msg.email}</h6>
                 </div>
@@ -43,6 +52,6 @@ function PaymentMessages() {
       </div>
     </div>
   );
-};
+}
 
 export default PaymentMessages;

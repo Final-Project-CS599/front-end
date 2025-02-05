@@ -5,6 +5,7 @@ import { useEnrollCourse } from '../../../api/student/courses';
 import { useGetStudentCourses } from '../../../api/student/courses';
 import { showToast } from '../../../utils/toast';
 import { ToastContainer } from 'react-toastify';
+import axios from 'axios';
 
 const CourseById = () => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ const CourseById = () => {
     }
   };
 
-  const handleUploadReceipt = async () => {
+  const handleUploadReceipt = async (e) => {
     e.preventDefault();
 
     if (!receiptFile) {
@@ -52,7 +53,6 @@ const CourseById = () => {
     const formData = new FormData();
     formData.append('file', receiptFile);
     formData.append('student_id', id);
-    formData.append('admin_nid', adminNid || ''); // Provide admin_nid if available
 
     try {
       const response = await axios.post(
@@ -165,9 +165,9 @@ const CourseById = () => {
         <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <div className="modal-dialog">
             <div className="modal-content">
-              <div className="modal-header">
+              <div className="modal-header d-flex justify-content-between">
                 <h5 className="modal-title">Upload Receipt</h5>
-                <button type="button" className="close" onClick={() => setIsModalOpen(false)}>
+                <button type="button" className="btn close" onClick={() => setIsModalOpen(false)}>
                   <span>&times;</span>
                 </button>
               </div>
@@ -186,7 +186,11 @@ const CourseById = () => {
                 >
                   Close
                 </button>
-                <button type="button" className="btn btn-primary" onClick={handleUploadReceipt}>
+                <button
+                  type="button"
+                  className="btn btn-outline-purple"
+                  onClick={handleUploadReceipt}
+                >
                   Upload
                 </button>
               </div>

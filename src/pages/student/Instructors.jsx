@@ -1,7 +1,6 @@
-import React from "react";
-import InstructorCard from "../../components/shared/InstructorCard";
-import { useGetInstructors } from "../../api/student/instructor";
-import Inst1 from "../../assets/images/Inst1.jpg";
+import React from 'react';
+import { useGetInstructors } from '../../api/student/instructor';
+import InstructorCard from '../../components/shared/InstructorCard';
 
 const Instructors = () => {
   const { data, isLoading, error } = useGetInstructors();
@@ -24,8 +23,10 @@ const Instructors = () => {
               <InstructorCard
                 id={instructor.Instructor_ID}
                 name={`${instructor.First_Name} ${instructor.Last_Name}`}
-                department={"Department Name"}
-                image={Inst1}
+                department={instructor.Department_Name}
+                image={
+                  'https://upload.wikimedia.org/wikipedia/commons/a/a2/Person_Image_Placeholder.png'
+                }
               />
             </div>
           ))}

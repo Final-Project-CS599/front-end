@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { ToastContainer } from 'react-toastify';
 import { showToast } from '../../../utils/toast';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from "react-router-dom";
-import { useUpdateProfile } from '../../../api/instructor/EditProfileInst.js';
+import { useNavigate } from 'react-router-dom';
+import { useGetProfile, useUpdateProfile } from '../../../api/instructor/EditProfileInst.js';
 
 const ProfilePage = () => {
   const [phoneNumbers, setPhoneNumbers] = useState(['']);
@@ -12,6 +12,13 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   const { mutate, isLoading } = useUpdateProfile();
+  const { data: profileData, isLoading: isProfileLoading, refetch } = useGetProfile();
+
+  useEffect(() => {
+    if (profileData) {
+      setPhoneNumbers(profileData.phoneNumbers || ['']);
+    }
+  }, [profileData]);
 
   const handlePhoneNumberChange = (index, value) => {
     const newPhoneNumbers = [...phoneNumbers];
@@ -31,29 +38,29 @@ const ProfilePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const phonePattern = /^[0-9]{11}$/; 
-    if (!password || !phoneNumbers.every((num) => num.trim() !== '') || !phoneNumbers.every(num => phonePattern.test(num))) {
-      showToast('Please fill out all fields with valid data.', 'error');
+    const phonePattern = /^[0-9]{11}$/;
+    if (!phoneNumbers.every((num) => phonePattern.test(num))) {
+      showToast('Please enter valid 11-digit phone numbers.', 'error');
       return;
     }
 
-    const profileData = {
+    const profileUpdateData = {
       phoneNumbers,
-      password
+      password: password || undefined,
     };
 
-    mutate(profileData, {
+    mutate(profileUpdateData, {
       onSuccess: () => {
         showToast('Profile updated successfully!', 'success');
-        setTimeout(() => navigate('/dashboard'), 2000);
+        refetch();
       },
       onError: (error) => {
         showToast(`Error: ${error.message}`, 'error');
       },
     });
-
-    console.log('Profile Data:', profileData);
   };
+
+  if (isProfileLoading) return <p>Loading profile...</p>;
 
   return (
     <div className="container">
@@ -61,7 +68,7 @@ const ProfilePage = () => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Phone Numbers</label>
-          <div className="d-flex gap-2 align-items-center">
+          <div className="d-flex flex-column gap-2">
             {phoneNumbers.map((phone, index) => (
               <div key={index} className="input-group w-50">
                 <input
@@ -83,7 +90,7 @@ const ProfilePage = () => {
                 )}
               </div>
             ))}
-            <FaPlus onClick={addPhoneNumber} className="fs-3 text-primary" />
+            <FaPlus onClick={addPhoneNumber} className="fs-3 text-primary cursor-pointer" />
           </div>
         </div>
 
@@ -96,17 +103,12 @@ const ProfilePage = () => {
               placeholder="Enter new password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           </div>
         </div>
 
         <div className="d-flex justify-content-end">
-          <button
-            type="submit"
-            className="btn buttoncolor w-25"
-            disabled={isLoading}
-          >
+          <button type="submit" className="btn buttoncolor w-25" disabled={isLoading}>
             {isLoading ? 'Saving...' : 'Save Changes'}
           </button>
         </div>

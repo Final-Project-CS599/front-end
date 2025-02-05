@@ -45,3 +45,15 @@ export const useDeleteCourse = () => {
     mutationFn: deleteCourse,
   });
 };
+
+const getPayments = async () => {
+  const response = await axiosInstance.get('/courses/getPayments');
+  return response.data;
+};
+
+export const useGetPayments = () => {
+  return useQuery({
+    queryKey: 'payments',
+    queryFn: getPayments,
+  });
+};

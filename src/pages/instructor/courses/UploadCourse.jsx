@@ -13,16 +13,13 @@ const AddMaterial = () => {
   const validationSchema = Yup.object({
     mTitle: Yup.string().required('Title is required'),
     mDescription: Yup.string().required('Description is required'),
-    mLink: Yup.string()
-      .required('Link is required')
-      .matches(/^(ftp|http|https):\/\/[^ "]+$/, 'Invalid link. Please enter a valid URL.'),
     mCourseId: Yup.number()
       .typeError('Course ID must be a number')
       .required('Course ID is required')
       .positive('Course ID must be a positive number')
       .integer('Course ID must be an integer'),
     file: Yup.mixed()
-      .nullable()
+      .required('File is required') // ✅ Make file mandatory
       .test('fileSize', 'File size exceeds 1GB', (value) => {
         if (value) {
           return value.size <= 1024 * 1024 * 1024;
@@ -35,7 +32,6 @@ const AddMaterial = () => {
     initialValues: {
       mTitle: '',
       mDescription: '',
-      mLink: '',
       mCourseId: '',
       file: null,
     },
@@ -45,7 +41,6 @@ const AddMaterial = () => {
         const data = new FormData();
         data.append('m_title', values.mTitle);
         data.append('m_description', values.mDescription);
-        data.append('m_link', values.mLink);
         data.append('m_courseId', values.mCourseId);
         if (values.file) {
           data.append('file', values.file);
@@ -79,7 +74,9 @@ const AddMaterial = () => {
 
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group controlId="formTitle">
-          <Form.Label>Title <span style={{ color: 'red' }}>*</span></Form.Label>
+          <Form.Label>
+            Title <span style={{ color: 'red' }}>*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             name="mTitle"
@@ -92,7 +89,9 @@ const AddMaterial = () => {
         </Form.Group>
 
         <Form.Group controlId="formDescription" className="mt-3">
-          <Form.Label>Description <span style={{ color: 'red' }}>*</span></Form.Label>
+          <Form.Label>
+            Description <span style={{ color: 'red' }}>*</span>
+          </Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
@@ -105,21 +104,10 @@ const AddMaterial = () => {
           <Form.Control.Feedback type="invalid">{formik.errors.mDescription}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formLink" className="mt-3">
-          <Form.Label>Link <span style={{ color: 'red' }}>*</span></Form.Label>
-          <Form.Control
-            type="text"
-            name="mLink"
-            value={formik.values.mLink}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            isInvalid={formik.touched.mLink && !!formik.errors.mLink}
-          />
-          <Form.Control.Feedback type="invalid">{formik.errors.mLink}</Form.Control.Feedback>
-        </Form.Group>
-
         <Form.Group controlId="formCourseId" className="mt-3">
-          <Form.Label>Course ID <span style={{ color: 'red' }}>*</span></Form.Label>
+          <Form.Label>
+            Course ID <span style={{ color: 'red' }}>*</span>
+          </Form.Label>
           <Form.Control
             type="text"
             name="mCourseId"
@@ -132,7 +120,9 @@ const AddMaterial = () => {
         </Form.Group>
 
         <Form.Group controlId="formFile" className="mt-3">
-          <Form.Label>Upload File (Optional)</Form.Label>
+          <Form.Label>
+            Upload File <span style={{ color: 'red' }}>*</span>
+          </Form.Label>
           <Form.Control
             type="file"
             name="file"
@@ -142,7 +132,9 @@ const AddMaterial = () => {
             onBlur={formik.handleBlur}
             isInvalid={formik.touched.file && !!formik.errors.file}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.file}</Form.Control.Feedback>
+          {formik.touched.file && formik.errors.file ? (
+            <div className="text-danger">{formik.errors.file}</div> // ✅ Display error message
+          ) : null}
         </Form.Group>
 
         <Button type="submit" className="mt-3 btn-outline-purple">
