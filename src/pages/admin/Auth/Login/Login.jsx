@@ -83,28 +83,32 @@ return <>
                     {error!==null? <div className="alert alert-danger">{error}</div>:''}
                     <h3 className=' pb-5'>Login Now</h3>
                     <form onSubmit={formik.handleSubmit}>
+                        
                         <label htmlFor="email">Email :</label>
-                        <input type='email' id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
-                                value={formik.values.email} name='email'  autoComplete="username"
+                        <input type='email' id='email' placeholder="Email" onBlur={formik.handleBlur} 
+                            onChange={formik.handleChange} className=' form-control' 
+                            value={formik.values.email} name='email'  autoComplete="username"
                         />
                         {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-2 p-2">{formik.errors.email}</div>:''}
                         
                         <label htmlFor="password" className='pt-3'>Password :</label>
                         <div className="input-group">
-                            <input type={showPassword? 'text' : 'password'} id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
+                            <input type={showPassword? 'text' : 'password' } id='password' placeholder="Password" 
+                                onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
                                 value={formik.values.password} name='password' autoComplete="new-password"
                             />
                             <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
-                                {showPassword? <FaRegEyeSlash /> : <FaRegEye />}
+                                {showPassword? <FaRegEye /> : <FaRegEyeSlash />}
                             </span>
                         </div>
                         {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
                         
                         <div className=' d-flex justify-content-between align-items-center pt-5'>
-                        <div >
-                            <Link to={'/forgetPassword'} className='fw-bold fs-5 h5 ' style={{ color:"#7F55E0"}}>Forget Your Password ?</Link>
-                        </div>
-                        {isLoading? <button  type='button' className='btn bg-main text-white mt-2 '>
+                            <div >
+                                <Link to={'/forgetPassword'} className='fw-bold fs-5 h5 ' style={{ color:"#7F55E0"}}>Forget Your Password ?</Link>
+                            </div>
+                        
+                            {isLoading? <button  type='button' className='btn bg-main text-white mt-2 '>
                                 <Bars
                                     height="20"
                                     width="80"
@@ -114,12 +118,12 @@ return <>
                                     wrapperClass=""
                                     visible={true}
                                 />
-                            </button> : <> 
-                                <div className='  '>
-                                    <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  px-4'>Login</button>
-                                </div>
-                            </>
-                        }
+                                </button> : <> 
+                                    <div className='  '>
+                                        <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  px-4'>Login</button>
+                                    </div>
+                                </>
+                            }
                         </div>
                     </form>
                 </div>

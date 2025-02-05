@@ -54,38 +54,51 @@ return <>
         <meta name='description' content='' />
         <title>verifyResetCode</title>
     </Helmet>
-    <div className=" container w-100 mx-auto py-5">
+    <div className=" container w-100 mx-auto py-2">
       <div className="row">
         <div className="col-md-12">
           <div className={styles.marginAuth}>
             {error!==null? <div className="alert alert-danger">{error}</div>:''}
 
             <form onSubmit={formik.handleSubmit}>
+                <h1 className=' fw-bolder pb-3' >Please Enter Email or Code your Verification Code To Email</h1>
 
-                <input type='email' placeholder="Email" id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
+                <label htmlFor="email">Email :</label>
+                <input type='email' placeholder="Email" id='email' 
+                    onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control mt-2' 
                     value={formik.values.email} name='email' autoComplete="username"
                 />
                 {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-2 p-2">{formik.errors.email}</div>:''}
-
-                <input type='code' placeholder="Number of Code" id='code' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control mt-4' value={formik.values.code} name='code'/>
+                
+                <label htmlFor="code" className=' pt-3'>Code :</label>
+                <input type='text' placeholder="Number of Code" id='code' 
+                    onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control mt-2' 
+                    value={formik.values.code} name='code'
+                />
                 {formik.errors.code && formik.touched.code?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.code}</div>:''}
-                        
-                {isLoading? <button  type=' buttom' className='btn bg-main text-white mt-2'>
-                    <Bars
-                          height="20"
-                          width="80"
-                          color="white"
-                          ariaLabel="bars-loading"
-                          wrapperStyle={{}}
-                          wrapperClass=""
-                          visible={true}
-                    />
-                    </button> : <> 
-                        <div className=' d-flex align-items-center'>
-                        <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  px-4 py-2 mt-4'>Verify</button>
-                        </div>
-                    </>
-                }
+                
+                <div className=' d-flex justify-content-between align-items-center pt-3'>
+                    {isLoading? <button  type='buttom' className='btn bg-main text-white mt-2'>
+                        <Bars
+                              height="20"
+                              width="80"
+                              color="white"
+                              ariaLabel="bars-loading"
+                              wrapperStyle={{}}
+                              wrapperClass=""
+                              visible={true}
+                        />
+                        </button> : <> 
+                            <div className=' d-flex align-items-center'>
+                            <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn buttoncolor shadow  px-4 py-2 mt-4'>Verify</button>
+                            </div>
+                        </>
+                    }
+
+                    <div >
+                        <Link to={'/forgetPassword'} className='fw-bold fs-5 h5 ' style={{ color:"#7F55E0"}}>Forget Your Password ?</Link>
+                    </div>
+                </div>
             </form>
           </div>
         </div>
