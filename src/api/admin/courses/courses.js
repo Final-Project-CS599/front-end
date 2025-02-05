@@ -36,7 +36,9 @@ export const useUpdateCourse = () => {
 };
 
 const deleteCourse = async (courseData) => {
-  const response = await axiosInstance.delete('/courses/deleteCourse', courseData);
+  const response = await axiosInstance.delete('/courses/deleteCourse', {
+    params: courseData, // Send courseData as query parameters
+  });
   return response.data;
 };
 
@@ -71,7 +73,7 @@ export const useApprovePayment = () => {
 };
 
 const rejectPayment = async (id) => {
-  const response = await axiosInstance.post(`/courses/cancelPayment/${id}`);
+  const response = await axiosInstance.delete(`/courses/cancelPayment/${id}`);
   return response.data;
 };
 
