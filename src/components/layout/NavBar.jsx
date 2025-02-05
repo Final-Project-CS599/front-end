@@ -3,7 +3,6 @@ import HomeLogo from '../../assets/images/imgAdmin/HomeLogo.jpg';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { getHomePath } from './NavButtons.jsx';
 
-
 const NavBar = () => {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('userData'));
@@ -34,10 +33,8 @@ const NavBar = () => {
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
 
-          <button className="btn buttoncolor pb-2 me-4">
-            <span onClick={() => logOut()} className="cursor-pointer">
-              Logout
-            </span>
+          <button onClick={() => logOut()} className="btn buttoncolor pb-2 me-4">
+            <span className="cursor-pointer">Logout</span>
           </button>
         </div>
       </div>
