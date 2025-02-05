@@ -91,6 +91,9 @@ function AllAcademic() {
 
                   {/* Course Details */}
                   <p>
+                    <strong>Course Name:</strong> {course.courseName}
+                  </p>
+                  <p>
                     <strong>Course Code:</strong> {course.courseCode}
                   </p>
                   <p>

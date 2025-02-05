@@ -1,9 +1,6 @@
-import { Button, Table, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import {
-  useDeleteMaterial,
-  useGetMaterial,
-} from "../../../api/instructor/media.js";
+import { Button, Table, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDeleteMaterial, useGetMaterial } from '../../../api/instructor/media.js';
 
 const ViewMaterialList = () => {
   const navigate = useNavigate();
@@ -30,10 +27,7 @@ const ViewMaterialList = () => {
       <div className="container mt-4">
         <div className="d-flex justify-content-between">
           <h2> Material List</h2>
-          <Button
-            className="mb-3 btn-outline-purple"
-            onClick={() => navigate("/UploadCourse")}
-          >
+          <Button className="mb-3 btn-outline-purple" onClick={() => navigate('/UploadCourse')}>
             Add Material
           </Button>
         </div>
@@ -46,16 +40,16 @@ const ViewMaterialList = () => {
 
   const handleDelete = async (id) => {
     if (!id) {
-      console.error("Error: Material ID is undefined!");
+      console.error('Error: Material ID is undefined!');
       return;
     }
-  
-    if (window.confirm("Are you sure you want to delete this material?")) {
-      console.log("Deleting Material with ID:", id); 
-  
+
+    if (window.confirm('Are you sure you want to delete this material?')) {
+      console.log('Deleting Material with ID:', id);
+
       mutate(id, {
         onSuccess: () => {
-          console.log("Material deleted successfully!");
+          console.log('Material deleted successfully!');
           refetch();
         },
         onError: (error) => {
@@ -64,16 +58,12 @@ const ViewMaterialList = () => {
       });
     }
   };
-  
 
   return (
     <div className="container mt-4">
       <div className="d-flex justify-content-between">
         <h2>Material List</h2>
-        <Button
-          className="btn-outline-purple"
-          onClick={() => navigate("/UploadCourse")}
-        >
+        <Button className="btn-outline-purple" onClick={() => navigate('/UploadCourse')}>
           Add Material
         </Button>
       </div>
@@ -89,27 +79,21 @@ const ViewMaterialList = () => {
           </tr>
         </thead>
         <tbody>
-          {data?.data?.length > 0 ? (
-            data.data.map((media) => (
+          {data?.length > 0 ? (
+            data.map((media) => (
               <tr key={media.m_id}>
                 <td>{media.m_title}</td>
                 <td>{media.m_description}</td>
                 <td>{new Date(media.m_publish_date).toLocaleDateString()}</td>
                 <td>
-                  <a
-                    href={media.m_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={media.m_link} target="_blank" rel="noopener noreferrer">
                     Open Link
                   </a>
                 </td>
                 <td>
                   <Button
                     variant="warning"
-                    onClick={() =>
-                      navigate(`/instructor/courses/edit/:id${media.m_id}`)
-                    }
+                    onClick={() => navigate(`/instructor/courses/edit/${media.m_id}`)}
                   >
                     Edit
                   </Button>

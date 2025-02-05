@@ -16,8 +16,6 @@ const CourseDropDown = ({ title, type, fetchData }) => {
     isLoading: isCoursesLoading,
   } = useGetStudentCourses();
 
-  console.log(courses?.data);
-
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
   };
@@ -42,7 +40,7 @@ const CourseDropDown = ({ title, type, fetchData }) => {
         disabled={isCoursesLoading || coursesError}
       >
         <option value="">Select Course</option>
-        {courses?.data?.map((course) => (
+        {courses?.map((course) => (
           <option key={course.c_id} value={course.c_id}>
             {course.c_name}
           </option>

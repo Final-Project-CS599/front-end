@@ -25,13 +25,12 @@ export const useAddMaterial = () => {
   });
 };
 
-const deleteMaterial = async (materialId) => {
-    const response = await axiosInstance.delete(`/courseMaterial/delete/${materialId}`); // استخدام params
-    return response;
-  };
-  
+const deleteMaterial = async (m_id) => {
+  const response = await axiosInstance.delete(`/courseMaterial/delete/${m_id}`); // استخدام params
+  return response;
+};
 
-export const useDeleteMaterial= () => {
+export const useDeleteMaterial = () => {
   return useMutation({
     mutationKey: ['deleteMaterial'], //for caching later
     mutationFn: deleteMaterial, //alais queryFunction

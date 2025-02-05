@@ -24,7 +24,7 @@ export const useAddExtraCourse = () => {
   });
 };
 
-const updateExtraCourse = async (id, courseData) => {
+const updateExtraCourse = async ({ id, courseData }) => {
   const response = await axiosInstance.patch(`/courses/updateExtra/${id}`, courseData);
   return response.data;
 };

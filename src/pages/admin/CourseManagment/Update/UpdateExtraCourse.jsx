@@ -1,10 +1,9 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useGetExtraCourseById, useUpdateExtraCourse } from '../../../../api/admin/courses/Extra';
-import { useGetDepartmentsData } from '../../../../api/admin/GetDepartments';
 
 const validationSchema = Yup.object().shape({
   instructorName: Yup.string()
@@ -29,7 +28,7 @@ const validationSchema = Yup.object().shape({
       'Course Code must be alphanumeric and between 5 to 10 characters'
     )
     .required('Course Code is required'),
-  sections: Yup.string().required('sections is required'),
+  sections: Yup.string().required('Sections is required'),
   category: Yup.string()
     .min(5, 'Category must be at least 5 characters')
     .max(50, 'Category must be at most 50 characters')
@@ -42,26 +41,58 @@ const validationSchema = Yup.object().shape({
 
 const UpdateExtraCourse = () => {
   const { id } = useParams();
-  const { data: departmentData } = useGetDepartmentsData();
+  const { data: course, isLoading, error } = useGetExtraCourseById(id);
   const { mutate } = useUpdateExtraCourse();
-  const { data } = useGetExtraCourseById(id);
-
   const navigate = useNavigate();
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    mutate(values, id, {
-      onSuccess: () => {
-        setSubmitting(false);
-        resetForm();
-        alert('Course updated successfully!');
-        navigate('/admin/courses/academic');
-      },
-      onError: (error) => {
-        console.error('Error adding course:', error);
-        setSubmitting(false);
-      },
-    });
+  const [initialValues, setInitialValues] = useState({
+    instructorName: '',
+    courseName: '',
+    description: '',
+    courseStartDate: '',
+    courseEndDate: '',
+    courseCode: '',
+    sections: '',
+    category: '',
+    price: '',
+  });
+
+  // Update form fields when data is available
+  useEffect(() => {
+    if (course?.data) {
+      setInitialValues({
+        instructorName: course.data.instructorName || '',
+        courseName: course.data.courseName || '',
+        description: course.data.description || '',
+        courseStartDate: course.data.courseStartDate || '',
+        courseEndDate: course.data.courseEndDate || '',
+        courseCode: course.data.courseCode || '',
+        sections: course.data.sections || '',
+        category: course.data.category || '',
+        price: course.data.price || '',
+      });
+    }
+  }, [course]);
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    mutate(
+      { id, courseData: values },
+      {
+        onSuccess: () => {
+          setSubmitting(false);
+          alert('Course updated successfully!');
+          navigate('/admin/courses/extra');
+        },
+        onError: (error) => {
+          console.error('Error updating course:', error);
+          setSubmitting(false);
+        },
+      }
+    );
   };
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading course details.</p>;
 
   return (
     <HelmetProvider>
@@ -71,173 +102,96 @@ const UpdateExtraCourse = () => {
       </Helmet>
 
       <div className="container mt-2">
-        <h2 className="mb-4">Update Extra course</h2>
+        <h2 className="mb-4">Update Extra Course</h2>
 
         <Formik
+          enableReinitialize
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, errors, touched }) => (
+          {({ isSubmitting }) => (
             <Form>
-              {/* Course Name */}
               <div className="form-group mb-3">
                 <label htmlFor="courseName">Course Name:</label>
-                <Field
-                  type="text"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.courseName && errors.courseName ? 'is-invalid' : ''
-                  }`}
-                  id="courseName"
-                  name="courseName"
-                />
-                <ErrorMessage name="courseName" component="div" className="invalid-feedback" />
+                <Field type="text" className="form-control" id="courseName" name="courseName" />
+                <ErrorMessage name="courseName" component="div" className="text-danger" />
               </div>
 
-              {/* Course Code */}
               <div className="form-group mb-3">
                 <label htmlFor="courseCode">Course Code:</label>
-                <Field
-                  type="text"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.courseCode && errors.courseCode ? 'is-invalid' : ''
-                  }`}
-                  id="courseCode"
-                  name="courseCode"
-                />
-                <ErrorMessage name="courseCode" component="div" className="invalid-feedback" />
+                <Field type="text" className="form-control" id="courseCode" name="courseCode" />
+                <ErrorMessage name="courseCode" component="div" className="text-danger" />
               </div>
 
-              {/* Instructor Name */}
               <div className="form-group mb-3">
                 <label htmlFor="instructorName">Instructor Name:</label>
                 <Field
                   type="text"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.instructorName && errors.instructorName ? 'is-invalid' : ''
-                  }`}
+                  className="form-control"
                   id="instructorName"
                   name="instructorName"
                 />
-                <ErrorMessage name="instructorName" component="div" className="invalid-feedback" />
+                <ErrorMessage name="instructorName" component="div" className="text-danger" />
               </div>
 
-              {/* sections */}
               <div className="form-group mb-3">
-                <label htmlFor="sections">Select sections:</label>
-                <Field
-                  as="select"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.sections && errors.sections ? 'is-invalid' : ''
-                  }`}
-                  id="sections"
-                  name="sections"
-                >
+                <label htmlFor="sections">Sections:</label>
+                <Field as="select" className="form-control" id="sections" name="sections">
                   <option value="">Select sections</option>
                   <option value="Back end">Back-end</option>
-                  <option value="Front end">Front End</option>
+                  <option value="Front end">Front-end</option>
                   <option value="languages">Languages</option>
                   <option value="programming">Programming</option>
                   <option value="Digital marketing">Digital Marketing</option>
                 </Field>
-                <ErrorMessage name="sections" component="div" className="invalid-feedback" />
+                <ErrorMessage name="sections" component="div" className="text-danger" />
               </div>
 
-              {/* Category */}
               <div className="form-group mb-3">
                 <label htmlFor="category">Category:</label>
-                <Field
-                  type="text"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.category && errors.category ? 'is-invalid' : ''
-                  }`}
-                  id="category"
-                  name="category"
-                />
-                <ErrorMessage name="category" component="div" className="invalid-feedback" />
+                <Field type="text" className="form-control" id="category" name="category" />
+                <ErrorMessage name="category" component="div" className="text-danger" />
               </div>
 
-              {/* Price */}
               <div className="form-group mb-3">
                 <label htmlFor="price">Price:</label>
-                <Field
-                  type="number"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.price && errors.price ? 'is-invalid' : ''
-                  }`}
-                  id="price"
-                  name="price"
-                />
-                <ErrorMessage name="price" component="div" className="invalid-feedback" />
+                <Field type="number" className="form-control" id="price" name="price" />
+                <ErrorMessage name="price" component="div" className="text-danger" />
               </div>
 
-              {/* Description */}
               <div className="form-group mb-3">
                 <label htmlFor="description">Description:</label>
-                <Field
-                  as="textarea"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.description && errors.description ? 'is-invalid' : ''
-                  }`}
-                  id="description"
-                  name="description"
-                />
-                <ErrorMessage name="description" component="div" className="invalid-feedback" />
+                <Field as="textarea" className="form-control" id="description" name="description" />
+                <ErrorMessage name="description" component="div" className="text-danger" />
               </div>
 
-              {/* Start Date */}
               <div className="form-group mb-3">
                 <label htmlFor="courseStartDate">Start Date:</label>
                 <Field
                   type="datetime-local"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.courseStartDate && errors.courseStartDate ? 'is-invalid' : ''
-                  }`}
+                  className="form-control"
                   id="courseStartDate"
                   name="courseStartDate"
                 />
-                <ErrorMessage name="courseStartDate" component="div" className="invalid-feedback" />
+                <ErrorMessage name="courseStartDate" component="div" className="text-danger" />
               </div>
 
-              {/* End Date */}
               <div className="form-group mb-3">
                 <label htmlFor="courseEndDate">End Date:</label>
                 <Field
                   type="datetime-local"
-                  className={`form-control form-control-md shadow-sm ${
-                    touched.courseEndDate && errors.courseEndDate ? 'is-invalid' : ''
-                  }`}
+                  className="form-control"
                   id="courseEndDate"
                   name="courseEndDate"
                 />
-                <ErrorMessage name="courseEndDate" component="div" className="invalid-feedback" />
+                <ErrorMessage name="courseEndDate" component="div" className="text-danger" />
               </div>
 
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="d-flex justify-content-between">
-                    <div>
-                      <button
-                        type="submit"
-                        className="btn btn-md w-40 mt-3"
-                        style={{
-                          backgroundColor: '#7F55E0',
-                          borderColor: '#7F55E0',
-                          color: 'white',
-                        }}
-                        disabled={isSubmitting}
-                      >
-                        Add Course
-                      </button>
-                    </div>
-                    <div>
-                      {/* Reset Button */}
-                      <button type="reset" className="btn btn-secondary btn-md w-40 mt-3">
-                        Reset
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              <div className="d-flex justify-content-between">
+                <button type="submit" className="btn btn-outline-purple" disabled={isSubmitting}>
+                  Update Course
+                </button>
               </div>
             </Form>
           )}

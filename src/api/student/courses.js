@@ -65,3 +65,14 @@ export const useGetRecommendedCourses = () => {
     retry: 2,
   });
 };
+
+const addPayment = async (paymentData) => {
+  const response = axiosInstance.post('/student/courses/addPayment', paymentData);
+  return response.data;
+};
+
+export const useAddPayment = () => {
+  return useMutation({
+    mutationFn: addPayment,
+  });
+};

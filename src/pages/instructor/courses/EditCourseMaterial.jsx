@@ -4,30 +4,46 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-
+import { useGetMaterial } from '../../../api/instructor/media';
 
 const EditCourseMaterial = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
+  const { data, isLoading, isError, refetch } = useGetMaterial();
 
   const [materialData, setMaterialData] = useState({
-    mTitle: '',
-    mDescription: '',
-    mLink: '',
-    mCourseId: '',
+    m_title: '',
+    m_description: '',
+    m_link: '',
+    m_courseId: '',
     file: null,
   });
 
-  
+  useEffect(() => {
+    if (data && id) {
+      const filteredMaterial = data.find((material) => material.m_id === parseInt(id));
+
+      if (filteredMaterial) {
+        setMaterialData({
+          m_title: filteredMaterial.m_title,
+          m_description: filteredMaterial.m_description,
+          m_link: filteredMaterial.m_link,
+          m_courseId: filteredMaterial.m_courseId,
+          file: null, // Assuming you don't have the file in the initial data
+        });
+      }
+    }
+  }, [data, id]);
+
   const validationSchema = Yup.object({
-    mTitle: Yup.string().required('Title is required'),
-    mDescription: Yup.string().required('Description is required'),
-    mLink: Yup.string()
+    m_title: Yup.string().required('Title is required'),
+    m_description: Yup.string().required('Description is required'),
+    m_link: Yup.string()
       .required('Link is required')
       .matches(/^(ftp|http|https):\/\/[^ "]+$/, 'Invalid link. Please enter a valid URL.'),
-    mCourseId: Yup.number()
+    m_courseId: Yup.number()
       .typeError('Course ID must be a number')
       .required('Course ID is required')
       .positive('Course ID must be a positive number')
@@ -42,17 +58,19 @@ const EditCourseMaterial = () => {
       }),
   });
 
+  console.log(`http://localhost:3000${materialData.m_link}`, 'materialData.m_link');
+
   const formik = useFormik({
     initialValues: materialData,
     validationSchema,
-    enableReinitialize: true, 
+    enableReinitialize: true,
     onSubmit: async (values) => {
       try {
         const data = new FormData();
-        data.append('m_title', values.mTitle);
-        data.append('m_description', values.mDescription);
-        data.append('m_link', values.mLink);
-        data.append('m_courseId', values.mCourseId);
+        data.append('m_title', values.m_title);
+        data.append('m_description', values.m_description);
+        data.append('m_link', values.m_link);
+        data.append('m_courseId', values.m_courseId);
         if (values.file) {
           data.append('file', values.file);
         }
@@ -80,64 +98,71 @@ const EditCourseMaterial = () => {
     },
   });
 
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error fetching material data</div>;
+
   return (
-    <div className="container mt-4">
+    <div className="container ">
       <h2>Edit Course Material</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
 
       <Form onSubmit={formik.handleSubmit}>
-        <Form.Group controlId="formTitle">
+        <Form.Group controlId="form_title">
           <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
-            name="mTitle"
-            value={formik.values.mTitle}
+            name="m_title"
+            value={formik.values.m_title}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            isInvalid={formik.touched.mTitle && !!formik.errors.mTitle}
+            isInvalid={formik.touched.m_title && !!formik.errors.m_title}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.mTitle}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{formik.errors.m_title}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formDescription" className="mt-3">
+        <Form.Group controlId="form_description" className="mt-3">
           <Form.Label>Description</Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
-            name="mDescription"
-            value={formik.values.mDescription}
+            name="m_description"
+            value={formik.values.m_description}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            isInvalid={formik.touched.mDescription && !!formik.errors.mDescription}
+            isInvalid={formik.touched.m_description && !!formik.errors.m_description}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.mDescription}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            {formik.errors.m_description}
+          </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group controlId="formLink" className="mt-3">
+        {/* <Form.Group controlId="form_link" className="mt-3">
           <Form.Label>Link</Form.Label>
           <Form.Control
             type="text"
-            name="mLink"
-            value={formik.values.mLink}
+            name="m_link"
+            value={formik.values.m_link}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            isInvalid={formik.touched.mLink && !!formik.errors.mLink}
+            isInvalid={formik.touched.m_link && !!formik.errors.m_link}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.mLink}</Form.Control.Feedback>
-        </Form.Group>
+          <Form.Control.Feedback type="invalid">{formik.errors.m_link}</Form.Control.Feedback>
+        </Form.Group> */}
 
-        <Form.Group controlId="formCourseId" className="mt-3">
+        <img src={`http://localhost:3000${materialData.m_link}`} alt="" width={200} />
+
+        <Form.Group controlId="form_courseId" className="mt-3">
           <Form.Label>Course ID</Form.Label>
           <Form.Control
             type="text"
-            name="mCourseId"
-            value={formik.values.mCourseId}
+            name="m_courseId"
+            value={formik.values.m_courseId}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            isInvalid={formik.touched.mCourseId && !!formik.errors.mCourseId}
+            isInvalid={formik.touched.m_courseId && !!formik.errors.m_courseId}
           />
-          <Form.Control.Feedback type="invalid">{formik.errors.mCourseId}</Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{formik.errors.m_courseId}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group controlId="formFile" className="mt-3">
