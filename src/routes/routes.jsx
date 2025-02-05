@@ -13,7 +13,7 @@ import RegisterInstructors from '../pages/admin/AuthUser/RegisterInstructors/Reg
 import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterStudent.jsx';
 import Student from '../pages/admin/AuthUser/Student/Student.jsx';
 //home route
-import HelpDesk from '../pages/admin/Helpdesk/HelpDesk.jsx';
+import HelpDesk from './../pages/admin/Helpdesk/HelpDesk.jsx';
 import HomeDashboard from '../pages/admin/HomeAndFooter/Home/Home.jsx';
 //Academic Router & Notfound
 import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRou.jsx';
@@ -68,6 +68,8 @@ import ChooseDepartment from '../pages/admin/Acadmic/ChooseDepartment.jsx';
 import Sections from '../pages/admin/Sections/Sections.jsx';
 import ViewMaterialList from '../pages/instructor/courses/ViewMaterial.jsx';
 
+
+
 export const studentRoutes = [
   // Student dashboard/home
   { index: true, path: '/student/home', element: <StudentHome /> },
@@ -94,69 +96,37 @@ export const adminRoutes = [
   //AcadmicRou //pages
   {
     index: true,
-    element: (
-      <AcademicRou>
-        <HomeDashboard />
-      </AcademicRou>
-    ),
+    element:  <AcademicRou> <HomeDashboard /> </AcademicRou> ,
   },
   {
     path: '/admin/home',
-    element: (
-      <AcademicRou>
-        <HomeDashboard />
-      </AcademicRou>
-    ),
+    element:  <AcademicRou> <HomeDashboard /> </AcademicRou> ,
   },
   //auth User
   {
     path: '/admin/addAdmin',
-    element: (
-      <AcademicRou>
-        <AddAdmin />
-      </AcademicRou>
-    ),
+    element: <AcademicRou> <AddAdmin /> </AcademicRou> ,
   },
   {
     path: '/admin/instructors',
-    element: (
-      <AcademicRou>
-        <Instructors />
-      </AcademicRou>
-    ),
+    element:  <AcademicRou> <Instructors /> </AcademicRou> ,
   },
   {
     path: '/admin/student',
-    element: (
-      <AcademicRou>
-        <Student />
-      </AcademicRou>
-    ),
+    element:  <AcademicRou> <Student /> </AcademicRou> ,
   },
   {
     path: '/admin/registerInstructor',
-    element: (
-      <AcademicRou>
-        <RegisterInstructors />
-      </AcademicRou>
-    ),
+    element:  <AcademicRou> <RegisterInstructors /> </AcademicRou> ,
   },
   {
     path: '/admin/registerStudent',
-    element: (
-      <AcademicRou>
-        <RegisterStudents />
-      </AcademicRou>
-    ),
+    element: <AcademicRou> <RegisterStudents /> </AcademicRou> ,
   },
   //helpDesk
   {
     path: '/admin/helpDesk',
-    element: (
-      <AcademicRou>
-        <HelpDesk />
-      </AcademicRou>
-    ),
+    element: <AcademicRou> <HelpDesk /> </AcademicRou> ,
   },
   // Courses
   {
