@@ -85,6 +85,9 @@ function AllExtra() {
 
                   {/* Course Details */}
                   <p>
+                    <strong>Course Name:</strong> {course.courseName}
+                  </p>
+                  <p>
                     <strong>Course Code:</strong> {course.CourseCode}
                   </p>
                   <p>

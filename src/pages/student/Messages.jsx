@@ -29,7 +29,7 @@ const Messages = () => {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container ">
       <div className="d-flex justify-content-between align-items-center">
         <h3 className="text-left mb-4">Messages</h3>
         <button className="btn btn-outline-purple mb-4" onClick={() => setShowComposeModal(true)}>

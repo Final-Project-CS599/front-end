@@ -6,7 +6,7 @@ const ViewMessages = () => {
   const { data, isLoading } = useGetHelpDeskMessages();
 
   return (
-    <div className="container mt-5">
+    <div className="container">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>HelpDesk Messages</h3>
         <Link to="/student/helpDesk/send" className="btn btn-outline-purple">

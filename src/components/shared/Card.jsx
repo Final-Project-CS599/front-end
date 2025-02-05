@@ -1,11 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-const Card = ({ title, description, id, img }) => {
+const Card = ({ title, description, id, img, type }) => {
   const navigate = useNavigate();
-
   const handleClick = () => {
     navigate(`/student/courses/${id}`);
   };
-  console.log(title, description, id, img);
   return (
     <div className="card shadow-sm" style={{ width: '17rem' }}>
       <img
@@ -18,7 +16,8 @@ const Card = ({ title, description, id, img }) => {
       />
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
-        <p className="card-text">{description}</p>
+        <p className="card-text"> Description: {description}</p>
+        <p className="card-text">Type: {type}</p>
         <button onClick={handleClick} className="btn btn-outline-purple w-50">
           View
         </button>

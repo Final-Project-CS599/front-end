@@ -47,47 +47,50 @@ const UpdateAcademicCourse = () => {
 
   const validationSchema = Yup.object({
     instructorName: Yup.string()
-      .required('Instructor Name is required')
       .min(2, 'Instructor Name must be at least 2 characters')
-      .max(100, 'Instructor Name must be at most 100 characters'),
+      .max(100, 'Instructor Name must be at most 100 characters')
+      .required('Instructor Name is required'),
     courseName: Yup.string()
-      .required('Course Name is required')
       .min(2, 'Course Name must be at least 2 characters')
-      .max(100, 'Course Name must be at most 100 characters'),
+      .max(100, 'Course Name must be at most 100 characters')
+      .required('Course Name is required'),
     description: Yup.string()
-      .required('Description is required')
       .min(20, 'Description must be at least 20 characters')
-      .max(500, 'Description must be at most 500 characters'),
+      .max(500, 'Description must be at most 500 characters')
+      .required('Description is required'),
     courseStartDate: Yup.date().required('Start Date is required'),
     courseEndDate: Yup.date()
-      .required('End Date is required')
-      .min(Yup.ref('courseStartDate'), 'End Date must be after Start Date'),
+      .min(Yup.ref('courseStartDate'), 'End Date must be after Start Date')
+      .required('End Date is required'),
     courseCode: Yup.string()
-      .required('Course Code is required')
       .matches(
         /^[a-zA-Z0-9]{5,10}$/,
         'Course Code must be alphanumeric and between 5 to 10 characters'
-      ),
-    department: Yup.string().required('Department is required'),
+      )
+      .required('Course Code is required'),
+    department: Yup.string().required('department is required'),
     category: Yup.string()
-      .required('Category is required')
       .min(5, 'Category must be at least 5 characters')
-      .max(50, 'Category must be at most 50 characters'),
+      .max(50, 'Category must be at most 50 characters')
+      .required('Category is required'),
   });
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    mutate(values, {
-      onSuccess: () => {
-        setSubmitting(false);
-        resetForm();
-        alert('Course updated successfully!');
-        navigate('/admin/courses/academic');
-      },
-      onError: (error) => {
-        console.error('Error adding course:', error);
-        setSubmitting(false);
-      },
-    });
+    mutate(
+      { id, courseData: values },
+      {
+        onSuccess: () => {
+          setSubmitting(false);
+          resetForm();
+          alert('Course updated successfully!');
+          navigate('/admin/courses/academic');
+        },
+        onError: (error) => {
+          console.error('Error adding course:', error);
+          setSubmitting(false);
+        },
+      }
+    );
   };
 
   if (!data?.data) {
@@ -246,16 +249,6 @@ const UpdateAcademicCourse = () => {
                         disabled={isSubmitting}
                       >
                         Update Course
-                      </button>
-                    </div>
-                    <div>
-                      {/* Reset Button */}
-                      <button
-                        type="button"
-                        className="btn btn-secondary btn-md w-40 mt-3"
-                        onClick={() => handleReset(resetForm)}
-                      >
-                        Reset
                       </button>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import {  getCourses, searchCourses } from '../../../api/instructor/courses';
+import { getCourses, searchCourses } from '../../../api/instructor/courses';
 
 const MyCourses = () => {
   const [courses, setCourses] = useState([]); // Holds the list of courses
@@ -65,12 +65,10 @@ const MyCourses = () => {
     }
   };
 
- 
   return (
     <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>My Courses</h2>
-        
       </div>
 
       {/* Search Form */}
@@ -113,7 +111,11 @@ const MyCourses = () => {
                 <td>{course.assignments}</td>
                 <td>{course.exams}</td>
                 <td>
-                  <Button variant="info" className="me-2" onClick={() => navigate(`/view-material`)}>
+                  <Button
+                    variant="info"
+                    className="me-2"
+                    onClick={() => navigate(`/instructor/courses/view-material`)}
+                  >
                     View Material
                   </Button>
                 </td>

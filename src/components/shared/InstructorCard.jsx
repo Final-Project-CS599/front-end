@@ -13,7 +13,7 @@ const InstructorCard = ({ title, description, id, Image }) => {
       className="card border-purple mb-3"
       style={{
         width: '15rem',
-        margin: '50px',
+
         boxShadow: '0px 5px 13px rgba(0, 0, 0, 0.4)',
       }}
     >

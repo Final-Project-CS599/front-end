@@ -24,7 +24,7 @@ export const useAddAcademicCourse = () => {
   });
 };
 
-const updateAcademic = async (id, courseData) => {
+const updateAcademic = async ({ id, courseData }) => {
   const response = await axiosInstance.patch(`/courses/updateAcademic/${id}`, courseData);
   return response.data;
 };
