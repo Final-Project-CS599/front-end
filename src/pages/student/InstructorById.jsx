@@ -1,24 +1,25 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useGetInstructorById } from "../../api/student/instructor";
 
 const InstructorById = () => {
   const { id } = useParams();
+  const { data, isLoading, error } = useGetInstructorById(id);
 
-  // Fetch instructor data by ID (mock data for now)
-  const instructorData = {
-    1: { name: 'John Doe', subject: 'Mathematics' },
-    2: { name: 'Jane Smith', subject: 'Physics' },
-  };
+  if (isLoading) return <p>Loading instructor details...</p>;
+  if (error) return <p>Error fetching instructor details.</p>;
 
-  const instructor = instructorData[id] || {};
+  const instructor = data?.data || {};
 
   return (
     <div>
       <h3>Instructor Details</h3>
-      {instructor.name ? (
+      {instructor.First_Name ? (
         <div>
-          <p>Name: {instructor.name}</p>
-          <p>Subject: {instructor.subject}</p>
+          <p>
+            Name: {instructor.First_Name} {instructor.Last_Name}
+          </p>
+          <p>Courses: {instructor.Courses}</p>
         </div>
       ) : (
         <p>Instructor not found.</p>
