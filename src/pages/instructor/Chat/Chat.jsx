@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useGetInstructorMessages } from '../../../api/message';
 import SendMessage from './SendMessage'; // Import the SendMessage component
 

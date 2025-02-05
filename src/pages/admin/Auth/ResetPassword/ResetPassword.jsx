@@ -6,12 +6,14 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bars } from  'react-loader-spinner';
 import { Helmet } from 'react-helmet';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
 
 export default function ResetPassword() {
   let navigate = useNavigate();
   const [error , setError]= useState(null);
   const [isLoading , setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
 
     async function getResetPassword(values){
         setIsLoading(true);
@@ -60,16 +62,27 @@ export default function ResetPassword() {
               {formik.errors.email && formik.touched.email? <div className="alert alert-danger mt-2 p-2">{formik.errors.email}</div>:''}
 
               <label htmlFor="newPassword" className='my-3'>newPassword :</label>
-              <input type='password' id='newPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className='form-control' 
+              <div className="input-group">
+                <input type={showPassword? 'text' : 'password' } id='password' placeholder="Password" 
+                    onBlur={formik.handleBlur} onChange={formik.handleChange} className='form-control' 
                     value={formik.values.newPassword} name='newPassword' autoComplete="new-password"
-              />
+                />
+                <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
+                    {showPassword? <FaRegEye /> : <FaRegEyeSlash />}
+                </span>
+              </div>
               {formik.errors.newPassword && formik.touched.newPassword ? <div className="alert alert-danger mt-2 p-2">{formik.errors.newPassword}</div> : ''}
 
               <label htmlFor="confirmPassword" className='my-3'>confirmPassword :</label>
-              <input type='password' id='confirmPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className='form-control' 
+              <div className="input-group">
+                <input type={showPassword? 'text' : 'password' } id='confirmPassword' placeholder="confirmPassword"
+                    onBlur={formik.handleBlur} onChange={formik.handleChange} className='form-control' 
                     value={formik.values.confirmPassword} name='confirmPassword' autoComplete="new-password" 
-
-              />
+                />
+                <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
+                    {showPassword? <FaRegEye /> : <FaRegEyeSlash />}
+                </span>
+              </div>
               {formik.errors.confirmPassword && formik.touched.confirmPassword ? <div className="alert alert-danger mt-2 p-2">{formik.errors.confirmPassword}</div> : ''}
 
 

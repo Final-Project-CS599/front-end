@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Table, Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { deleteCourseMaterial, getCourses, searchCourses } from '../../../api/instructor/courses';
+import {  getCourses, searchCourses } from '../../../api/instructor/courses';
 
 const MyCourses = () => {
   const [courses, setCourses] = useState([]); // Holds the list of courses
@@ -10,7 +10,6 @@ const MyCourses = () => {
   const [isSearching, setIsSearching] = useState(false); // Tracks if a search is in progress
   const navigate = useNavigate();
 
-  // Fetch all courses on component mount
   useEffect(() => {
     fetchCourses();
   }, []);
@@ -66,26 +65,12 @@ const MyCourses = () => {
     }
   };
 
-  // Handle course deletion
-  const handleDelete = async (c_id) => {
-    try {
-      const response = await deleteCourseMaterial(c_id);
-
-      if (response.status === 200) {
-        setCourses(courses.filter((course) => course.c_id !== c_id)); // Remove deleted course from the list
-      }
-    } catch (error) {
-      setError(error?.response?.data?.message || 'Error deleting course');
-    }
-  };
-
+ 
   return (
     <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>My Courses</h2>
-        <Button className="btn-outline-purple" onClick={() => navigate('/UploadCourse')}>
-          Add Material
-        </Button>
+        
       </div>
 
       {/* Search Form */}
@@ -128,15 +113,8 @@ const MyCourses = () => {
                 <td>{course.assignments}</td>
                 <td>{course.exams}</td>
                 <td>
-                  <Button variant="warning" onClick={() => navigate(`/edit-course/${course.c_id}`)}>
-                    Edit
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleDelete(course.c_id)}
-                    className="ms-2"
-                  >
-                    Delete
+                  <Button variant="info" className="me-2" onClick={() => navigate(`/view-material`)}>
+                    View Material
                   </Button>
                 </td>
               </tr>
