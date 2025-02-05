@@ -53,7 +53,8 @@ export default function ForgetPassword() {
           <div className={styles.marginAuth}>
             {error!==null? <div className="alert alert-danger">{error}</div>:''}
             <form onSubmit={formik.handleSubmit}>
-                <h1 className=' fw-bolder'>please enter your verification code</h1>
+              
+                <h1 className=' fw-bolder pb-4'>please enter email your verification code</h1>
                 <input type='email' placeholder="Email" id='email' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
                       value={formik.values.email} name='email' autoComplete="username"
                 />

@@ -5,12 +5,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Audio } from  'react-loader-spinner';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
 
 export default function RegisterStudents() {
     let navigate = useNavigate();
     const [error , setError]= useState(null);
     const [isLoading , setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     async function RegisterSubmit(values){
         setIsLoading(true);
@@ -35,12 +37,12 @@ export default function RegisterStudents() {
         email: yup.string().email('Email is invalid').required('Email is required'),
         phone1: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').required('At least one phone number is required'),
         phone2: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').optional(),
-        numberNational: yup.string().matches(/^[0-9]{14,}$/ , 'numberNational ID is invalid (example: 01234567890123)').required('numberNational ID is required'),
+        numberNational: yup.string().matches(/^[0-9]{14}$/ , 'numberNational ID is invalid (example: 01234567890123)').required('numberNational ID is required'),
         department: yup.string().min(1, 'department minlength is 1').max(100 , 'department maxlength is 100').required('department is required'),
         gander: yup.string().oneOf(['Male', 'Female'], 'Gender must be either Male or Female').default('Female').required('Gander is required'),
         DOB: yup.string().max(new Date(), 'Date of Birth must be less than today').required('Date of Birth is required'),
-        password: yup.string().matches(/^[0-9]{14,}$/, ' Password National ID 14 digits (example: 12345678910145) ').required('Password is required'),
-        confirmPassword: yup.string().oneOf([yup.ref("password")] , 'Password and confirmPassword').required('RePassword is required')
+        password: yup.string().oneOf([yup.ref("numberNational")], 'numberNational and Password must match').required('Password is required'),
+        
     });
 
     let formik = useFormik({
@@ -57,7 +59,6 @@ export default function RegisterStudents() {
             gander:'',
             DOB:'',
             password:'',
-            confirmPassword:'',
         }, validationSchema:validateScheme,  
         onSubmit:RegisterSubmit
     });
@@ -138,18 +139,18 @@ return <>
             {formik.errors.DOB && formik.touched.DOB? <div className="alert alert-danger mt-2 p-2">{formik.errors.DOB}</div>:''}
             
 
-            <label htmlFor="password" className=' pt-3'>Password (NID) <span className='text-danger'>*</span> :</label>
-            <input type='password' id='password' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
-                value={formik.values.password} name='password' autoComplete="new-password"
-            />
+            <label htmlFor="password" className=' pt-3'>Password (Number National NID User) <span className='text-danger'>*</span> :</label>
+            <div className="input-group">
+                <input type={showPassword? 'text' : 'password' } id='password' placeholder="Password" 
+                    onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
+                    value={formik.values.password} name='password' autoComplete="new-password"
+                />
+                <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
+                    {showPassword? <FaRegEye /> : <FaRegEyeSlash />}
+                </span>
+            </div>
             {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
             
-
-            <label htmlFor="confirmPassword" className=' pt-3'> confirm-Password (NID) <span className='text-danger'>*</span> :</label>
-            <input type='password' id='confirmPassword' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
-                value={formik.values.confirmPassword} name='confirmPassword'  autoComplete="new-password"
-            />
-            {formik.errors.confirmPassword && formik.touched.confirmPassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.confirmPassword}</div>:''}
             
             {isLoading? <button  type=' buttom' className='btn bg-main text-white mt-2'>
                 <Audio
