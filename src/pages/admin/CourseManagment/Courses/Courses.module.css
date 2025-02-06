@@ -1,0 +1,51 @@
+.cardContainer {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    flex: 1 1 30%;
+    max-width: 30%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.cardContent {
+    text-align: center;
+}
+
+.cardContent h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.cardContent p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* Specific card styles */
+.allCourses {
+    background-color: #e3f2fd;
+}
+
+.academic {
+    background-color: #f0f4c3;
+}
+
+.extra {
+    background-color: #ffccbc;
+}

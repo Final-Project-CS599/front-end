@@ -1,160 +1,348 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LayoutWithSideBar from '../layout/LayoutWithSideBar';
-import Courses from '../pages/student/Courses';
-import Instructors from '../pages/student/Instructors';
-import Assignments from '../pages/student/Assignments';
-import Quizzes from '../pages/student/Quizzes';
-import Chat from '../pages/student/Chat';
-import Report from '../pages/student/Report';
-import {Home as StudentHome} from '../pages/Home';
-import Messages from '../pages/student/Messages';
-import Profile from '../pages/student/Profile';
-import InstructorById from '../pages/student/InstructorById';
-import CourseById from '../pages/student/CourseById';
-import AssignmentById from '../pages/student/AssignmentById';
-import QuizById from '../pages/student/QuizById';
-import Home from './../pages/admin/Home/Home';
-import Student from './../pages/admin/Student/Student';
-import Instructors from './../pages/admin/Instructors/Instructors';
-import Profile from './../pages/admin/Profile/Profile';
-import About from '../components/About/About.jsx';
-import RegisterInstructors from './../pages/admin/RegisterInstructors/RegisterInstructors';
-import RegisterStudents from './../pages/admin/RegisterStudent/RegisterStudent';
-import AddAdmin from './../pages/admin/AddAdmin/AddAdmin';
-import Login from './../pages/admin/Login/Login';
-import ForgetPassword from './../pages/admin/ForgetPassword/ForgetPassword';
-import NotFound from './../pages/admin/NotFound/NotFound';
-import LayoutWithSideBar from './../components/layout/LayoutWithSideBar';
-import Courses from '../pages/admin/Courses/Courses.jsx';
-import Acadmic from '../pages/admin/Acadmic/Acadmic.jsx';
-import Extra from '../pages/admin/Extra/Extra.jsx';
+
+//auth
+import ConfirmEmail from '../pages/admin/Auth/ConfirmEmail/ConfirmEmail.jsx';
+import Login from '../pages/admin/Auth/Login/Login.jsx';
+import ForgetPassword from './../pages/admin/Auth/ForgetPassword/ForgetPassword.jsx';
+import ForgetPasswordDetalis from './../pages/admin/Auth/ForgetPasswordDetalis/ForgetPasswordDetalis.jsx';
+import ResetPassword from './../pages/admin/Auth/ResetPassword/ResetPassword.jsx';
+//auth User
+import AddAdmin from '../pages/admin/AuthUser/AddAdmin/AddAdmin.jsx';
+import Instructors from '../pages/admin/AuthUser/Instructors/Instructors.jsx';
+import RegisterInstructors from '../pages/admin/AuthUser/RegisterInstructors/RegisterInstructors.jsx';
+import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterStudent.jsx';
+import Student from '../pages/admin/AuthUser/Student/Student.jsx';
+//home route
+import HelpDesk from './../pages/admin/Helpdesk/HelpDesk.jsx';
+//Academic Router & Notfound
+import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRou.jsx';
+import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
+//student
+import LayoutWithSideBar from '../components/layout/LayoutWithSideBar.jsx';
+import AddDepartment from '../pages/admin/AddDepartment/AddDepartment.jsx';
+import AdminProfile from '../pages/admin/AdminProfile/AdminProfile.jsx';
+import AllAcademic from '../pages/admin/CourseManagment/AllAcademic/AllAcademic.jsx';
+import AllCourses from '../pages/admin/CourseManagment/AllCourses/Allcourses.jsx';
+import AllExtra from '../pages/admin/CourseManagment/AllExtra/Extra.jsx';
+import Courses from '../pages/admin/CourseManagment/Courses/Courses.jsx';
+import DeleteCourse from '../pages/admin/CourseManagment/DeleteCourse/DeleteCourse.jsx';
+import Departments from '../pages/admin/Departments/Departments.jsx';
 import Payment from '../pages/admin/Payment/Payment.jsx';
-import Asacadmic from '../pages/admin/Asacadmic/Asacadmic.jsx';
-import Isacadmic from '../pages/admin/Isacadmic/Isacadmic.jsx';
-import Msacadmic from '../pages/admin/Msacadmic/Msacadmic.jsx';
-import Oracadmic from '../pages/admin/Oracadmic/Oracadmic.jsx';
-import Csacadmic from '../pages/admin/Csacadmic/Csacadmic.jsx';
-import Programingextra from '../pages/admin/Programingextra/Programingextra.jsx';
-import Backendextra from '../pages/admin/Backendextra/Backendextra.jsx';
-import Languagesextra from '../pages/admin/Languagesextra/Languagesextra.jsx';
-import Digitalextra from '../pages/admin/Digitalextra/Digitalextra.jsx';
-import Frontendextra from '../pages/admin/Frontendextra/Frontendextra.jsx';
-import Addnewcourseacadmic from'../pages/admin/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
-import Addnewcourseextra from '../pages/admin/Addnewcourseextra/Addnewcourseextra.jsx';
-import Helpdesk from '../pages/admin/Helpdesk/Helpdesk.jsx';
-import AddDepartment from "../pages/admin/AddDepartment/AddDepartment.jsx";
-import EditStudent from "../pages/admin/EditStudent/EditStudent.jsx";
-import EditInstructor from "../pages/admin/EditInstructor/EditInstructor.jsx";
+import PaymentContent from '../pages/admin/PaymentContent/PaymentContent.jsx';
+import EditInstructor from '../pages/admin/SearchInstructors/EditInstructor.jsx';
+import EditStudent from '../pages/admin/SearchStudent/EditStudent.jsx';
+import AssignDetails from '../pages/instructor/Assignment/AssignDetails';
+import Assignments from '../pages/instructor/Assignment/Assignments.jsx';
+import EditAssignment from '../pages/instructor/Assignment/EditAssignment.jsx';
+import Chat from '../pages/instructor/Chat/Chat';
+import EditCourseMaterial from '../pages/instructor/courses/EditCourseMaterial.jsx';
+import MyCourses from '../pages/instructor/courses/mycourses';
+import UploadCourse from '../pages/instructor/courses/UploadCourse.jsx';
+import ProfilePage from '../pages/instructor/Profile/Profile';
+import EditExam from '../pages/instructor/Quizzes/editQuizz.jsx';
+import QuizDetailsPage from '../pages/instructor/Quizzes/quizzDetails';
 
-
+import AddNewCourseAcademic from '../pages/admin/CourseManagment/Addnewcourseacadmic/Addnewcourseacadmic.jsx';
+import AddNewCourseExtra from '../pages/admin/CourseManagment/Addnewcourseextra/Addnewcourseextra.jsx';
+import UpdateAcademicCourse from '../pages/admin/CourseManagment/Update/UpdateAcademicCourse.jsx';
+import UpdateExtraCourse from '../pages/admin/CourseManagment/Update/UpdateExtraCourse.jsx';
+import Quizzes from '../pages/instructor/Quizzes/Quizzes';
+import HelpdeskPage from '../pages/instructor/Report/Report';
+import AssignmentById from '../pages/student/AssignmentById';
+import StudentAssignments from '../pages/student/Assignments';
+import StudentChat from '../pages/student/Chat';
+import CourseById from '../pages/student/courses/CourseById';
+import CoursesForStudent from '../pages/student/courses/Courses.jsx';
+import Send from '../pages/student/helpDesk/Send.jsx';
+import StudentHome from '../pages/student/Home.jsx';
+import InstructorById from '../pages/student/InstructorById';
+import StudentInstructors from '../pages/student/Instructors';
+import Messages from '../pages/student/Messages';
+import StudentProfile from '../pages/student/Profile';
+import QuizById from '../pages/student/QuizById';
+import StudentQuizzes from '../pages/student/Quizzes';
+import ViewHelpDeskMessages from '../pages/instructor/Report/ViewHelpDeskMessages.jsx';
+import ViewMessages from '../pages/student/helpDesk/ViewMessages.jsx';
+import ChooseDepartment from '../pages/admin/Acadmic/ChooseDepartment.jsx';
+import Sections from '../pages/admin/Sections/Sections.jsx';
+import ViewMaterialList from '../pages/instructor/courses/ViewMaterial.jsx';
+import EnterGrade from '../pages/instructor/Assignment/EnterGrad.jsx';
+import EnterExamGrade from '../pages/instructor/Quizzes/EnterGrad.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
-  { 
-    index: true, 
-    element: <StudentHome /> 
-  },
-  
+  { index: true, path: '/student/home', element: <StudentHome /> },
   // Main student features
-  { 
-    path: '/student/courses', 
-    element: <Courses /> 
-  },
-  { 
-    path: '/student/instructors', 
-    element: <Instructors /> 
-  },
-  { 
-    path: '/student/assignments', 
-    element: <Assignments /> 
-  },
-  { 
-    path: '/student/quizzes', 
-    element: <Quizzes /> 
-  },
-  
+  { path: '/student/courses', element: <CoursesForStudent /> },
+  { path: '/student/instructors', element: <StudentInstructors /> },
+  { path: '/student/assignments', element: <StudentAssignments /> },
+  { path: '/student/quizzes', element: <StudentQuizzes /> },
   // Communication features
-  { 
-    path: '/student/chat', 
-    element: <Chat /> 
-  },
-  { 
-    path: '/student/messages', 
-    element: <Messages /> 
-  },
-  
+  { path: '/student/chat', element: <StudentChat /> },
+  { path: '/student/messages', element: <Messages /> },
   // Student resources
-  { 
-    path: '/student/report', 
-    element: <Report /> 
-  },
-  { 
-    path: '/student/profile', 
-    element: <Profile /> 
-  },
-  
+  { path: '/student/helpDesk/send', element: <Send /> },
+  { path: '/student/helpDesk', element: <ViewMessages /> },
+  { path: '/student/profile', element: <StudentProfile /> },
   // Dynamic routes for detailed views
-  { 
-    path: '/student/instructors/:id', 
-    element: <InstructorById /> 
-  },
-  { 
-    path: '/student/courses/:id', 
-    element: <CourseById /> 
-  },
-  { 
-    path: '/student/assignments/:id', 
-    element: <AssignmentById /> 
-  },
-  { 
-    path: '/student/quizzes/:id', 
-    element: <QuizById /> 
-  }
+  { path: '/student/instructors/:id', element: <InstructorById /> },
+  { path: '/student/courses/:id', element: <CourseById /> },
+  { path: '/student/assignments/:id', element: <AssignmentById /> },
+  { path: '/student/quizzes/:id', element: <QuizById /> },
 ];
 
+export const adminRoutes = [
+  //AcadmicRou //pages
+  {
+    index: true,
+    element: (
+      <AcademicRou>
+        <Courses />
+      </AcademicRou>
+    ),
+  },
+  //auth User
+  {
+    path: '/admin/addAdmin',
+    element: (
+      <AcademicRou>
+        <AddAdmin />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/instructors',
+    element: (
+      <AcademicRou>
+        <Instructors />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/student',
+    element: (
+      <AcademicRou>
+        <Student />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/registerInstructor',
+    element: (
+      <AcademicRou>
+        <RegisterInstructors />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/registerStudent',
+    element: (
+      <AcademicRou>
+        <RegisterStudents />
+      </AcademicRou>
+    ),
+  },
+  //helpDesk
+  {
+    path: '/admin/helpDesk',
+    element: (
+      <AcademicRou>
+        <HelpDesk />
+      </AcademicRou>
+    ),
+  },
+  // Courses
+  {
+    path: '/admin/courses',
+    element: (
+      <AcademicRou>
+        <Courses />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/courses/chooseDepartment',
+    element: (
+      <AcademicRou>
+        <ChooseDepartment />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/courses/chooseSection',
+    element: (
+      <AcademicRou>
+        <Sections />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/courses/academic',
+    element: (
+      <AcademicRou>
+        <AllAcademic />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/courses/extra',
+    element: (
+      <AcademicRou>
+        <AllExtra />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/addnewcourseextra',
+    element: (
+      <AcademicRou>
+        <AddNewCourseExtra />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/addnewcourseacadmic',
+    element: (
+      <AcademicRou>
+        <AddNewCourseAcademic />
+      </AcademicRou>
+    ),
+  },
 
+  {
+    path: '/admin/deletecourse',
+    element: (
+      <AcademicRou>
+        <DeleteCourse />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/departments',
+    element: (
+      <AcademicRou>
+        <Departments />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/courses/allcourses',
+    element: (
+      <AcademicRou>
+        <AllCourses />
+      </AcademicRou>
+    ),
+  },
+  // { path: '/admin/courses/allacademic', element: <AllAcademic /> },
+  {
+    path: '/admin/courses/academic/update/:id',
+    element: <UpdateAcademicCourse />,
+  },
+  {
+    path: '/admin/courses/extra/update/:id',
+    element: <UpdateExtraCourse />,
+  },
+  //Payment
+  {
+    path: '/admin/payment',
+    element: (
+      <AcademicRou>
+        <Payment />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/payment/:id',
+    element: (
+      <AcademicRou>
+        <PaymentContent />
+      </AcademicRou>
+    ),
+  },
+
+  //Department
+  {
+    path: '/admin/profile',
+    element: (
+      <AcademicRou>
+        <AdminProfile />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/addDepartment',
+    element: (
+      <AcademicRou>
+        <AddDepartment />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/editStudent/:id',
+    element: (
+      <AcademicRou>
+        <EditStudent />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/editInstructor/:id',
+    element: (
+      <AcademicRou>
+        <EditInstructor />
+      </AcademicRou>
+    ),
+  },
+];
 
 export const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/confirmEmail',
+    element: <ConfirmEmail />,
+  },
+  {
+    path: '/forgetPassword',
+    element: <ForgetPassword />,
+  },
+  {
+    path: '/ForgetPasswordVerifyCode',
+    element: <ForgetPasswordDetalis />,
+  },
+  {
+    path: '/ResetPassword',
+    element: <ResetPassword />,
+  },
   {
     path: '/',
     element: <LayoutWithSideBar />,
     children: [
       ...studentRoutes,
-      {path: '/admin/home' , element: <Home/>},
-      {path: '/admin/courses' , element: <Courses/>},
-      {path: '/admin/acadmic' , element: <Acadmic/>},
-      {path: '/admin/asacadmic', element: <Asacadmic/>},
-      {path: 'admin/isacadmic' , element: <Isacadmic/>},
-      {path: 'admin/msacadmic' , element: <Msacadmic/>},
-      {path: 'admin/oracadmic' , element: <Oracadmic/>},
-      {path:'admin/csacadmic', element: <Csacadmic/>},
-      {path: '/admin/extra' , element: <Extra/>},
-      {path: '/admin/programingextra' , element: <Programingextra/>},
-      {path: '/admin/languagesextra' , element: <Languagesextra/>},
-      {path: '/admin/backendextra' , element: <Backendextra/>},
-      {path: '/admin/frontendextra', element: <Frontendextra/>},
-      { path: '/admin/digitalextra' , element: <Digitalextra/>},
-      {path: '/admin/addnewcourseextra', element:<Addnewcourseextra/>},
-      {path:'/admin/addnewcourseacadmic', element: <Addnewcourseacadmic/>},
-      {path: '/admin/instructors' , element: <Instructors/>},
-      {path: '/admin/student' , element: <Student/>},
-      {path: '/admin/profile', element: <Profile /> },
-      {path: '/admin/about', element: <About /> },
-      {path: '/admin/registerInstructor' , element: <RegisterInstructors/>},
-      {path: '/admin/registerStudent' , element: <RegisterStudents/>},
-      {path: '/admin/addAdmin' , element: <AddAdmin/>},
-      {path: '/admin/Payment' , element: <Payment/>},
-      {path: '/admin/helpdesk' , element: <Helpdesk/>},
-      {path: "/admin/addDepartment", element: <AddDepartment /> },
-      {path: "/admin/editStudent/:id", element: <EditStudent /> },
-      {path: "/admin/editInstructor/:id", element: <EditInstructor /> },
-      // login & forget password
-      {path: '/login/:token', element: <Login/>},
-      {path: '/login' , element: <Login/>},
-      {path: '/forgetPassword' , element:<ForgetPassword/>},
-      ,
+      ...adminRoutes,
 
+      //instructor
+      { path: '/instructor/courses/mycourses', element: <MyCourses /> },
+      { path: '/instructor/profile', element: <ProfilePage /> },
+      { path: '/instructor/Assignment/Assignment', element: <Assignments /> },
+      { path: '/instructor/Quizzes/quizzes', element: <Quizzes /> },
+      { path: '/instructor/chat', element: <Chat /> },
+      { path: '/instructor/report', element: <ViewHelpDeskMessages /> },
+      { path: '/instructor/report/send', element: <HelpdeskPage /> },
+      { path: '/UploadCourse', element: <UploadCourse /> },
+      { path: '/instructor/Quizzes/Quizzes-details', element: <QuizDetailsPage /> },
+      { path: '/instructor/Quizzes/edit/:id', element: <EditExam /> },
+      { path: '/instructor/courses/edit/:id', element: <EditCourseMaterial /> },
+      { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
+      { path: '/instructor/Assignment/edit/:id', element: <EditAssignment /> },
+      { path: '/instructor/courses/view-material', element: <ViewMaterialList /> },
+      { path: '/instructor/Assignment/enter-grade/:id', element: <EnterGrade /> },
+      { path: '/instructor/Quizzes/enter-grade/:id', element: <EnterExamGrade /> },
     ],
   },
-  {path: '*' , element: <NotFound />}
+
+  //NotFound
+  { path: '*', element: <NotFound /> },
 ]);
