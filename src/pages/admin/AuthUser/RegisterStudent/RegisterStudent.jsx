@@ -18,7 +18,7 @@ export default function RegisterStudents() {
         setIsLoading(true);
         try {
             let { data } = await axios.post(`http://localhost:3000/api/v1/auth/addUser/addStudent?ln=en`, values);
-            navigate('/admin/home');  // path to redirect
+            navigate('/admin/courses');  // path to redirect
 
         } catch (err) {
             setIsLoading(false);

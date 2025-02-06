@@ -23,7 +23,7 @@ export default function AddAdmin() {
                 values.phone2 = null;
             }
             let { data } = await axios.post(`http://localhost:3000/api/v1/auth/addUser/insertAddAdmin?ln=en`, values);
-            navigate('/admin/home');    // path to redirect
+            navigate('/admin/courses');    // path to redirect
 
         } catch (err) {
             setIsLoading(false);
