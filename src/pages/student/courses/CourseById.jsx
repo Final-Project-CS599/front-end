@@ -21,7 +21,7 @@ const CourseById = () => {
   const { data: enrolledCourses, isLoading: isEnrolledLoading, refetch } = useGetStudentCourses();
   const enrollMutation = useEnrollCourse();
 
-  const isEnrolled = enrolledCourses?.some(
+  const isEnrolled = enrolledCourses?.data?.some(
     (enrolledCourse) => Number(enrolledCourse.c_id) === Number(id)
   );
 
