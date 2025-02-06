@@ -69,7 +69,7 @@ const EditExam = () => {
       {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="e_title">
-          <Form.Label>Title</Form.Label>
+          <Form.Label>Title <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             type="text"
             name="e_title"
@@ -80,7 +80,7 @@ const EditExam = () => {
         </Form.Group>
 
         <Form.Group controlId="e_description">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Description <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             type="text"
             name="e_description"
@@ -91,7 +91,7 @@ const EditExam = () => {
         </Form.Group>
 
         <Form.Group controlId="e_degree">
-          <Form.Label>Degree</Form.Label>
+          <Form.Label>Degree <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             type="number"
             name="e_degree"
@@ -102,7 +102,7 @@ const EditExam = () => {
         </Form.Group>
 
         <Form.Group controlId="e_type">
-          <Form.Label>Type</Form.Label>
+          <Form.Label>Type <span className='text-danger'>*</span> </Form.Label>
           <Form.Control as="select" name="e_type" value={examData.e_type} onChange={handleChange}>
             <option value="mid-term">Mid-Term</option>
             <option value="final-exam">Final Exam</option>
@@ -110,7 +110,7 @@ const EditExam = () => {
         </Form.Group>
 
         <Form.Group controlId="e_link">
-          <Form.Label>Link</Form.Label>
+          <Form.Label>Link <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             type="url"
             name="e_link"
