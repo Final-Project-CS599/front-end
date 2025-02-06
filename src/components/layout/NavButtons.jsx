@@ -19,11 +19,6 @@ import { BiSolidChat } from 'react-icons/bi';
 
 export const adminNavButtons = [
   {
-    text: 'Dashboard',
-    icon: <MdDashboard />,
-    to: '/admin/home',
-  },
-  {
     text: 'Department',
     icon: <FaBuilding />,
     to: '/admin/AddDepartment',
@@ -150,7 +145,7 @@ export const getHomePath = (role) => {
   switch (role) {
     case 'admin':
     case 'sAdmin':
-      return '/admin/home';
+      return '/admin/courses';
     case 'instructor':
       return '/instructor/courses/mycourses';
     case 'student':

@@ -14,7 +14,6 @@ import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterSt
 import Student from '../pages/admin/AuthUser/Student/Student.jsx';
 //home route
 import HelpDesk from './../pages/admin/Helpdesk/HelpDesk.jsx';
-import HomeDashboard from '../pages/admin/HomeAndFooter/Home/Home.jsx';
 //Academic Router & Notfound
 import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRou.jsx';
 import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
@@ -94,11 +93,7 @@ export const adminRoutes = [
     //AcadmicRou //pages
     {
       index: true,
-      element:  <AcademicRou> <HomeDashboard /> </AcademicRou> ,
-    },
-    {
-      path: '/admin/home',
-      element:  <AcademicRou> <HomeDashboard /> </AcademicRou> ,
+      element:  <AcademicRou> <Courses /> </AcademicRou> ,
     },
     //auth User
     {
