@@ -69,7 +69,7 @@ const QuizDetailsPage = () => {
       {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={formik.handleSubmit}>
         <Form.Group controlId="formExamTitle">
-          <Form.Label>Title</Form.Label>
+          <Form.Label>Title <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter exam title"
@@ -83,7 +83,7 @@ const QuizDetailsPage = () => {
         </Form.Group>
 
         <Form.Group controlId="formExamDescription" className="mt-3">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Description <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             as="textarea"
             rows={3}
@@ -100,7 +100,7 @@ const QuizDetailsPage = () => {
         </Form.Group>
 
         <Form.Group controlId="formExamDegree" className="mt-3">
-          <Form.Label>Degree</Form.Label>
+          <Form.Label>Degree <span className='text-danger'>*</span></Form.Label>
           <Form.Control
             type="number"
             placeholder="Enter exam degree"
@@ -114,7 +114,7 @@ const QuizDetailsPage = () => {
         </Form.Group>
 
         <Form.Group controlId="formExamLink" className="mt-3">
-          <Form.Label>Link</Form.Label>
+          <Form.Label>Link <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             type="url"
             placeholder="Enter exam link"
@@ -128,7 +128,7 @@ const QuizDetailsPage = () => {
         </Form.Group>
 
         <Form.Group controlId="formCourseId" className="mt-3">
-          <Form.Label>Course ID</Form.Label>
+          <Form.Label>Course ID <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter course ID"
@@ -142,7 +142,7 @@ const QuizDetailsPage = () => {
         </Form.Group>
 
         <Form.Group controlId="formExamType" className="mt-3">
-          <Form.Label>Exam Type</Form.Label>
+          <Form.Label>Exam Type <span className='text-danger'>*</span> </Form.Label>
           <Form.Control
             as="select"
             name="e_type"
