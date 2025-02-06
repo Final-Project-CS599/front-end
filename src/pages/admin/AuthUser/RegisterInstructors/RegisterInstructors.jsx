@@ -24,7 +24,7 @@ export default function RegisterInstructors() {
           values.phone2 = null;
         }
           let { data } = await axios.post(`http://localhost:3000/api/v1/auth/addUser/addInstructor?ln=en`, values);
-          navigate('/admin/home');  // path to redirect
+          navigate('/admin/courses');  // path to redirect
 
       } catch (err) {
           setIsLoading(false);
