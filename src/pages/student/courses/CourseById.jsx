@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetCourseById } from '../../../api/student/courses';
 import { useEnrollCourse } from '../../../api/student/courses';
 import { useGetStudentCourses } from '../../../api/student/courses';
@@ -11,6 +11,7 @@ const CourseById = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [receiptFile, setReceiptFile] = useState(null);
+  const navigate = useNavigate();
 
   const {
     data: course,
@@ -32,6 +33,7 @@ const CourseById = () => {
       enrollMutation.mutate(id, {
         onSuccess: () => {
           showToast('Enrolled successfully!', 'success');
+          navigate('/student/courses');
           refetchCourse();
           refetch();
         },
@@ -71,6 +73,8 @@ const CourseById = () => {
         showToast('Receipt uploaded and enrolled successfully!', 'success');
         setIsModalOpen(false);
         refetchCourse();
+        navigate('/student/courses');
+
         refetch();
       }
     } catch (error) {
@@ -85,6 +89,35 @@ const CourseById = () => {
   if (isCourseError) {
     return <p>Error fetching course details.</p>;
   }
+
+  const handleDownload = async () => {
+    try {
+      // Fetch the file
+      const response = await fetch(`http://localhost:3000${course.media[0].link}`);
+      const blob = await response.blob();
+
+      // Create a blob URL
+      const url = window.URL.createObjectURL(blob);
+
+      // Create temporary link element
+      const link = document.createElement('a');
+      link.href = url;
+
+      // Set the download filename - you can customize this
+      link.download = course.media[0].filename || 'course-material';
+
+      // Append to document, click, and cleanup
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Release the blob URL
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Handle error appropriately
+    }
+  };
 
   return (
     <>
@@ -135,6 +168,16 @@ const CourseById = () => {
                 <strong>Last Updated:</strong> {new Date(course.c_updated_at).toLocaleString()}
               </p>
             </div>
+
+            {/* Course Material Download Link */}
+            {course.media && (
+              <div className="mb-4">
+                <h5 className="mb-3">Course Material</h5>
+                <button onClick={handleDownload} className="btn btn-outline-primary">
+                  Download Material
+                </button>
+              </div>
+            )}
 
             {/* Enrollment Section */}
             <div className="text-center">

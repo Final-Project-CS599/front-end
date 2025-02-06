@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 const Courses = () => {
   const { data, error, isLoading } = useGetStudentCourses();
   const navigate = useNavigate();
-  console.log(data);
 
   if (isLoading) {
     return <p>Loading courses...</p>;
@@ -67,6 +66,7 @@ const Courses = () => {
                 img={course.image || img} // Fallback image if course.image is not provided
                 id={course?.c_id}
                 type={course?.c_type}
+                grade={course?.final_grade}
               />
             </div>
           ))}

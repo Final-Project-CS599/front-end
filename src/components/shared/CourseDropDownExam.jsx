@@ -2,19 +2,17 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetStudentCourses } from '../../api/student/courses';
 import { Table } from 'react-bootstrap';
+import { useGetExams } from '../../api/student/quiz';
 
-const CourseDropDown = ({ title, type, fetchData }) => {
+const CourseDropDownExam = ({ title, type }) => {
   const [selectedOption, setSelectedOption] = useState('');
-  const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = fetchData(selectedOption);
+  const { data, isLoading, isError, error } = useGetExams(selectedOption);
   const {
     data: courses,
     error: coursesError,
     isLoading: isCoursesLoading,
   } = useGetStudentCourses();
-
-  console.log('Fetched Data:', data); // Debugging the API response
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
@@ -23,6 +21,8 @@ const CourseDropDown = ({ title, type, fetchData }) => {
   const handleViewClick = (link) => {
     window.open(link, '_blank');
   };
+
+  console.log('API Response:', data); // Debugging: Check what data contains
 
   return (
     <div>
@@ -43,15 +43,12 @@ const CourseDropDown = ({ title, type, fetchData }) => {
         ))}
       </select>
 
-      {/* Display message if no course is selected */}
       {!selectedOption && !isCoursesLoading && !coursesError && (
         <p className="mt-3">Please select a course to view {type}.</p>
       )}
 
-      {/* Display loading state for courses */}
       {isCoursesLoading && <p className="mt-3">Loading courses...</p>}
 
-      {/* Display error state for courses */}
       {coursesError && (
         <p className="mt-3 text-danger">
           Error fetching courses: {coursesError}. Please try refreshing the page.
@@ -66,7 +63,7 @@ const CourseDropDown = ({ title, type, fetchData }) => {
             {error?.response?.data?.message}. Please try refreshing the page or selecting a
             different course.
           </p>
-        ) : selectedOption && data?.assignments?.length > 0 ? (
+        ) : selectedOption && data?.exams?.length > 0 ? ( // FIXED: Changed assignments to exams
           <Table striped bordered hover className="mt-3">
             <thead>
               <tr>
@@ -74,23 +71,21 @@ const CourseDropDown = ({ title, type, fetchData }) => {
                 <th>Title</th>
                 <th>Description</th>
                 <th>Degree</th>
-                <th>Publish date</th>
-                <th>Type</th>
+                <th>Publish Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {data?.assignments?.map((row, index) => (
-                <tr key={row.a_id || index}>
-                  <td>{row.a_courseId}</td>
-                  <td>{row.a_title}</td>
-                  <td>{row.a_description}</td>
-                  <td>{row.a_degree || row.e_degree}</td>
-                  <td>{new Date(row.a_publish_date || row.e_publish_date).toLocaleDateString()}</td>
-                  <td>{row.a_type ? (row.a_type === 'extra' ? 'Extra' : 'Final Exam') : 'Exam'}</td>
+              {data?.exams?.map((row, index) => (
+                <tr key={row.e_id || index}>
+                  <td>{row.e_courseId}</td>
+                  <td>{row.e_title}</td>
+                  <td>{row.e_description}</td>
+                  <td>{row.e_degree}</td>
+                  <td>{new Date(row.e_publish_date).toLocaleDateString()}</td>
                   <td>
                     <button
-                      onClick={() => handleViewClick(row.a_link || row.e_link)}
+                      onClick={() => handleViewClick(row.e_link)} // FIXED: Removed row.a_link
                       className="btn btn-outline-primary w-50"
                     >
                       Visit
@@ -100,7 +95,7 @@ const CourseDropDown = ({ title, type, fetchData }) => {
               ))}
             </tbody>
           </Table>
-        ) : selectedOption && data?.assignments?.length === 0 ? (
+        ) : selectedOption && data?.exams?.length === 0 ? ( // FIXED: Changed assignments to exams
           <p>No {type} found for the selected course.</p>
         ) : null}
       </div>
@@ -108,4 +103,4 @@ const CourseDropDown = ({ title, type, fetchData }) => {
   );
 };
 
-export default CourseDropDown;
+export default CourseDropDownExam;

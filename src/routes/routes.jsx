@@ -66,6 +66,8 @@ import ViewMessages from '../pages/student/helpDesk/ViewMessages.jsx';
 import ChooseDepartment from '../pages/admin/Acadmic/ChooseDepartment.jsx';
 import Sections from '../pages/admin/Sections/Sections.jsx';
 import ViewMaterialList from '../pages/instructor/courses/ViewMaterial.jsx';
+import EnterGrade from '../pages/instructor/Assignment/EnterGrad.jsx';
+import EnterExamGrade from '../pages/instructor/Quizzes/EnterGrad.jsx';
 
 export const studentRoutes = [
   // Student dashboard/home
@@ -90,37 +92,65 @@ export const studentRoutes = [
 ];
 
 export const adminRoutes = [
-    //AcadmicRou //pages
-    {
-      index: true,
-      element:  <AcademicRou> <Courses /> </AcademicRou> ,
-    },
-    //auth User
-    {
-      path: '/admin/addAdmin',
-      element: <AcademicRou> <AddAdmin /> </AcademicRou> ,
-    },
-    {
-      path: '/admin/instructors',
-      element:  <AcademicRou> <Instructors /> </AcademicRou> ,
-    },
-    {
-      path: '/admin/student',
-      element:  <AcademicRou> <Student /> </AcademicRou> ,
-    },
-    {
-      path: '/admin/registerInstructor',
-      element:  <AcademicRou> <RegisterInstructors /> </AcademicRou> ,
-    },
-    {
-      path: '/admin/registerStudent',
-      element: <AcademicRou> <RegisterStudents /> </AcademicRou> ,
-    },
-    //helpDesk
-    {
-      path: '/admin/helpDesk',
-      element: <AcademicRou> <HelpDesk /> </AcademicRou> ,
-    },
+  //AcadmicRou //pages
+  {
+    index: true,
+    element: (
+      <AcademicRou>
+        <Courses />
+      </AcademicRou>
+    ),
+  },
+  //auth User
+  {
+    path: '/admin/addAdmin',
+    element: (
+      <AcademicRou>
+        <AddAdmin />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/instructors',
+    element: (
+      <AcademicRou>
+        <Instructors />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/student',
+    element: (
+      <AcademicRou>
+        <Student />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/registerInstructor',
+    element: (
+      <AcademicRou>
+        <RegisterInstructors />
+      </AcademicRou>
+    ),
+  },
+  {
+    path: '/admin/registerStudent',
+    element: (
+      <AcademicRou>
+        <RegisterStudents />
+      </AcademicRou>
+    ),
+  },
+  //helpDesk
+  {
+    path: '/admin/helpDesk',
+    element: (
+      <AcademicRou>
+        <HelpDesk />
+      </AcademicRou>
+    ),
+  },
   // Courses
   {
     path: '/admin/courses',
@@ -308,6 +338,8 @@ export const router = createBrowserRouter([
       { path: '/instructor/Assignment/Assign-details', element: <AssignDetails /> },
       { path: '/instructor/Assignment/edit/:id', element: <EditAssignment /> },
       { path: '/instructor/courses/view-material', element: <ViewMaterialList /> },
+      { path: '/instructor/Assignment/enter-grade/:id', element: <EnterGrade /> },
+      { path: '/instructor/Quizzes/enter-grade/:id', element: <EnterExamGrade /> },
     ],
   },
 

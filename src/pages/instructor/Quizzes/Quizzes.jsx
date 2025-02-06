@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDeleteExam, useGetExam } from '../../../api/instructor/exam';
 
 const QuizzesInstructor = () => {
-  const [exams, setExams] = useState([]);
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const { data, isLoading, isError, refetch } = useGetExam();
@@ -69,11 +67,10 @@ const QuizzesInstructor = () => {
         </Button>
       </div>
 
-      {error && <Alert variant="danger">{error}</Alert>}
-
       <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
+            <th>Course ID</th>
             <th>Title</th>
             <th>Description</th>
             <th>Degree</th>
@@ -85,21 +82,38 @@ const QuizzesInstructor = () => {
         <tbody>
           {data?.data?.map((exam) => (
             <tr key={exam.e_id}>
+              <td>{exam.e_id}</td>
               <td>{exam.e_title}</td>
               <td>{exam.e_description}</td>
               <td>{exam.e_degree}</td>
               <td>{exam.e_type === 'mid-term' ? 'Mid-Term' : 'Final Exam'}</td>
               <td>{exam.e_link}</td>
               <td>
-                <Button
-                  variant="warning"
-                  onClick={() => navigate(`/instructor/Quizzes/edit/${exam.e_id}`)}
-                >
-                  Edit
-                </Button>
-                <Button variant="danger" onClick={() => handleDelete(exam.e_id)} className="ms-2">
-                  Delete
-                </Button>
+                <div className="d-flex flex-column flex-md-column flex-lg-row">
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    onClick={() => navigate(`/instructor/Quizzes/edit/${exam.e_id}`)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    onClick={() => handleDelete(exam.e_id)}
+                    className="ms-2"
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="success"
+                    className="ms-2"
+                    onClick={() => navigate(`/instructor/Quizzes/enter-grade/${exam.e_id}`)}
+                  >
+                    Grade
+                  </Button>
+                </div>
               </td>
             </tr>
           ))}

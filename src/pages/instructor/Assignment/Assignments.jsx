@@ -87,6 +87,7 @@ const Assignments = () => {
         <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
+              <th>Course ID</th>
               <th>Title</th>
               <th>Description</th>
               <th>Degree</th>
@@ -98,26 +99,39 @@ const Assignments = () => {
             {assignments.length > 0 ? (
               assignments.map((assignment) => (
                 <tr key={assignment.a_id}>
+                  <td>{assignment.a_courseId}</td>
                   <td>{assignment.a_title}</td>
                   <td>{assignment.a_description}</td>
                   <td>{assignment.a_degree}</td>
                   <td>{assignment.a_type === 'extra' ? 'Extra' : 'Final Exam'}</td>
                   <td>
-                    <Button
-                      variant="warning"
-                      size="sm"
-                      onClick={() => navigate(`/instructor/Assignment/edit/${assignment.a_id}`)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      className="ms-2"
-                      onClick={() => handleDelete(assignment.a_id)}
-                    >
-                      Delete
-                    </Button>
+                    <div className="d-flex flex-column flex-md-column flex-lg-row">
+                      <Button
+                        variant="warning"
+                        size="sm"
+                        onClick={() => navigate(`/instructor/Assignment/edit/${assignment.a_id}`)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        className="ms-2"
+                        onClick={() => handleDelete(assignment.a_id)}
+                      >
+                        Delete
+                      </Button>
+                      <Button
+                        variant="success"
+                        size="sm"
+                        className="ms-2"
+                        onClick={() =>
+                          navigate(`/instructor/Assignment/enter-grade/${assignment.a_id}`)
+                        }
+                      >
+                        Grade
+                      </Button>
+                    </div>
                   </td>
                 </tr>
               ))

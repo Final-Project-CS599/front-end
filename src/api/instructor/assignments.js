@@ -74,3 +74,28 @@ export const useSearchAssignment = (query) => {
     retry: 2,
   });
 };
+
+const getStudents = async (courseId) => {
+  const response = await axiosInstance.get(`/assignment/viewStudents?courseId=${courseId}`);
+  return response.data;
+};
+
+export const useGetStudents = (id) => {
+  return useQuery({
+    queryKey: ['viewStudents'],
+    queryFn: () => getStudents(id),
+    enabled: !!id,
+  });
+};
+
+const submitAssignment = async (body) => {
+  const response = await axiosInstance.post('/student/submitassignment', body);
+  return response;
+};
+
+export const useSubmitAssignment = () => {
+  return useMutation({
+    mutationKey: ['submitAssignment'],
+    mutationFn: submitAssignment,
+  });
+};

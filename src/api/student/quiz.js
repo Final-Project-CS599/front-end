@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosInstance } from '../axiosCopy'; // Adjust the import path as needed
 
 export const getExams = async (course_id) => {
@@ -12,5 +12,16 @@ export const useGetExams = (course_id) => {
     queryFn: () => getExams(course_id),
     enabled: !!course_id, // Only fetch data if course_id is provided
     retry: 2,
+  });
+};
+
+const submitExam = async (data) => {
+  const response = await axiosInstance.post('/student/submitexam', data);
+  return response.data;
+};
+
+export const useSubmitExam = () => {
+  return useMutation({
+    mutationFn: submitExam,
   });
 };
