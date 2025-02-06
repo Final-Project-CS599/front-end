@@ -19,8 +19,11 @@ export default function AddAdmin() {
     async function RegisterSubmit(values){
         setIsLoading(true);
         try {
+            if (!values.phone2 || values.phone2 === '') {
+                values.phone2 = null;
+            }
             let { data } = await axios.post(`http://localhost:3000/api/v1/auth/addUser/insertAddAdmin?ln=en`, values);
-            navigate('/admin/home');    // path to redirect
+            navigate('/admin/courses');    // path to redirect
 
         } catch (err) {
             setIsLoading(false);
@@ -38,12 +41,14 @@ export default function AddAdmin() {
         sAdminNationalID: yup.string().matches(/^[0-9]{14}$/, 'AdminNational ID is invalid (example: 01234567890123)').required('AdminNational ID is required'),
         email: yup.string().email('Email is invalid').required('Email is required'),
         phone1: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').required('At least one phone number is required'),
-        phone2: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').nullable().notRequired(),
+        phone2: yup.string()
+            .matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)')
+            .nullable()
+            .notRequired()
+            .transform(value => (value === '' ? null : value)), // Transform empty string to null
+
         adminRole: yup.string().min(1, 'Name minlength is 2').max(100, 'Name maxlength is 100').required('adminRole is required'),
         password: yup.string().oneOf([yup.ref("adminNationalID")], 'adminNationalID and Password must match').required('Password is required'),
-
-        // password: yup.string().matches(/^[0-9]{14}$/, 'Password National ID 14 digits (example: 12345678910145) ').required('Password is required'),
-        // confirmPassword: yup.string().oneOf([yup.ref("password")], 'Password and confirmPassword must match').required('RePassword is required')
     });
 
     let formik = useFormik({
@@ -54,10 +59,9 @@ export default function AddAdmin() {
             sAdminNationalID: '',
             email: '',
             phone1: '',
-            phone2: '',
+            phone2: null,
             adminRole: '',
             password: '',
-            // confirmPassword: '',
         },
         validationSchema: validateScheme,
         onSubmit: RegisterSubmit
@@ -103,10 +107,13 @@ return <>
                 <input type='tel' id='phone1' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone1} name='phone1'/>
                 {formik.errors.phone1 && formik.touched.phone1? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone1}</div>:''}
                 
-                <label htmlFor="phone2" className=' pt-3'>Phone2 : </label>
-                <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone2} name='phone2'/>
-                {/* {formik.errors.phone2 && formik.touched.phone2? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone2}</div>:''} */}
-                
+
+                <label htmlFor='phone2' className=' pt-3'>Phone2 :</label>
+                <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control'
+                    value={formik.values.phone2} name='phone2'
+                />
+                {formik.errors.phone2 && formik.touched.phone2 ?<div className="alert alert-danger mt-2 p-2">{formik.errors.phone2}</div> : ""}
+
                 <label htmlFor='adminRole' className=' pt-3'> Admin Role <span className='text-danger'>*</span> :</label>
                 <input type='text' id='adminRole' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.adminRole} name='adminRole'/>
                 {formik.errors.adminRole && formik.touched.adminRole? <div className="alert alert-danger mt-2 p-2">{formik.errors.adminRole}</div>:''}
@@ -124,19 +131,7 @@ return <>
                 </div>
                 {formik.errors.password && formik.touched.password?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.password}</div>:''}
                 
-
-                {/* <label htmlFor="confirmPassword" className=' pt-3'> confirm-Password (Number National NID User) <span className='text-danger'>*</span> :</label>
-                <div className="input-group">
-                    <input type={showPassword? 'text' : 'password' }id='confirmPassword'  placeholder="confirmPassword" 
-                        onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
-                        value={formik.values.confirmPassword} name='confirmPassword'  autoComplete="new-password"
-                    />
-                    <span className="input-group-text" onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
-                        {showPassword? <FaRegEye /> : <FaRegEyeSlash />}
-                    </span>
-                </div>
-                {formik.errors.confirmPassword && formik.touched.confirmPassword?<div className="alert alert-danger mt-2 p-2 ">{formik.errors.confirmPassword}</div>:''}
-                 */}
+                
                 {isLoading? <button  type=' buttom' className='btn bg-main text-white mt-2'>
                         <Audio
                             height="20"

@@ -33,8 +33,10 @@ const NavBar = () => {
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
 
-          <button onClick={() => logOut()} className="btn buttoncolor pb-2 me-4">
-            <span className="cursor-pointer">Logout</span>
+          <button className="btn buttoncolor pb-2 me-4">
+            <span onClick={() => logOut()} className="cursor-pointer">
+              Logout
+            </span>
           </button>
         </div>
       </div>

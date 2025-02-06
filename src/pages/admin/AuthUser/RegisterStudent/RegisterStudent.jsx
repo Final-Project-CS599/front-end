@@ -18,7 +18,7 @@ export default function RegisterStudents() {
         setIsLoading(true);
         try {
             let { data } = await axios.post(`http://localhost:3000/api/v1/auth/addUser/addStudent?ln=en`, values);
-            navigate('/admin/home');  // path to redirect
+            navigate('/admin/courses');  // path to redirect
 
         } catch (err) {
             setIsLoading(false);
@@ -36,7 +36,11 @@ export default function RegisterStudents() {
         middleName: yup.string().min(2 , 'middleName minlength is 2').max(100 , 'middleName maxlength is 100').required('middleName is required'),
         email: yup.string().email('Email is invalid').required('Email is required'),
         phone1: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').required('At least one phone number is required'),
-        phone2: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').optional(),
+        phone2: yup.string()
+            .matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)')
+            .nullable()
+            .notRequired()
+            .transform(value => (value === '' ? null : value)), // Transform empty string to null
         numberNational: yup.string().matches(/^[0-9]{14}$/ , 'numberNational ID is invalid (example: 01234567890123)').required('numberNational ID is required'),
         department: yup.string().min(1, 'department minlength is 1').max(100 , 'department maxlength is 100').required('department is required'),
         gander: yup.string().oneOf(['Male', 'Female'], 'Gender must be either Male or Female').default('Female').required('Gander is required'),
@@ -53,7 +57,7 @@ export default function RegisterStudents() {
             middleName:'',
             email:'',
             phone1: '',
-            phone2: '',
+            phone2: null,
             numberNational:'',
             department:'',
             gander:'',
@@ -102,11 +106,12 @@ return <>
             <input type='tel' id='phone1' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone1} name='phone1'/>
             {formik.errors.phone1 && formik.touched.phone1? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone1}</div>:''}
             
-            <label htmlFor="phone2" className=' pt-3'>Phone2 : </label>
-            <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone2} name='phone2'/>
-            
-            {/* {formik.errors.phone2 && formik.touched.phone2? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone2}</div>:''} */}
-            
+            <label htmlFor='phone2' className=' pt-3'>Phone2 :</label>
+            <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control'
+                value={formik.values.phone2} name='phone2'
+            />
+            {formik.errors.phone2 && formik.touched.phone2 ?<div className="alert alert-danger mt-2 p-2">{formik.errors.phone2}</div> : ""}
+
             
             <label htmlFor="numberNational" className=' pt-3'>Number National <span className='text-danger'>*</span> :</label>
             <input type='text' id="numberNational" onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.numberNational} name="numberNational"/>

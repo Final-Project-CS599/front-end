@@ -62,7 +62,7 @@ export const useGetAssignmentById = (assinId) => {
 };
 
 export const searchAssignment = async (s) => {
-  const response = await axiosInstance.get(`/assignment/search?s=${s}`);
+  const response = await axiosInstance.get(`/assignment/searchAssignment?assignment=${s}`);
   return response.data;
 };
 
@@ -70,7 +70,7 @@ export const useSearchAssignment = (query) => {
   return useQuery({
     queryKey: ['searchAssignment', query],
     queryFn: () => searchAssignment(query),
-    enabled: !!query, 
+    enabled: !!query,
     retry: 2,
   });
 };

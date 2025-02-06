@@ -21,7 +21,7 @@ const Courses = () => {
   }
 
   // Handle case where there are no courses
-  if (!data || data?.length === 0) {
+  if (!data || data?.data?.length === 0) {
     return (
       <div className="text-center">
         <img src={img} alt="No courses" className="img-fluid" style={{ maxWidth: '300px' }} />
@@ -43,7 +43,7 @@ const Courses = () => {
   return (
     <div>
       <h3 className="mb-3">Courses</h3>
-      {data?.length === 0 ? (
+      {data?.data?.length === 0 ? (
         <div className="d-flex flex-column align-items-center justify-content-center text-center">
           <img src={img} alt="No courses" className="img-fluid" style={{ maxWidth: '300px' }} />
           <h4 className="mt-3">No courses found</h4>
@@ -59,7 +59,7 @@ const Courses = () => {
         </div>
       ) : (
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          {data?.map((course) => (
+          {data?.data?.map((course) => (
             <div key={course?.c_id} className="col">
               <Card
                 title={course?.c_name}

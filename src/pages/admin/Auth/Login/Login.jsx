@@ -42,7 +42,7 @@ export default function Login() {
             localStorage.setItem('userData', JSON.stringify(userData));
 
             if (userData.role === "admin" || userData.role === "sAdmin") {
-                navigate("/admin/home");
+                navigate("/admin/courses");
             } 
             else if (userData.role === "instructor") {
                 navigate("/instructor/courses/mycourses");

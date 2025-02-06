@@ -14,7 +14,6 @@ import RegisterStudents from '../pages/admin/AuthUser/RegisterStudent/RegisterSt
 import Student from '../pages/admin/AuthUser/Student/Student.jsx';
 //home route
 import HelpDesk from './../pages/admin/Helpdesk/HelpDesk.jsx';
-import HomeDashboard from '../pages/admin/HomeAndFooter/Home/Home.jsx';
 //Academic Router & Notfound
 import AcademicRou from '../pages/admin/RouterAndNotFound/AcademicRou/AcademicRou.jsx';
 import NotFound from '../pages/admin/RouterAndNotFound/NotFound/NotFound.jsx';
@@ -91,73 +90,37 @@ export const studentRoutes = [
 ];
 
 export const adminRoutes = [
-  //AcadmicRou //pages
-  {
-    index: true,
-    element: (
-      <AcademicRou>
-        <HomeDashboard />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/home',
-    element: (
-      <AcademicRou>
-        <HomeDashboard />
-      </AcademicRou>
-    ),
-  },
-  //auth User
-  {
-    path: '/admin/addAdmin',
-    element: (
-      <AcademicRou>
-        <AddAdmin />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/instructors',
-    element: (
-      <AcademicRou>
-        <Instructors />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/student',
-    element: (
-      <AcademicRou>
-        <Student />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/registerInstructor',
-    element: (
-      <AcademicRou>
-        <RegisterInstructors />
-      </AcademicRou>
-    ),
-  },
-  {
-    path: '/admin/registerStudent',
-    element: (
-      <AcademicRou>
-        <RegisterStudents />
-      </AcademicRou>
-    ),
-  },
-  //helpDesk
-  {
-    path: '/admin/helpDesk',
-    element: (
-      <AcademicRou>
-        <HelpDesk />
-      </AcademicRou>
-    ),
-  },
+    //AcadmicRou //pages
+    {
+      index: true,
+      element:  <AcademicRou> <Courses /> </AcademicRou> ,
+    },
+    //auth User
+    {
+      path: '/admin/addAdmin',
+      element: <AcademicRou> <AddAdmin /> </AcademicRou> ,
+    },
+    {
+      path: '/admin/instructors',
+      element:  <AcademicRou> <Instructors /> </AcademicRou> ,
+    },
+    {
+      path: '/admin/student',
+      element:  <AcademicRou> <Student /> </AcademicRou> ,
+    },
+    {
+      path: '/admin/registerInstructor',
+      element:  <AcademicRou> <RegisterInstructors /> </AcademicRou> ,
+    },
+    {
+      path: '/admin/registerStudent',
+      element: <AcademicRou> <RegisterStudents /> </AcademicRou> ,
+    },
+    //helpDesk
+    {
+      path: '/admin/helpDesk',
+      element: <AcademicRou> <HelpDesk /> </AcademicRou> ,
+    },
   // Courses
   {
     path: '/admin/courses',
