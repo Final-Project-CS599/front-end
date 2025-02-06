@@ -8,12 +8,10 @@ const ViewMaterialList = () => {
   const { data, isLoading, isError, refetch } = useGetMaterial();
   const { mutate } = useDeleteMaterial();
 
-  // Handle loading state
   if (isLoading) {
     return <p>Loading Material...</p>;
   }
 
-  // Handle error state
   if (isError) {
     return (
       <Alert variant="danger" className="mt-4">
@@ -21,7 +19,6 @@ const ViewMaterialList = () => {
       </Alert>
     );
   }
-  // Handle empty data
   if (!data || data?.data?.length === 0) {
     return (
       <div className="container mt-4">

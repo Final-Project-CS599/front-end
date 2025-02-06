@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { showToast } from '../../../../utils/toast';
 import { ToastContainer } from 'react-toastify';
 
-// Validation Schema (remains the same)
 const validationSchema = Yup.object().shape({
   instructorName: Yup.string()
     .min(2, 'Instructor Name must be at least 2 characters')

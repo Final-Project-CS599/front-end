@@ -6,7 +6,6 @@ const NavButton = ({ text, icon, to }) => {
     <div className="d-flex align-items-center gap-2 w-100">
       <NavLink
         className={({ isActive }) => {
-          // Check if current route starts with the base path
           const currentPath = window.location.pathname;
           const basePath = to.replace(/\/$/, '');
           const isRouteActive = currentPath.startsWith(basePath);
@@ -16,7 +15,6 @@ const NavButton = ({ text, icon, to }) => {
         to={to}
       >
         {({ isActive }) => {
-          // Check if current route starts with the base path
           const currentPath = window.location.pathname;
           const basePath = to.replace(/\/$/, '');
           const isRouteActive = currentPath.startsWith(basePath);

@@ -15,17 +15,15 @@ function AllAcademic() {
   useEffect(() => {
     if (data && data.data) {
       if (departmentId) {
-        // Filter courses based on department ID
         const filteredCourses = data.data.filter(
           (course) => course.departmentId === parseInt(departmentId)
         );
         setCourses(filteredCourses);
       } else {
-        // If no department ID is selected, display all courses
         setCourses(data.data);
       }
     }
-  }, [data, departmentId]); // Re-run effect when data or departmentId changes
+  }, [data, departmentId]);
 
   if (isLoading) {
     return <p className="text-center mt-4">Loading...</p>;

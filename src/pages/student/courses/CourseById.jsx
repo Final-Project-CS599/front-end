@@ -11,6 +11,8 @@ const CourseById = () => {
   const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [receiptFile, setReceiptFile] = useState(null);
+  const [downloading, setDownloading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const {
@@ -90,32 +92,48 @@ const CourseById = () => {
     return <p>Error fetching course details.</p>;
   }
 
-  const handleDownload = async () => {
+  const handleDownload = async (path) => {
     try {
+      setDownloading(true);
+      setError(null);
+      console.log('Downloading file...');
+
+      // Combine localhost with the path from database
+      const fullPath = `http://localhost:3000${path}`;
+
       // Fetch the file
-      const response = await fetch(`http://localhost:3000${course.media[0].link}`);
+      const response = await fetch(fullPath);
+
+      if (!response.ok) {
+        throw new Error('Download failed');
+      }
+
+      // Get the blob from response
       const blob = await response.blob();
 
-      // Create a blob URL
+      // Create blob URL
       const url = window.URL.createObjectURL(blob);
 
       // Create temporary link element
       const link = document.createElement('a');
       link.href = url;
 
-      // Set the download filename - you can customize this
-      link.download = course.media[0].filename || 'course-material';
+      // Get filename from path or use a default
+      const filename = path.split('/').pop() || 'downloaded-file';
+      link.download = filename;
 
-      // Append to document, click, and cleanup
+      // Trigger download
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
 
-      // Release the blob URL
+      // Cleanup
+      document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Download failed:', error);
-      // Handle error appropriately
+    } catch (err) {
+      console.error('Download error:', err);
+      setError('Failed to download file. Please try again.');
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -170,15 +188,19 @@ const CourseById = () => {
             </div>
 
             {/* Course Material Download Link */}
-            {course.media && (
+            {course.media.length > 0 && (
               <div className="mb-4">
                 <h5 className="mb-3">Course Material</h5>
-                <button onClick={handleDownload} className="btn btn-outline-primary">
-                  Download Material
+                <button
+                  onClick={() => handleDownload(course.media[0].link)}
+                  className="btn btn-outline-primary"
+                  disabled={downloading}
+                >
+                  {downloading ? 'Downloading...' : 'Download Material'}
                 </button>
+                {error && <p className="text-danger mt-2">{error}</p>}
               </div>
             )}
-
             {/* Enrollment Section */}
             <div className="text-center">
               {!isEnrolled && (

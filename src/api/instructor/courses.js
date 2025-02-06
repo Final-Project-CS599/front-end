@@ -31,7 +31,7 @@ export const useSearchCourses = (query) => {
   return useQuery({
     queryKey: ['searchCourses', query],
     queryFn: () => searchCourses(query),
-    enabled: !!query, // Only fetch data if query is provided
+    enabled: !!query,
     retry: 2,
   });
 };

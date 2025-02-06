@@ -14,8 +14,6 @@ const CourseDropDown = ({ title, type, fetchData }) => {
     isLoading: isCoursesLoading,
   } = useGetStudentCourses();
 
-  console.log('Fetched Data:', data); // Debugging the API response
-
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
   };

@@ -12,7 +12,6 @@ function AddNewCourseAcademic() {
   const { mutate } = useAddAcademicCourse();
   const navigate = useNavigate();
 
-  // Validation schema using Yup
   const validationSchema = Yup.object({
     instructorName: Yup.string()
       .required('Instructor Name is required')
@@ -86,23 +85,21 @@ function AddNewCourseAcademic() {
       <div className="container mt-2">
         <h2 className="mb-4">Add New Academic Course</h2>
 
-        <Formik initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
         >
-
-          
           {({ isSubmitting, errors, touched, resetForm }) => (
             <Form>
-             
               {/* Course Name */}
               <div className="form-group mb-3">
                 <label htmlFor="courseName">Course Name:</label>
-                
+
                 <Field
                   type="text"
                   className={`form-control form-control-md shadow-sm ${
-                  touched.courseName && errors.courseName ? 'is-invalid' : ''
+                    touched.courseName && errors.courseName ? 'is-invalid' : ''
                   }`}
                   id="courseName"
                   name="courseName"
@@ -117,7 +114,7 @@ function AddNewCourseAcademic() {
                 <Field
                   type="text"
                   className={`form-control form-control-md shadow-sm ${
-                  touched.courseCode && errors.courseCode ? 'is-invalid' : ''
+                    touched.courseCode && errors.courseCode ? 'is-invalid' : ''
                   }`}
                   id="courseCode"
                   name="courseCode"
@@ -220,19 +217,24 @@ function AddNewCourseAcademic() {
                 <div className="col-md-12">
                   <div className="d-flex justify-content-between">
                     <div>
-                      <button type="submit" className="btn btn-md w-40 mt-3"
-                        style={{ backgroundColor: '#7F55E0',borderColor: '#7F55E0',color: 'white',}}
+                      <button
+                        type="submit"
+                        className="btn btn-md w-40 mt-3"
+                        style={{
+                          backgroundColor: '#7F55E0',
+                          borderColor: '#7F55E0',
+                          color: 'white',
+                        }}
                         disabled={isSubmitting}
                       >
-                        Add Course 
+                        Add Course
                       </button>
-                     </div>
+                    </div>
                     <div>
-
-
                       {/* Reset Button */}
                       <button
-                        type="button" className="btn btn-secondary btn-md w-40 mt-3"
+                        type="button"
+                        className="btn btn-secondary btn-md w-40 mt-3"
                         onClick={() => handleReset(resetForm)}
                       >
                         Reset

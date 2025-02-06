@@ -13,13 +13,12 @@ function AllExtra() {
 
   useEffect(() => {
     if (data) {
-      // Filter courses based on the section parameter if it exists
       const filteredCourses = section
         ? data.data.filter((course) => course.sections === section)
         : data.data;
       setCourses(filteredCourses);
     }
-  }, [data, section]); // Re-run the effect when `data` or `section` changes
+  }, [data, section]);
 
   if (isLoading) {
     return <div className="container mt-4 text-center">Loading courses...</div>;

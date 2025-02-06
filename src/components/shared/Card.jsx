@@ -18,7 +18,7 @@ const Card = ({ title, description, id, img, type, grade }) => {
         <h5 className="card-title">{title}</h5>
         <p className="card-text"> Description: {description}</p>
         <p className="card-text">Type: {type}</p>
-        <p className="card-text">Grade: {grade}</p>
+        {grade && <p className="card-text">Grade: {grade}</p>}
         <button onClick={handleClick} className="btn btn-outline-purple w-50">
           View
         </button>

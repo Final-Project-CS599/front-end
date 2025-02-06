@@ -12,12 +12,10 @@ const Assignments = () => {
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('');
 
-  // Fetching assignments
   const { data, isLoading, isError, refetch } = useGetAssignment();
   const { data: searchData, isFetching } = useSearchAssignment(query);
   const { mutate } = useDeleteAssignment();
 
-  // Handle search submit
   const handleSearch = (e) => {
     e.preventDefault();
     if (search.trim() !== query) {
@@ -25,7 +23,6 @@ const Assignments = () => {
     }
   };
 
-  // Handle assignment deletion
   const handleDelete = async (id) => {
     mutate(id, {
       onSuccess: () => {
@@ -37,16 +34,13 @@ const Assignments = () => {
     });
   };
 
-  // Determine the displayed assignments
   const assignments = query ? searchData?.courses || [] : data?.data || [];
 
   return (
     <div className="container mt-4">
-      {/* Header Section */}
       <div className="d-flex justify-content-between align-items-center">
         <h2>Assignments List</h2>
 
-        {/* Search & Add Buttons */}
         <div className="d-flex">
           <Form onSubmit={handleSearch} className="d-flex me-3">
             <Form.Control
@@ -69,14 +63,12 @@ const Assignments = () => {
         </div>
       </div>
 
-      {/* Error Message */}
       {isError && (
         <Alert variant="danger" className="mt-3">
           Error fetching assignments. Please try again later.
         </Alert>
       )}
 
-      {/* Loading Indicator */}
       {isLoading ? (
         <div className="text-center mt-4">
           <Spinner animation="border" role="status">

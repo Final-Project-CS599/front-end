@@ -126,7 +126,6 @@ export const instructorNavButtons = [
   },
 ];
 
-// Helper function to get nav buttons by role
 export const getNavButtonsByRole = (role) => {
   switch (role) {
     case 'admin':

@@ -4,23 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import { getCourses, searchCourses } from '../../../api/instructor/courses';
 
 const MyCourses = () => {
-  const [courses, setCourses] = useState([]); // Holds the list of courses
-  const [search, setSearch] = useState(''); // Holds the search term
-  const [error, setError] = useState(null); // Holds error messages
-  const [isSearching, setIsSearching] = useState(false); // Tracks if a search is in progress
+  const [courses, setCourses] = useState([]);
+  const [search, setSearch] = useState('');
+  const [error, setError] = useState(null);
+  const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchCourses();
   }, []);
 
-  // Fetch all courses
   const fetchCourses = async () => {
     try {
       const response = await getCourses();
       const coursesData = response?.Courses || [];
 
-      // Format courses data
       const formattedCourses = coursesData.map((course) => ({
         ...course,
         media: Array.isArray(course.media) ? course.media.length : 0,
@@ -29,28 +27,26 @@ const MyCourses = () => {
       }));
 
       setCourses(formattedCourses);
-      setIsSearching(false); // Reset search state
+      setIsSearching(false);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch courses');
     }
   };
 
-  // Handle search form submission
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!search.trim()) {
-      fetchCourses(); // If search term is empty, fetch all courses
+      fetchCourses();
       return;
     }
 
-    setIsSearching(true); // Set searching state to true
+    setIsSearching(true);
 
     try {
       const response = await searchCourses(search);
 
       const searchResults = response.courses || [];
 
-      // Format search results
       const formattedSearchResults = searchResults.map((course) => ({
         ...course,
         media: Array.isArray(course.media) ? course.media.length : 0,
@@ -61,7 +57,7 @@ const MyCourses = () => {
       setCourses(formattedSearchResults);
     } catch (err) {
       setError(err.response?.data?.message || 'No courses found');
-      setCourses([]); // Clear courses if no results are found
+      setCourses([]);
     }
   };
 

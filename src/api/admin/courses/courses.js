@@ -37,7 +37,7 @@ export const useUpdateCourse = () => {
 
 const deleteCourse = async (courseData) => {
   const response = await axiosInstance.delete('/courses/deleteCourse', {
-    params: courseData, // Send courseData as query parameters
+    params: courseData,
   });
   return response.data;
 };
