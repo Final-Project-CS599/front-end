@@ -8,13 +8,13 @@ const CourseDropDown = ({ title, type, fetchData }) => {
 
   const { data, isLoading, isError, error } = fetchData(selectedOption);
 
-  console.log(data);
-
   const {
     data: courses,
     error: coursesError,
     isLoading: isCoursesLoading,
   } = useGetStudentCourses();
+
+  console.log(data);
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
@@ -40,9 +40,9 @@ const CourseDropDown = ({ title, type, fetchData }) => {
         disabled={isCoursesLoading || coursesError}
       >
         <option value="">Select Course</option>
-        {courses?.map((course) => (
-          <option key={course.c_id} value={course.c_id}>
-            {course.c_name}
+        {courses?.data?.map((course) => (
+          <option key={course?.c_id} value={course?.c_id}>
+            {course?.c_name}
           </option>
         ))}
       </select>
@@ -83,7 +83,7 @@ const CourseDropDown = ({ title, type, fetchData }) => {
               </tr>
             </thead>
             <tbody className="table-group-divider">
-              {data.map((row) => (
+              {data?.map((row) => (
                 <tr key={row.id}>
                   <td>{row.id}</td>
                   <td>{row.Name}</td>
