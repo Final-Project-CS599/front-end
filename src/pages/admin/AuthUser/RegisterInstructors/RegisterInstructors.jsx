@@ -20,6 +20,9 @@ export default function RegisterInstructors() {
   async function RegisterSubmit(values){
       setIsLoading(true);
       try {
+        if (!values.phone2 || values.phone2 === '') {
+          values.phone2 = null;
+        }
           let { data } = await axios.post(`http://localhost:3000/api/v1/auth/addUser/addInstructor?ln=en`, values);
           navigate('/admin/home');  // path to redirect
 
@@ -37,7 +40,11 @@ export default function RegisterInstructors() {
       lastName: yup.string().min(2 , 'lastName minlength is 2').max(100 , 'lastName maxlength is 100').required('lastName is required'),
       email: yup.string().email('Email is invalid').required('Email is required'),
       phone1: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').required('At least one phone number is required'),
-      phone2: yup.string().matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)').notRequired(),
+      phone2: yup.string()
+          .matches(phoneRegExp, 'Phone number is invalid ex: (+201234567810 , 00201234567810 , 01234567810)')
+          .nullable()
+          .notRequired()
+          .transform(value => (value === '' ? null : value)), // Transform empty string to null
       department: yup.string().min(1, 'department minlength is 1').max(100 , 'department maxlength is 100').required('department is required'),
       password: yup.string().matches(/^[0-9]{14}$/, ' Password National ID 14 digits (example: 12345678910145) ').required('Password is required'),
       confirmPassword: yup.string().oneOf([yup.ref("password")] , 'Password and confirmPassword').required('RePassword is required')
@@ -51,7 +58,7 @@ export default function RegisterInstructors() {
     lastName:'',
     email:'',
     phone1: '',
-    phone2: '',
+    phone2: null,
     department:'',
     password:'',
     confirmPassword:'',
@@ -94,10 +101,13 @@ return <>
         <input type='tel' id='phone1' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone1} name='phone1'/>
         {formik.errors.phone1 && formik.touched.phone1? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone1}</div>:''}
         
-        <label htmlFor="phone2" className=' pt-3'>Phone2 : </label>
-        <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' value={formik.values.phone2} name='phone2'/>
-        {/* {formik.errors.phone2 && formik.touched.phone2? <div className="alert alert-danger mt-2 p-2">{formik.errors.phone2}</div>:''} */}
-        
+        <label htmlFor='phone2' className=' pt-3'>Phone2 :</label>
+        <input type='tel' id='phone2' onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control'
+            value={formik.values.phone2} name='phone2'
+        />
+        {formik.errors.phone2 && formik.touched.phone2 ?<div className="alert alert-danger mt-2 p-2">{formik.errors.phone2}</div> : ""}
+
+
         <label htmlFor="department" className=' pt-3'>Department <span className='text-danger'>*</span> :</label>
         <select  name="department"  id="department"  className="form-select mt-2"  aria-label="Default select example" value={formik.values.department}  onChange={formik.handleChange}  onBlur={formik.handleBlur}>
             <option value="">Open this select department</option>
@@ -125,7 +135,7 @@ return <>
 
         <label htmlFor="confirmPassword" className=' pt-3'> confirm-Password (Number National NID User) <span className='text-danger'>*</span> :</label>
         <div className="input-group">
-            <input type={showPassword? 'text' : 'password' }id='confirmPassword'  placeholder="confirmPassword" 
+            <input type={showPassword? 'text' : 'password' } id='confirmPassword'  placeholder="confirmPassword" 
                 onBlur={formik.handleBlur} onChange={formik.handleChange} className=' form-control' 
                 value={formik.values.confirmPassword} name='confirmPassword'  autoComplete="new-password"
             />
