@@ -36,12 +36,49 @@ export const useUpdateCourse = () => {
 };
 
 const deleteCourse = async (courseData) => {
-  const response = await axiosInstance.delete('/courses/deleteCourse', courseData);
+  const response = await axiosInstance.delete('/courses/deleteCourse', {
+    params: courseData, // Send courseData as query parameters
+  });
   return response.data;
 };
 
 export const useDeleteCourse = () => {
   return useMutation({
     mutationFn: deleteCourse,
+  });
+};
+
+const getPayments = async () => {
+  const response = await axiosInstance.get('/courses/getPayments');
+
+  return response.data;
+};
+
+export const useGetPayments = () => {
+  return useQuery({
+    queryKey: 'payments',
+    queryFn: getPayments,
+  });
+};
+
+const approvePayment = async (student_id) => {
+  const response = await axiosInstance.post('/courses/approvePayment', { student_id });
+  return response.data;
+};
+
+export const useApprovePayment = () => {
+  return useMutation({
+    mutationFn: approvePayment,
+  });
+};
+
+const rejectPayment = async (id) => {
+  const response = await axiosInstance.delete(`/courses/cancelPayment/${id}`);
+  return response.data;
+};
+
+export const useRejectPayment = () => {
+  return useMutation({
+    mutationFn: rejectPayment,
   });
 };

@@ -74,7 +74,7 @@ const ViewMaterialList = () => {
             <th>Title</th>
             <th>Description</th>
             <th>publish Date</th>
-            <th>link</th>
+            <th>file</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -86,9 +86,15 @@ const ViewMaterialList = () => {
                 <td>{media.m_description}</td>
                 <td>{new Date(media.m_publish_date).toLocaleDateString()}</td>
                 <td>
-                  <a href={media.m_link} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={`http://localhost:3000${media.m_link}`}
+                    alt="Material"
+                    width="100px"
+                    height="100px"
+                  />
+                  {/* <a href={media.m_link} target="_blank" rel="noopener noreferrer">
                     Open Link
-                  </a>
+                  </a> */}
                 </td>
                 <td>
                   <Button
